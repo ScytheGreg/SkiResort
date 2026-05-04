@@ -1,6 +1,4 @@
-package edge;
-
-import node.Node;
+package resort;
 
 public class SkiRun extends Edge {
     private int advanceLevel;

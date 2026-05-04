@@ -1,6 +1,4 @@
-package edge;
-
-import node.Node;
+package resort;
 
 public class Edge {
     private String id;

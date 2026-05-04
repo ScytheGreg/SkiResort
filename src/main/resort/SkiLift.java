@@ -1,6 +1,5 @@
-package edge;
+package resort;
 
-import node.Node;
 import containers.Queue;
 
 public class SkiLift extends Edge{
