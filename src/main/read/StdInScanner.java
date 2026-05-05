@@ -1,13 +1,15 @@
 package read;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class StdInScanner {
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
-    public String[] readGroup(int elementLines){
+
+    public String[] readGroup(int elementLines) {
         // Read number of elements in group
         String elemNumbString = scanner.nextLine();
         Scanner lineScanner = new Scanner(elemNumbString);
