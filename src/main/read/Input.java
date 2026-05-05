@@ -1,3 +1,5 @@
+package read;
+
 import resort.SkiResort;
 
 import java.io.InputStream;
@@ -6,12 +8,19 @@ public class Input{
 
 
 
-    private
+
 
     static public SkiResort readResortData(InputStream source){
-        Scanner inputScanner = new Scanner(source);
-        // Read nodes number
+        try {
+            Scanner inputScanner = new Scanner(source);
 
+
+        }catch (Exception e){
+            System.err.println(e.getMessage());
+        }
+
+
+        // Read nodes number
 
     }
     static public Simulation readAthleteData(InputStream soruce){
