@@ -1,10 +1,12 @@
 package simulation;
 
+import containers.Queue;
+import containers.QueueNode;
+
 import java.time.LocalTime;
 
 abstract public class Event {
     private LocalTime takePlaceTime;
-
 
     public Event(LocalTime time){
         takePlaceTime = time;
@@ -12,6 +14,7 @@ abstract public class Event {
     public int getTime(){
         return takePlaceTime.toSecondOfDay();
     }
-    abstract public Event[] performAction();
+    public LocalTime getLocalTime(){return takePlaceTime;}
+    abstract public Queue performAction();
 
 }

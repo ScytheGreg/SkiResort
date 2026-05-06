@@ -1,9 +1,12 @@
 package resort;
 
 import containers.Queue;
+import simulation.*;
+
 
 import java.util.Locale;
 import java.util.Scanner;
+import java.time.LocalTime;
 
 public class SkiLift extends Edge{
     private Queue waiting;
@@ -23,5 +26,17 @@ public class SkiLift extends Edge{
         super(nodes[beg], nodes[end], rideTime, id);
 
         this.waiting = new Queue();
+    }
+
+    public int getCapacity(){return capacity;}
+    public int getFrequency(){return frequency;}
+    public Queue pickUpPassengers(LocalTime time){
+        Queue   result = new Queue();
+        for(int i = 0 ; i < capacity ; ++i){
+            if (!waiting.isEmpty()){
+                result.push(waiting.takeFront());
+            }
+        }
+        result.push(new PickUpPassengers(time.plusSeconds(frequency), this));
     }
 }
