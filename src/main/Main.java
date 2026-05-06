@@ -1,5 +1,11 @@
+import read.Input;
+import resort.SkiResort;
+
 public class Main {
+
     static void main(String[] args){
-        System.out.println("Hello World!");
+        Input reader = new Input();
+        SkiResort resort = reader.readResortData();
+
     }
 }

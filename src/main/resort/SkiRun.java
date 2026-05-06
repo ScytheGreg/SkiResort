@@ -7,6 +7,8 @@ public class SkiRun extends Edge {
     private double baseLure;
     private double toughness;
 
+    private int skierCnt = 0;
+
     public SkiRun(String data, int id, Node[] nodes) {
         Scanner dataScanner = new Scanner(data);
         int beg = dataScanner.nextInt();
@@ -16,5 +18,9 @@ public class SkiRun extends Edge {
         this.baseLure = dataScanner.nextDouble();
         this.toughness = dataScanner.nextDouble();
         super(nodes[beg], nodes[end], rideTime, id);
+    }
+
+    void skierRide(){
+        skierCnt++;
     }
 }

@@ -18,4 +18,7 @@ public class Node  {
         }
         dataScanner.close();
     }
+
+    public int getId(){return id;}
+    public boolean isCommunicated(){return isCommunicated;}
 }
