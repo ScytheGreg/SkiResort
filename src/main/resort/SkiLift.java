@@ -1,5 +1,6 @@
 package resort;
 
+import athlete.Athlete;
 import containers.Queue;
 import simulation.*;
 
@@ -34,9 +35,16 @@ public class SkiLift extends Edge{
         Queue   result = new Queue();
         for(int i = 0 ; i < capacity ; ++i){
             if (!waiting.isEmpty()){
-                result.push(waiting.takeFront());
+                Event ev = waiting.takeFront();
+                ev.setTime(time);
+                result.push(ev);
             }
         }
         result.push(new PickUpPassengers(time.plusSeconds(frequency), this));
+        return result;
+    }
+
+    public void addWaiting(Athlete athlete){
+        waiting.push(new GoUpWithLift(null, athlete));
     }
 }

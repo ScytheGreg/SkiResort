@@ -50,4 +50,8 @@ public class Athlete {
     }
     public LocalTime getStartTime(){return startTime;}
 
+    public void queueUp(SkiLift lift){
+        lift.addWaiting(this);
+    }
+
 }

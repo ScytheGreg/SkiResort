@@ -15,6 +15,7 @@ abstract public class Event {
         return takePlaceTime.toSecondOfDay();
     }
     public LocalTime getLocalTime(){return takePlaceTime;}
+    public void setTime(LocalTime time){takePlaceTime = time;}
     abstract public Queue performAction();
 
 }
