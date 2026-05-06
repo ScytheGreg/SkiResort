@@ -1,21 +1,22 @@
 package containers;
 
-import athlete.Athlete;
+import simulation.Event;
 
 public class QueueNode {
     private QueueNode next = null;
     private QueueNode prev = null;
-    private Athlete value;
+    private Event value;
 
-    public QueueNode(Athlete value){
+    public QueueNode(Event value){
         this.value = value;
     }
 
     public QueueNode getNext(){return next;}
     public QueueNode getPrev(){return prev;}
-    public Athlete getValue(){return value;}
-    public void emplaceBefore(Athlete athlete){
-        QueueNode other = new QueueNode(athlete);
+    public Event getValue(){return value;}
+
+    public void emplaceBefore(Event event){
+        QueueNode other = new QueueNode(event);
         other.setNext(this);
         other.setPrev(prev);
         if(prev != null) {
@@ -23,8 +24,9 @@ public class QueueNode {
         }
         prev = other;
     }
-    public void emplaceBehind(Athlete athlete){
-        QueueNode other = new QueueNode(athlete);
+
+    public void emplaceBehind(Event event){
+        QueueNode other = new QueueNode(event);
         other.setPrev(this);
         other.setNext(next);
         if(next != null) {
@@ -32,7 +34,6 @@ public class QueueNode {
         }
         next = other;
     }
-
 
     public void setNext(QueueNode other){next = other;}
     public void setPrev(QueueNode other){prev = other;}

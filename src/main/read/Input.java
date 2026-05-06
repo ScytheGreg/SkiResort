@@ -78,7 +78,8 @@ public class Input {
             int athlNum = athlNumScanner.nextInt();
             athlNumScanner.close();
             for(int i = 0 ; i < athlNum ; ++i, ++id){
-                athletes.push(new Athlete(data, i, id));
+                Athlete man = new Athlete(data, i, id);
+                athletes.push(new takeDecision(man.getStartTime(), man));
             }
         }
         return new Simulation(athletes);

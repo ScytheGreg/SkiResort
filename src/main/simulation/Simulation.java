@@ -9,4 +9,9 @@ public class Simulation {
     public Simulation(PriorityQueue athletes){
         this.athletes = athletes;
     }
+
+
+    public void simulate(){
+        
+    }
 }

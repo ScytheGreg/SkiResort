@@ -1,24 +1,31 @@
 package containers;
 
-import athlete.Athlete;
+import simulation.Event;
 
-public class PriorityQueue extends Queue{
-
+public class PriorityQueue extends Queue {
 
     @Override
-    public void push(Athlete athlete){
-        if (isEmpty()){pushToEmpty(athlete); return;}
+    public void push(Event event) {
+        if (isEmpty()) {
+            pushToEmpty(event);
+            return;
+        }
+
         QueueNode lowerBound = getFirst();
         assert(lowerBound != null);
 
-        while (lowerBound.getPrev() != null && lowerBound.getValue().getTime() < athlete.getTime()){
-            lowerBound = lowerBound.getPrev(); // As long as it's smaller, move to next
+        // Iterate through the queue to find the correct insertion point based on time
+        while (lowerBound.getPrev() != null && lowerBound.getValue().getTime() < event.getTime()) {
+            lowerBound = lowerBound.getPrev();
         }
+
         assert(lowerBound != null);
-        if(lowerBound.getValue().getTime() >= athlete.getTime())
-            lowerBound.emplaceBehind(athlete);
-        else
-            lowerBound.emplaceBefore(athlete);
+
+        if (lowerBound.getValue().getTime() >= event.getTime()) {
+            lowerBound.emplaceBehind(event);
+        } else {
+            lowerBound.emplaceBefore(event);
+        }
 
         adjustEnds();
     }

@@ -1,11 +1,10 @@
 package containers;
 
-import athlete.Athlete;
+import simulation.Event;
 
 public class Queue {
     QueueNode first = null;
     QueueNode last = null;
-
 
     public boolean isEmpty(){return first == null;}
     public boolean isSingular(){
@@ -28,31 +27,31 @@ public class Queue {
         if(last.getPrev() != null) last = last.getPrev();
     }
 
-    protected void pushToEmpty(Athlete athlete){
-        first = new QueueNode(athlete);
+    protected void pushToEmpty(Event event){
+        first = new QueueNode(event);
         last = first;
     }
 
     protected QueueNode getFirst(){return first;}
     protected QueueNode getLast(){return last;}
 
-    public void push(Athlete athlete){
+    public void push(Event event){
         if (isEmpty()){
-            pushToEmpty(athlete);
+            pushToEmpty(event);
             return;
         }
-        last.emplaceBehind(athlete); // Emplace behind new Athlete
-        last = last.getPrev(); // Move to last to new last Athlete
+        last.emplaceBehind(event); // Emplace behind new Event
+        last = last.getPrev(); // Move last to new last Event
     }
 
-    public Athlete getFront() throws  emptyContainerException{
+    public Event getFront() throws emptyContainerException{
         if (isEmpty()) throw new emptyContainerException();
         return first.getValue();
     }
-    public Athlete takeFront() throws  emptyContainerException{
-        Athlete result = getFront();
+
+    public Event takeFront() throws emptyContainerException{
+        Event result = getFront();
         pop();
         return result;
     }
-
 }

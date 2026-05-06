@@ -17,7 +17,7 @@ public class Athlete {
     private double runSmoothnessLure;
 
     private int startNode;
-    LocalTime currentTime;
+    LocalTime startTime;
 
     public Athlete(String data, int groupId, int id){
         this.id = id;
@@ -39,17 +39,15 @@ public class Athlete {
         if (dataScanner.hasNextInt()) {
             delay = dataScanner.nextInt();
         }
-        this.currentTime = firstAthlTime.plusSeconds(delay * groupId);
+        this.startTime = firstAthlTime.plusSeconds(delay * groupId);
     }
 
 
-    void lift(SkiLift lifter){
-        assert(lifter.getBeginning().getId() == currentNode.getId());
-        currentNode = lifter.getEnd();
+    void move(Edge edge){
+        assert(edge.getBeginning().getId() == currentNode.getId());
+        currentNode = edge.getEnd();
+        startTime = startTime.plusSeconds(edge.getRideTime());
     }
-
-    public int getTime(){
-        return currentTime.toSecondOfDay();
-    }
+    public LocalTime getStartTime(){return startTime;}
 
 }
