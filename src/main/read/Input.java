@@ -1,6 +1,10 @@
 package read;
 
+import athlete.Athlete;
+import containers.PriorityQueue;
 import resort.*;
+import simulation.*;
+import java.util.Scanner;
 
 public class Input {
 
@@ -44,9 +48,9 @@ public class Input {
 
     public SkiResort readResortData() {
         try {
-            String[] nodesData = scanner.readGroup(1);
-            String[] skiLiftsData = scanner.readGroup(1);
-            String[] skiRunsData = scanner.readGroup(1);
+            String[] nodesData = scanner.readGroup(1, false);
+            String[] skiLiftsData = scanner.readGroup(1, false);
+            String[] skiRunsData = scanner.readGroup(1, false);
 
             Node[] nodes = parseNodes(nodesData);
             SkiLift[] skiLifts = parseSkiLifts(skiLiftsData, nodes);
@@ -64,4 +68,20 @@ public class Input {
             return null;
         }
     }
+
+    public Simulation readAthleteData(){
+        PriorityQueue athletes = new PriorityQueue();
+        String[] athletesData = scanner.readGroup(3, true);
+        int id = 0;
+        for(String data : athletesData){
+            Scanner athlNumScanner = new Scanner(data);
+            int athlNum = athlNumScanner.nextInt();
+            athlNumScanner.close();
+            for(int i = 0 ; i < athlNum ; ++i, ++id){
+                athletes.push(new Athlete(data, i, id));
+            }
+        }
+        return new Simulation(athletes);
+    }
+
 }

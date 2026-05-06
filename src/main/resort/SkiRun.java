@@ -1,5 +1,6 @@
 package resort;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class SkiRun extends Edge {
@@ -11,6 +12,7 @@ public class SkiRun extends Edge {
 
     public SkiRun(String data, int id, Node[] nodes) {
         Scanner dataScanner = new Scanner(data);
+        dataScanner.useLocale(Locale.ENGLISH);
         int beg = dataScanner.nextInt();
         int end = dataScanner.nextInt();
         this.advanceLevel = dataScanner.nextInt();

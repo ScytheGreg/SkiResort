@@ -1,6 +1,8 @@
 package athlete;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Scanner;
 
 import resort.*;
@@ -15,11 +17,13 @@ public class Athlete {
     private double runSmoothnessLure;
 
     private int startNode;
-    LocalTime startTime;
+    LocalTime currentTime;
 
-    public Athlete(String data, int id){
+    public Athlete(String data, int groupId, int id){
         this.id = id;
         Scanner dataScanner = new Scanner(data);
+        dataScanner.useLocale(Locale.ENGLISH);
+
         dataScanner.nextInt(); // Skip number of athletes
         this.advanceLevel = dataScanner.nextInt();
         this.impulsivity = dataScanner.nextDouble();
@@ -30,13 +34,22 @@ public class Athlete {
         this.levelMatchLure = dataScanner.nextDouble();
         this.runSmoothnessLure = dataScanner.nextDouble();
         this.startNode = dataScanner.nextInt();
-        LocalTime firstAthlTime = 
+        LocalTime firstAthlTime = LocalTime.parse(dataScanner.next(), DateTimeFormatter.ofPattern("HH:mm:ss"));
+        int delay = 0;
+        if (dataScanner.hasNextInt()) {
+            delay = dataScanner.nextInt();
+        }
+        this.currentTime = firstAthlTime.plusSeconds(delay * groupId);
     }
 
 
     void lift(SkiLift lifter){
         assert(lifter.getBeginning().getId() == currentNode.getId());
         currentNode = lifter.getEnd();
+    }
+
+    public int getTime(){
+        return currentTime.toSecondOfDay();
     }
 
 }

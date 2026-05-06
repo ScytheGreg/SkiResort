@@ -1,5 +1,6 @@
 package resort;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Node  {
@@ -10,6 +11,7 @@ public class Node  {
     public  Node(String data, int id){
         this.id = id;
         Scanner dataScanner =  new Scanner(data);
+        dataScanner.useLocale(Locale.ENGLISH);
         this.height = dataScanner.nextInt();
         this.lat = dataScanner.nextInt();
         this.lon = dataScanner.nextInt();
