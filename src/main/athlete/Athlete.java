@@ -19,7 +19,7 @@ public class Athlete {
     private int startNode;
     LocalTime startTime;
 
-    public Athlete(String data, int groupId, int id){
+    public Athlete(String data, int groupId, int id) {
         this.id = id;
         Scanner dataScanner = new Scanner(data);
         dataScanner.useLocale(Locale.ENGLISH);
@@ -27,7 +27,7 @@ public class Athlete {
         dataScanner.nextInt(); // Skip number of athletes
         this.advanceLevel = dataScanner.nextInt();
         this.impulsivity = dataScanner.nextDouble();
-        if (dataScanner.hasNext("s")){
+        if (dataScanner.hasNext("s")) {
             isTracked = true;
             dataScanner.next("s");
         }
@@ -43,14 +43,16 @@ public class Athlete {
     }
 
 
-    void move(Edge edge){
-        assert(edge.getBeginning().getId() == currentNode.getId());
+    public void move(Edge edge) {
+        assert (edge.getBeginning().getId() == currentNode.getId());
         currentNode = edge.getEnd();
-        startTime = startTime.plusSeconds(edge.getRideTime());
     }
-    public LocalTime getStartTime(){return startTime;}
 
-    public void queueUp(SkiLift lift){
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
+    public void queueUp(SkiLift lift) {
         lift.addWaiting(this);
     }
 

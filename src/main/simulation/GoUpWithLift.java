@@ -2,13 +2,18 @@ package simulation;
 
 import athlete.Athlete;
 import containers.Queue;
+import resort.SkiLift;
 
 import java.time.LocalTime;
 
 public class GoUpWithLift extends AthleteEvent{
-    public GoUpWithLift(LocalTime time, Athlete athlete){super(time, athlete);}
+    SkiLift lift;
+    public GoUpWithLift(LocalTime time, Athlete athlete, SkiLift lift){super(time, athlete);this.lift = lift;}
 
     public Queue performAction() {
-        return new Queue();
+        getAthlete().move(lift);
+        Queue result = new Queue();
+        result.push(new MakeDecision(getLocalTime().plusSeconds(lift.getRideTime()), getAthlete()));
+        return result;
     }
 }

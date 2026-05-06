@@ -45,6 +45,6 @@ public class SkiLift extends Edge{
     }
 
     public void addWaiting(Athlete athlete){
-        waiting.push(new GoUpWithLift(null, athlete));
+        waiting.push(new GoUpWithLift(null, athlete, this));
     }
 }

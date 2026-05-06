@@ -22,7 +22,7 @@ public class SkiRun extends Edge {
         super(nodes[beg], nodes[end], rideTime, id);
     }
 
-    void skierRide(){
+    public void skierRide(){
         skierCnt++;
     }
 }
