@@ -1,13 +1,20 @@
 package resort;
 
+import java.util.Scanner;
+
 public class SkiRun extends Edge {
     private int advanceLevel;
+    private double baseLure;
     private double toughness;
 
-    public SkiRun(String id, Node begging, Node end,
-                  int rideTime, int advanceLevel, double toughness) {
-        super(id, begging, end, rideTime);
-        this.advanceLevel = advanceLevel;
-        this.toughness = toughness;
+    public SkiRun(String data, int id, Node[] nodes) {
+        Scanner dataScanner = new Scanner(data);
+        int beg = dataScanner.nextInt();
+        int end = dataScanner.nextInt();
+        this.advanceLevel = dataScanner.nextInt();
+        int rideTime = dataScanner.nextInt();
+        this.baseLure = dataScanner.nextDouble();
+        this.toughness = dataScanner.nextDouble();
+        super(nodes[beg], nodes[end], rideTime, id);
     }
 }

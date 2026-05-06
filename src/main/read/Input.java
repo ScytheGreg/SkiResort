@@ -18,24 +18,24 @@ public class Input {
         return nodes;
     }
 
-    private SkiLift[] parseSkiLifts(String[] skiLiftsData) {
+    private SkiLift[] parseSkiLifts(String[] skiLiftsData, Node[] nodes) {
         SkiLift[] skiLifts = new SkiLift[skiLiftsData.length];
         int idx = 0;
 
         for (String data : skiLiftsData) {
-            skiLifts[idx] = new SkiLift(data, idx);
+            skiLifts[idx] = new SkiLift(data, idx, nodes);
             ++idx;
         }
 
         return skiLifts;
     }
 
-    private SkiRun[] parseSkiRuns(String[] skiRunsData) {
+    private SkiRun[] parseSkiRuns(String[] skiRunsData, Node[] nodes) {
         SkiRun[] skiRuns = new SkiRun[skiRunsData.length];
         int idx = 0;
 
         for (String data : skiRunsData) {
-            skiRuns[idx] = new SkiRun(data, idx);
+            skiRuns[idx] = new SkiRun(data, idx, nodes);
             ++idx;
         }
 
@@ -49,8 +49,8 @@ public class Input {
             String[] skiRunsData = scanner.readGroup(1);
 
             Node[] nodes = parseNodes(nodesData);
-            SkiLift[] skiLifts = parseSkiLifts(skiLiftsData);
-            SkiRun[] skiRuns = parseSkiRuns(skiRunsData);
+            SkiLift[] skiLifts = parseSkiLifts(skiLiftsData, nodes);
+            SkiRun[] skiRuns = parseSkiRuns(skiRunsData, nodes);
 
             return new SkiResort(
                     nodes, nodes.length,
