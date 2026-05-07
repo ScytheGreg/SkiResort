@@ -22,7 +22,7 @@ public class SkiLift extends Edge{
         this.capacity = capacity;
         this.waiting = new Queue();
     }
-    public String getName(){return "lift";}
+    public String getName(){return "lift   ";}
 
     public int getCapacity(){return capacity;}
     public int getFrequency(){return frequency;}

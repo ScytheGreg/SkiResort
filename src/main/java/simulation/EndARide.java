@@ -17,6 +17,6 @@ public class EndARide extends AthleteEvent{
     }
     @Override
     public String toString(){
-        return super.toString() + " has end ride on " + getEdge().getName() + " nr " + getEdge().getId();
+        return super.toString() + " has end   ride on " + getEdge().getName() + " nr " + getEdge().getId();
     }
 }

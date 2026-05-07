@@ -18,6 +18,6 @@ public class QueueUp extends AthleteEvent{
 
     @Override
     public String toString(){
-        return super.toString() + " has queued up to lift nr " + getEdge().getId();
+        return super.toString() + " has queued up to " + getEdge().getName() + " nr  " + getEdge().getId();
     }
 }
