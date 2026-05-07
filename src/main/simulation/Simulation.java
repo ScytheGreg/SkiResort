@@ -17,7 +17,6 @@ public class Simulation {
         Input reader = new Input();
 
         SkiResort resort = reader.readResortData();
-        connectResortGraph(resort);
 
         events = reader.readAthleteData(resort.getNodes());
         loadPickUpEvents(resort.getSkiLifts());
