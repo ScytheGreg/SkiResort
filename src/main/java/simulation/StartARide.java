@@ -10,9 +10,9 @@ public class StartARide extends AthleteEvent{
     public StartARide(LocalTime time, Athlete athlete, Edge edge){super(time, athlete, edge);}
 
     public Queue performAction(int seed) {
+        Queue result = super.performAction(seed);
         getEdge().takeARide();
         getAthlete().move(getEdge());
-        Queue result = new Queue();
         result.push(new EndARide(getTime().plusSeconds(getEdge().getRideTime()), getAthlete(), getEdge()));
         return result;
     }

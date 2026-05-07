@@ -11,7 +11,7 @@ public class EndARide extends AthleteEvent{
     public EndARide(LocalTime time, Athlete athlete, Edge edge){super(time, athlete, edge);}
 
     public Queue performAction(int seed){
-        Queue result = new Queue();
+        Queue result = super.performAction(seed);
         result.push(getAthlete().makeDecision(seed, getTime()));
         return result;
     }

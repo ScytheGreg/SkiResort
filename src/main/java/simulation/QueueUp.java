@@ -11,8 +11,9 @@ public class QueueUp extends AthleteEvent{
     public QueueUp(LocalTime time, Athlete athlete, Edge edge){super(time, athlete, edge);}
 
     public Queue performAction(int seed){
+        Queue result = super.performAction(seed);
         getAthlete().queueUp(getEdge());
-        return new Queue();
+        return result;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package simulation;
 
 import athlete.Athlete;
+import containers.Queue;
 import resort.Edge;
 
 import java.time.LocalTime;
@@ -21,5 +22,11 @@ abstract public class AthleteEvent extends Event {
     public String toString(){
         return super.toString() + " the athlete nr " + athlete.getId();
     }
-
+    @Override
+    public Queue performAction(int seed){
+        if(athlete.isTracked()){
+            System.out.println(this.toString());
+        }
+        return new Queue();
+    }
 }
