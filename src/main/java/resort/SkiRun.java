@@ -1,5 +1,7 @@
 package resort;
 
+import athlete.Athlete;
+
 public class SkiRun extends Edge {
     private final int advanceLevel;
     private final double baseLure;
@@ -28,4 +30,7 @@ public class SkiRun extends Edge {
     public double smoothnessCalculate(){
         return baseLure + (1 - baseLure) * Math.pow(toughness, getServedAthletesCnt());
     }
+
+    @Override
+    public void addWaiting(Athlete athlete){}
 }

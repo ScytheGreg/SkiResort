@@ -41,8 +41,8 @@ class SkiRunTest {
 
         double initial = run.smoothnessCalculate();
 
-        run.skierRide();
-        run.skierRide();
+        run.takeARide();
+        run.takeARide();
 
         double after = run.smoothnessCalculate();
 
@@ -84,10 +84,10 @@ class SkiRunTest {
 
         double s0 = run.smoothnessCalculate();
 
-        run.skierRide();
+        run.takeARide();
         double s1 = run.smoothnessCalculate();
 
-        run.skierRide();
+        run.takeARide();
         double s2 = run.smoothnessCalculate();
 
         assertTrue(s0 > s1);
@@ -110,7 +110,7 @@ class SkiRunTest {
         );
 
         for (int i = 0; i < 10; i++) {
-            run.skierRide();
+            run.takeARide();
         }
 
         assertEquals(0.3, run.smoothnessCalculate(), 1e-9);
@@ -131,9 +131,9 @@ class SkiRunTest {
                 0.8
         );
 
-        run.skierRide();
-        run.skierRide();
-        run.skierRide();
+        run.takeARide();
+        run.takeARide();
+        run.takeARide();
 
         double expected = 0.25 + (1 - 0.25) * Math.pow(0.8, 3);
 
@@ -148,8 +148,8 @@ class SkiRunTest {
         SkiRun r1 = new SkiRun(a, b, 100, 0, 5, 0.3, 0.9);
         SkiRun r2 = new SkiRun(a, b, 100, 1, 5, 0.3, 0.9);
 
-        r1.skierRide();
-        r1.skierRide();
+        r1.takeARide();
+        r1.takeARide();
 
         assertTrue(r1.smoothnessCalculate() < r2.smoothnessCalculate());
     }

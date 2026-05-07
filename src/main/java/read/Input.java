@@ -72,7 +72,7 @@ public class Input {
         }
     }
 
-    public PriorityQueue readAthleteData(Node[] nodes){
+    public PriorityQueue readAthleteData(Node[] nodes, int seed){
         PriorityQueue athletes = new PriorityQueue();
         String[] athletesData = scanner.readGroup(3, true);
         int id = 0;
@@ -82,7 +82,7 @@ public class Input {
             athlNumScanner.close();
             for(int i = 0 ; i < athlNum ; ++i, ++id){
                 Athlete man = AthleteFactory.create(data, i, id, nodes);
-                athletes.push(new MakeDecision(man.getStartTime(), man));
+                athletes.push(man.makeDecision(seed, man.getStartTime()));
             }
         }
         return athletes;

@@ -1,5 +1,8 @@
 package resort;
 
+import athlete.Athlete;
+import simulation.StartARide;
+
 public abstract class Edge {
     private final int id;
     private final Node beginning;
@@ -47,4 +50,6 @@ public abstract class Edge {
             System.out.println(line);
         }
     }
+    abstract public void addWaiting(Athlete athlete);
+
 }

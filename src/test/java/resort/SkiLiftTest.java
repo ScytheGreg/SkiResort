@@ -2,10 +2,9 @@ package resort;
 
 import athlete.Athlete;
 import containers.Queue;
-import containers.emptyContainerException;
 import org.junit.jupiter.api.Test;
 import simulation.Event;
-import simulation.GoUpWithLift;
+import simulation.StartARide;
 import simulation.PickUpPassengers;
 
 import java.time.LocalTime;
@@ -82,7 +81,7 @@ class SkiLiftTest {
 
         Event first = picked.takeFront();
 
-        assertInstanceOf(GoUpWithLift.class, first);
+        assertInstanceOf(StartARide.class, first);
     }
 
     @Test
@@ -109,8 +108,8 @@ class SkiLiftTest {
         Event e2 = result.takeFront();
         Event e3 = result.takeFront();
 
-        assertInstanceOf(GoUpWithLift.class, e1);
-        assertInstanceOf(GoUpWithLift.class, e2);
+        assertInstanceOf(StartARide.class, e1);
+        assertInstanceOf(StartARide.class, e2);
 
         // third should be recurring pickup event
         assertInstanceOf(PickUpPassengers.class, e3);
@@ -191,14 +190,14 @@ class SkiLiftTest {
         Event firstPassenger = firstCycle.takeFront();
         Event recurring1 = firstCycle.takeFront();
 
-        assertInstanceOf(GoUpWithLift.class, firstPassenger);
+        assertInstanceOf(StartARide.class, firstPassenger);
         assertInstanceOf(PickUpPassengers.class, recurring1);
 
         Queue secondCycle = lift.pickUpPassengers(LocalTime.of(9, 0, 10));
 
         Event secondPassenger = secondCycle.takeFront();
 
-        assertInstanceOf(GoUpWithLift.class, secondPassenger);
+        assertInstanceOf(StartARide.class, secondPassenger);
     }
 
     @Test
