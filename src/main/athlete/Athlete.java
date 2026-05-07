@@ -19,32 +19,23 @@ public class Athlete {
 
     private Node currentNode;
 
-    public Athlete(String data, int groupId, int id, Node[] nodes) {
+    public Athlete(int id,
+                   int advanceLevel,
+                   double impulsivity,
+                   boolean isTracked,
+                   double levelMatchLure,
+                   double runSmoothnessLure,
+                   Node startNode,
+                   LocalTime startTime) {
+
         this.id = id;
-        Scanner dataScanner = new Scanner(data);
-        dataScanner.useLocale(Locale.ENGLISH);
-
-        dataScanner.nextInt(); // Skip number of athletes
-        this.advanceLevel = dataScanner.nextInt();
-        this.impulsivity = dataScanner.nextDouble();
-
-        if (dataScanner.hasNext("s")) {
-            isTracked = true;
-            dataScanner.next("s");
-        } else
-            isTracked = false;
-
-        this.levelMatchLure = dataScanner.nextDouble();
-        this.runSmoothnessLure = dataScanner.nextDouble();
-        assert (levelMatchLure + runSmoothnessLure == 1);
-
-        this.currentNode = nodes[dataScanner.nextInt()];
-        LocalTime firstAthlTime = LocalTime.parse(dataScanner.next(), DateTimeFormatter.ofPattern("HH:mm:ss"));
-        int delay = 0;
-        if (dataScanner.hasNextInt()) {
-            delay = dataScanner.nextInt();
-        }
-        this.startTime = firstAthlTime.plusSeconds(delay * groupId);
+        this.advanceLevel = advanceLevel;
+        this.impulsivity = impulsivity;
+        this.isTracked = isTracked;
+        this.levelMatchLure = levelMatchLure;
+        this.runSmoothnessLure = runSmoothnessLure;
+        this.currentNode = startNode;
+        this.startTime = startTime;
     }
 
 

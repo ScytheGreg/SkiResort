@@ -1,8 +1,11 @@
 package read;
 
-import athlete.Athlete;
+import athlete.*;
 import containers.PriorityQueue;
 import resort.*;
+import resort.factories.NodeFactory;
+import resort.factories.SkiLiftFactory;
+import resort.factories.SkiRunFactory;
 import simulation.*;
 import java.util.Scanner;
 
@@ -15,7 +18,7 @@ public class Input {
         int idx = 0;
 
         for (String data : nodesData) {
-            nodes[idx] = new Node(data, idx);
+            nodes[idx] = NodeFactory.create(data, idx);
             ++idx;
         }
 
@@ -27,7 +30,7 @@ public class Input {
         int idx = 0;
 
         for (String data : skiLiftsData) {
-            skiLifts[idx] = new SkiLift(data, idx, nodes);
+            skiLifts[idx] = SkiLiftFactory.create(data, idx, nodes);
             ++idx;
         }
 
@@ -39,7 +42,7 @@ public class Input {
         int idx = 0;
 
         for (String data : skiRunsData) {
-            skiRuns[idx] = new SkiRun(data, idx, nodes);
+            skiRuns[idx] = SkiRunFactory.create(data, idx, nodes);
             ++idx;
         }
 
@@ -78,7 +81,7 @@ public class Input {
             int athlNum = athlNumScanner.nextInt();
             athlNumScanner.close();
             for(int i = 0 ; i < athlNum ; ++i, ++id){
-                Athlete man = new Athlete(data, i, id, nodes);
+                Athlete man = AthleteFactory.create(data, i, id, nodes);
                 athletes.push(new MakeDecision(man.getStartTime(), man));
             }
         }

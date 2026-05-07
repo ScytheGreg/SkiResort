@@ -10,17 +10,12 @@ public class Node {
     private SkiRun[] skiRuns;
     private SkiLift[] skiLifts;
 
-    public Node(String data, int id) {
+    public Node(int id, int height, int lat, int lon, boolean isCommunicated) {
         this.id = id;
-        Scanner dataScanner = new Scanner(data);
-        dataScanner.useLocale(Locale.ENGLISH);
-        this.height = dataScanner.nextInt();
-        this.lat = dataScanner.nextInt();
-        this.lon = dataScanner.nextInt();
-        if (dataScanner.hasNext("s")) {
-            this.isCommunicated = true;
-        } else this.isCommunicated = false;
-        dataScanner.close();
+        this.height = height;
+        this.lat = lat;
+        this.lon = lon;
+        this.isCommunicated = isCommunicated;
     }
 
     public int getId() {

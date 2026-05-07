@@ -14,18 +14,12 @@ public class SkiLift extends Edge{
     int capacity;
     int frequency;
 
-    public SkiLift(String data, int id, Node[] nodes) {
-        Scanner dataScanner = new Scanner(data);
-        dataScanner.useLocale(Locale.ENGLISH);
+    public SkiLift(Node beginning, Node end, int rideTime, int id,
+                   int frequency, int capacity) {
+        super(beginning, end, rideTime, id);
 
-        int beg = dataScanner.nextInt();
-        int end = dataScanner.nextInt();
-        this.frequency = dataScanner.nextInt();
-        this.capacity = dataScanner.nextInt();
-        int rideTime = dataScanner.nextInt();
-        dataScanner.close();
-        super(nodes[beg], nodes[end], rideTime, id);
-
+        this.frequency = frequency;
+        this.capacity = capacity;
         this.waiting = new Queue();
     }
 
