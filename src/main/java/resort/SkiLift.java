@@ -5,8 +5,6 @@ import containers.Queue;
 import simulation.*;
 
 
-import java.util.Locale;
-import java.util.Scanner;
 import java.time.LocalTime;
 
 public class SkiLift extends Edge{

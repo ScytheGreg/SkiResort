@@ -1,8 +1,5 @@
 package resort;
 
-import java.util.Locale;
-import java.util.Scanner;
-
 public class Node {
     private final int id, height, lat, lon;
     private final boolean isCommunicated;

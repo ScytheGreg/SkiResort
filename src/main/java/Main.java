@@ -1,5 +1,3 @@
-import read.Input;
-import resort.SkiResort;
 import simulation.Simulation;
 
 public class Main {

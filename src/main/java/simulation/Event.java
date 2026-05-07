@@ -1,7 +1,6 @@
 package simulation;
 
 import containers.Queue;
-import containers.QueueNode;
 
 import java.time.LocalTime;
 

@@ -1,8 +1,5 @@
 package resort;
 
-import java.util.Locale;
-import java.util.Scanner;
-
 public class SkiRun extends Edge {
     private final int advanceLevel;
     private final double baseLure;
