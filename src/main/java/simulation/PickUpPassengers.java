@@ -15,4 +15,9 @@ public class PickUpPassengers extends Event{
     public Queue performAction(int seed) {
         return lift.pickUpPassengers(getTime());
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " lift nr "+ lift.getId() + " is picking up passengers.";
+    }
 }

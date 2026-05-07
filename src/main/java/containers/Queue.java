@@ -23,6 +23,7 @@ public class Queue {
             return;
         }
         first = first.getPrev();
+        first.setNext(null);
     }
 
     protected void adjustEnds() {

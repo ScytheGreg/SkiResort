@@ -16,4 +16,9 @@ public class GoUpWithLift extends AthleteEvent{
         result.push(new MakeDecision(getTime().plusSeconds(lift.getRideTime()), getAthlete()));
         return result;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " is going up with lift.";
+    }
 }

@@ -15,4 +15,8 @@ abstract public class AthleteEvent extends Event {
     public Athlete getAthlete() {
         return athlete;
     }
+
+    public String toString(){
+        return super.toString() + " Athlete nr " + athlete.getId();
+    }
 }

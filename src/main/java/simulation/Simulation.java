@@ -10,7 +10,7 @@ import resort.*;
 public class Simulation {
     static final private LocalTime START_TIME = LocalTime.of(9, 0);
     static final private LocalTime END_TIME = LocalTime.of(15, 0);
-    private PriorityQueue events = new PriorityQueue();
+    private final PriorityQueue events;
 
     public Simulation() {
         Input reader = new Input();
@@ -29,6 +29,7 @@ public class Simulation {
 
     public void simulate(int seed) throws emptyContainerException {
         while (!events.isEmpty() && events.getFront().getTime().isBefore(END_TIME)) {
+            System.err.println(events.getFront().toString());
             Queue newEvents = events.takeFront().performAction(seed);
             while (!newEvents.isEmpty())
                 events.push(newEvents.takeFront());

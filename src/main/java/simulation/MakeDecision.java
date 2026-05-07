@@ -79,4 +79,9 @@ public class MakeDecision extends AthleteEvent {
         }
         return result;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " is making a decision.";
+    }
 }

@@ -17,4 +17,9 @@ public class TakeARun extends AthleteEvent{
         result.push(new MakeDecision(this.getTime().plusSeconds(run.getRideTime()), getAthlete()));
         return result;
     }
+
+    @Override
+    public String toString(){
+        return super.toString() + " is taking a run";
+    }
 }

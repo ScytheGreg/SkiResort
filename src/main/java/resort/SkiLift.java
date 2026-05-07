@@ -16,6 +16,7 @@ public class SkiLift extends Edge{
                    int frequency, int capacity) {
         super(beginning, end, rideTime, id);
 
+        assert(frequency != 0);
         this.frequency = frequency;
         this.capacity = capacity;
         this.waiting = new Queue();
@@ -32,7 +33,9 @@ public class SkiLift extends Edge{
                 result.push(ev);
             }
         }
-        result.push(new PickUpPassengers(time.plusSeconds(frequency), this));
+        LocalTime nextPickupTime = time.plusSeconds(frequency);
+
+        result.push(new PickUpPassengers(nextPickupTime, this));
         return result;
     }
 
