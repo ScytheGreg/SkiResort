@@ -69,4 +69,8 @@ public class Athlete {
     public double getImpulsivity() {
         return impulsivity;
     }
+
+    public int getId(){return id;}
+    public int getAdvanceLevel(){return advanceLevel;}
+    public boolean isTracked(){return isTracked;}
 }

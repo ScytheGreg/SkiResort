@@ -56,7 +56,7 @@ public class Queue {
     public void push(Event event) {
         if (!edgeCasesPush(event))
             return;
-        last.emplaceBehind(event); // Emplace behind new Event
+        last.emplaceBefore(event); // Emplace behind new Event
         last = last.getPrev(); // Move last to new last Event
     }
 
