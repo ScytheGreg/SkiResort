@@ -7,7 +7,8 @@ import java.time.LocalTime;
 
 public class MakeDecision extends AthleteEvent {
     public MakeDecision(LocalTime time, Athlete athlete){super(time, athlete);}
+
     public Queue performAction(){
-        
+            
     }
 }
