@@ -28,24 +28,46 @@ public class SkiResort {
         }
     }
 
-    private void initNodesArrrays(Edge[][] edgeInNodes, int[] edgeCnt, int N) {
+    private void initNodesArrays(Edge[][] edgeInNodes, int[] edgeCnt, int N) {
         for (int i = 0; i < N; ++i) {
             edgeInNodes[i] = new Edge[edgeCnt[i]];
         }
     }
 
-    private void countNodesArrays(Edge[][] edgeInNodes, int[] edgeCnt, Edge[] edges){
-        for (Edge edge : edges){
-            int nodeId = edge.getBeginning().getId();
-            edgeInNodes[nodeId][--edgeCnt[nodeId]] = edge;
+    private void connectEdgesLifts(SkiLift[] lifts, int N, SkiLift[][] liftsInNodes) {
+        int[] liftCnt = new int[N];
+
+        // count how many lifts per node
+        countNodesFromEdges(liftCnt, lifts);
+
+        // allocate per node
+        for (int i = 0; i < N; ++i) {
+            liftsInNodes[i] = new SkiLift[liftCnt[i]];
+        }
+
+        // fill arrays
+        for (SkiLift lift : lifts) {
+            int nodeId = lift.getBeginning().getId();
+            liftsInNodes[nodeId][--liftCnt[nodeId]] = lift;
         }
     }
 
-    private void connectEdges(Edge[] edges, int N, Edge[][] edgesInNodes){
-        int[] edgeCnt = new int[N]; // Count lifts in nodes
-        countNodesFromEdges(edgeCnt, edges);
-        initNodesArrrays(edgesInNodes, edgeCnt, N);
-        countNodesArrays(edgesInNodes, edgeCnt, edges);
+    private void connectEdgesRuns(SkiRun[] runs, int N, SkiRun[][] runsInNodes) {
+        int[] runCnt = new int[N];
+
+        // count how many runs per node
+        countNodesFromEdges(runCnt, runs);
+
+        // allocate per node
+        for (int i = 0; i < N; ++i) {
+            runsInNodes[i] = new SkiRun[runCnt[i]];
+        }
+
+        // fill arrays
+        for (SkiRun run : runs) {
+            int nodeId = run.getBeginning().getId();
+            runsInNodes[nodeId][--runCnt[nodeId]] = run;
+        }
     }
 
 
@@ -53,10 +75,10 @@ public class SkiResort {
         int N = getNodesNum();
 
         SkiLift[][] skiLiftsInNodes = new SkiLift[N][];
-        connectEdges(getSkiLifts(), N, skiLiftsInNodes);
+        connectEdgesLifts(getSkiLifts(), N, skiLiftsInNodes);
 
         SkiRun[][] skiRunsInNodes = new SkiRun[N][];
-        connectEdges(getSkiRuns(), N, skiRunsInNodes);
+        connectEdgesRuns(getSkiRuns(), N, skiRunsInNodes);
 
         Node[] nodes = getNodes();
         for(int i = 0 ; i < N ;++i){
