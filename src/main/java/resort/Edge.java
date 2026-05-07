@@ -39,7 +39,7 @@ public abstract class Edge {
     public String[] getLog(){
         String[] message = new String[2];
         message[0] = "Daily summary of " + getName() + " nr " + getId();
-        message[1] = "\t Number of rides:" + getServedAthletesCnt();
+        message[1] = "\t Number of rides: " + getServedAthletesCnt();
         return message;
     }
 

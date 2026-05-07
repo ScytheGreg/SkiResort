@@ -1,3 +1,6 @@
+import containers.PriorityQueue;
+import read.Input;
+import resort.SkiResort;
 import simulation.Simulation;
 
 public class Main {
@@ -17,7 +20,12 @@ public class Main {
             System.err.println("Error: Argument must be a valid integer.");
             return;
         }
-        Simulation simulation = new Simulation(seed);
-        simulation.simulate(seed);
+
+        Input reader = new Input();
+        SkiResort resort = reader.readResortData();
+        PriorityQueue athleteEvents = reader.readAthleteData(resort.getNodes(), seed);
+        Simulation simulation = new Simulation(athleteEvents, resort);
+
+        simulation.simulate(seed, resort);
     }
 }

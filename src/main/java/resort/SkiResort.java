@@ -113,4 +113,15 @@ public class SkiResort {
     public int getSkiRunsNum() {
         return skiRunsNum;
     }
+
+    private void logEdges(Edge[] edges){
+        for(Edge edge : edges){
+            edge.log();
+        }
+    }
+
+    public void log(){
+        logEdges(skiLifts);
+        logEdges(skiRuns);
+    }
 }

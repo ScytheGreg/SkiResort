@@ -12,12 +12,8 @@ public class Simulation {
     static final private LocalTime END_TIME = LocalTime.of(16, 0);
     private final PriorityQueue events;
 
-    public Simulation(int seed) {
-        Input reader = new Input();
-
-        SkiResort resort = reader.readResortData();
-
-        events = reader.readAthleteData(resort.getNodes(), seed);
+    public Simulation(PriorityQueue events, SkiResort resort) {
+        this.events = events;
         loadPickUpEvents(resort.getSkiLifts());
     }
 
@@ -27,11 +23,12 @@ public class Simulation {
         }
     }
 
-    public void simulate(int seed) throws emptyContainerException {
+    public void simulate(int seed, SkiResort resort) throws emptyContainerException {
         while (!events.isEmpty() && events.getFront().getTime().isBefore(END_TIME)) {
             Queue newEvents = events.takeFront().performAction(seed);
             while (!newEvents.isEmpty())
                 events.push(newEvents.takeFront());
         }
+        resort.log();
     }
 }

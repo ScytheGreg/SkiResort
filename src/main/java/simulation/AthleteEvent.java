@@ -20,7 +20,7 @@ abstract public class AthleteEvent extends Event {
     }
     public Edge getEdge(){return edge;}
     public String toString(){
-        return super.toString() + " the athlete nr " + athlete.getId();
+        return super.toString() + " the athlete nr " + String.format("%5d", athlete.getId());
     }
     @Override
     public Queue performAction(int seed){
