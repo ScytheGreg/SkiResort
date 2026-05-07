@@ -4,14 +4,13 @@ import org.junit.jupiter.api.Test;
 import resort.Edge;
 import resort.Node;
 import resort.SkiLift;
-import resort.SkiRun;
 
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class AthleteTest {
+public class AthleteTest {
 
     private Node node(int id) {
         Node n = mock(Node.class);
