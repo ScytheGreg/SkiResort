@@ -69,7 +69,7 @@ public class Input {
         }
     }
 
-    public Simulation readAthleteData(){
+    public Simulation readAthleteData(Node[] nodes){
         PriorityQueue athletes = new PriorityQueue();
         String[] athletesData = scanner.readGroup(3, true);
         int id = 0;
@@ -78,7 +78,7 @@ public class Input {
             int athlNum = athlNumScanner.nextInt();
             athlNumScanner.close();
             for(int i = 0 ; i < athlNum ; ++i, ++id){
-                Athlete man = new Athlete(data, i, id);
+                Athlete man = new Athlete(data, i, id, nodes);
                 athletes.push(new MakeDecision(man.getStartTime(), man));
             }
         }

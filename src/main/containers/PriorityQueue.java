@@ -15,13 +15,13 @@ public class PriorityQueue extends Queue {
         assert(lowerBound != null);
 
         // Iterate through the queue to find the correct insertion point based on time
-        while (lowerBound.getPrev() != null && lowerBound.getValue().getTime() < event.getTime()) {
+        while (lowerBound.getPrev() != null && lowerBound.getValue().getTime().isBefore(event.getTime())) {
             lowerBound = lowerBound.getPrev();
         }
 
         assert(lowerBound != null);
 
-        if (lowerBound.getValue().getTime() >= event.getTime()) {
+        if (!lowerBound.getValue().getTime().isBefore(event.getTime())) {
             lowerBound.emplaceBehind(event);
         } else {
             lowerBound.emplaceBefore(event);

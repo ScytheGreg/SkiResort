@@ -14,7 +14,7 @@ public class TakeARun extends AthleteEvent{
         run.skierRide();
         getAthlete().move(run);
         Queue result = new Queue();
-        result.push(new MakeDecision(this.getLocalTime().plusSeconds(run.getRideTime()), getAthlete()));
+        result.push(new MakeDecision(this.getTime().plusSeconds(run.getRideTime()), getAthlete()));
         return result;
     }
 }

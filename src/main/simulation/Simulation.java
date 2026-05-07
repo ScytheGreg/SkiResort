@@ -3,17 +3,26 @@ package simulation;
 import java.time.LocalTime;
 import containers.PriorityQueue;
 import containers.*;
+import resort.SkiLift;
 
 public class Simulation {
-    static final private int endTime = LocalTime.of(15, 0).toSecondOfDay();
+    static final private LocalTime START_TIME = LocalTime.of(9, 0);
+    static final private LocalTime END_TIME = LocalTime.of(15, 0);
     private final PriorityQueue events;
 
     public Simulation(PriorityQueue events){
         this.events= events;
     }
 
+   public void loadPickUpEvents(SkiLift[] lifts){
+        for(SkiLift lift : lifts){
+            events.push(new PickUpPassengers(START_TIME, lift));
+        }
+   }
+
+
     public void simulate() throws emptyContainerException {
-        while(!events.isEmpty() && events.getFront().getTime() < endTime){
+        while(!events.isEmpty() && events.getFront().getTime().isBefore(END_TIME)){
             Queue newEvents = events.takeFront().performAction();
             while(!newEvents.isEmpty())
                 events.push(newEvents.takeFront());

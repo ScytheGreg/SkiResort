@@ -13,7 +13,7 @@ public class GoUpWithLift extends AthleteEvent{
     public Queue performAction() {
         getAthlete().move(lift);
         Queue result = new Queue();
-        result.push(new MakeDecision(getLocalTime().plusSeconds(lift.getRideTime()), getAthlete()));
+        result.push(new MakeDecision(getTime().plusSeconds(lift.getRideTime()), getAthlete()));
         return result;
     }
 }

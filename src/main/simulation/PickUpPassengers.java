@@ -13,6 +13,6 @@ public class PickUpPassengers extends Event{
 
     @Override
     public Queue performAction() {
-        return lift.pickUpPassengers(getLocalTime());
+        return lift.pickUpPassengers(getTime());
     }
 }
