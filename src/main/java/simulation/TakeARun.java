@@ -7,11 +7,11 @@ import resort.SkiRun;
 import java.time.LocalTime;
 
 public class TakeARun extends AthleteEvent{
-    private SkiRun run;
+    private final SkiRun run;
     public TakeARun(LocalTime time, Athlete athlete, SkiRun run){super(time, athlete);this.run = run;}
 
     public Queue performAction(int seed) {
-        run.skierRide();
+        run.takeARide();
         getAthlete().move(run);
         Queue result = new Queue();
         result.push(new MakeDecision(this.getTime().plusSeconds(run.getRideTime()), getAthlete()));

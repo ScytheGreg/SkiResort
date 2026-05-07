@@ -5,8 +5,6 @@ public class SkiRun extends Edge {
     private final double baseLure;
     private final double toughness;
 
-    private int skierCnt = 0;
-
     public SkiRun(Node beginning,
                   Node end,
                   int rideTime,
@@ -21,16 +19,13 @@ public class SkiRun extends Edge {
         this.baseLure = baseLure;
         this.toughness = toughness;
     }
-
-    public void skierRide(){
-        skierCnt++;
-    }
+    public String getName(){return "ski run";}
 
     public int getAdvanceLevel() {
         return advanceLevel;
     }
 
     public double smoothnessCalculate(){
-        return baseLure + (1 - baseLure) * Math.pow(toughness, skierCnt);
+        return baseLure + (1 - baseLure) * Math.pow(toughness, getServedAthletesCnt());
     }
 }

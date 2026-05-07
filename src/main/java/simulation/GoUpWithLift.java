@@ -7,10 +7,11 @@ import resort.SkiLift;
 import java.time.LocalTime;
 
 public class GoUpWithLift extends AthleteEvent{
-    SkiLift lift;
+    private final SkiLift lift;
     public GoUpWithLift(LocalTime time, Athlete athlete, SkiLift lift){super(time, athlete);this.lift = lift;}
 
     public Queue performAction(int seed) {
+        lift.takeARide();
         getAthlete().move(lift);
         Queue result = new Queue();
         result.push(new MakeDecision(getTime().plusSeconds(lift.getRideTime()), getAthlete()));

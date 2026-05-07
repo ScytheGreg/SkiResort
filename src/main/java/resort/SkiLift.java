@@ -9,8 +9,9 @@ import java.time.LocalTime;
 
 public class SkiLift extends Edge{
     private Queue waiting;
-    int capacity;
-    int frequency;
+    private final int capacity;
+    private final int frequency;
+
 
     public SkiLift(Node beginning, Node end, int rideTime, int id,
                    int frequency, int capacity) {
@@ -21,6 +22,7 @@ public class SkiLift extends Edge{
         this.capacity = capacity;
         this.waiting = new Queue();
     }
+    public String getName(){return "lift";}
 
     public int getCapacity(){return capacity;}
     public int getFrequency(){return frequency;}
