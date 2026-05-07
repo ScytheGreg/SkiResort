@@ -76,5 +76,6 @@ public class Athlete {
         return levelMatchLure * this.levelMathCalculate(run) +
                 runSmoothnessLure * run.smoothnessCalculate();
     }
+    public Node getCurrentNode(){return currentNode;}
 
 }

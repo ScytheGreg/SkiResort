@@ -35,7 +35,24 @@ public class Node {
         this.skiLifts = skiLifts;
     }
 
-    public void setSkiRuns(SkiRun[] skiRuns){
+    public void setSkiRuns(SkiRun[] skiRuns) {
         this.skiRuns = skiRuns;
+    }
+
+    public SkiRun[] getSkiRuns() {
+        return skiRuns;
+    }
+
+    public SkiLift[] getSkiLifts() {
+        return skiLifts;
+    }
+
+    public Node[] getLiftNeigbours(){
+        Node[] result = new Node[skiLifts.length + 1];
+        result[0] = this;
+        for(int i = 1 ; i <= skiLifts.length ; ++i){
+            result[i] = skiLifts[i - 1].getEnd();
+        }
+        return result;
     }
 }
