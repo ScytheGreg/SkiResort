@@ -109,6 +109,11 @@ public class Athlete {
     }
 
     public Event makeDecision(int seed, LocalTime time) {
+
+        if (time.isAfter(LocalTime.of(14, 59, 59))){
+            return null;
+        }
+
         Random generator = new Random(time.toSecondOfDay() + seed);
 
         if (isImpulsiveDecision(generator)) {

@@ -27,6 +27,7 @@ public class SkiLift extends Edge{
     public int getCapacity(){return capacity;}
     public int getFrequency(){return frequency;}
     public Queue pickUpPassengers(LocalTime time){
+
         Queue   result = new Queue();
         for(int i = 0 ; i < capacity ; ++i){
             if (!waiting.isEmpty()){
@@ -35,9 +36,10 @@ public class SkiLift extends Edge{
                 result.push(ev);
             }
         }
-        LocalTime nextPickupTime = time.plusSeconds(frequency);
-
-        result.push(new PickUpPassengers(nextPickupTime, this));
+        if (time.isBefore(LocalTime.of(15, 0))) {
+            LocalTime nextPickupTime = time.plusSeconds(frequency);
+            result.push(new PickUpPassengers(nextPickupTime, this));
+        }
         return result;
     }
 

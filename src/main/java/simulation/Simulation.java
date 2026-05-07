@@ -9,7 +9,7 @@ import resort.*;
 
 public class Simulation {
     static final private LocalTime START_TIME = LocalTime.of(9, 0);
-    static final private LocalTime END_TIME = LocalTime.of(15, 0);
+    static final private LocalTime END_TIME = LocalTime.of(16, 0);
     private final PriorityQueue events;
 
     public Simulation(int seed) {
