@@ -6,10 +6,8 @@ public class PriorityQueue extends Queue {
 
     @Override
     public void push(Event event) {
-        if (isEmpty()) {
-            pushToEmpty(event);
+        if (!edgeCasesPush(event))
             return;
-        }
 
         QueueNode lowerBound = getFirst();
         assert(lowerBound != null);

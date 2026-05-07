@@ -6,6 +6,6 @@ public class Main {
 
     static void main(String[] args){
         Simulation simulation = new Simulation();
-        simulation.simulate();
+        simulation.simulate(22);
     }
 }

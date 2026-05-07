@@ -27,9 +27,9 @@ public class Simulation {
         }
     }
 
-    public void simulate() throws emptyContainerException {
+    public void simulate(int seed) throws emptyContainerException {
         while (!events.isEmpty() && events.getFront().getTime().isBefore(END_TIME)) {
-            Queue newEvents = events.takeFront().performAction();
+            Queue newEvents = events.takeFront().performAction(seed);
             while (!newEvents.isEmpty())
                 events.push(newEvents.takeFront());
         }

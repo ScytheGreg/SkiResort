@@ -13,6 +13,6 @@ abstract public class Event {
     }
     public LocalTime getTime(){return takePlaceTime;}
     public void setTime(LocalTime time){takePlaceTime = time;}
-    abstract public Queue performAction();
+    abstract public Queue performAction(int seed);
 
 }

@@ -78,4 +78,7 @@ public class Athlete {
     }
     public Node getCurrentNode(){return currentNode;}
 
+    public double getImpulsivity() {
+        return impulsivity;
+    }
 }

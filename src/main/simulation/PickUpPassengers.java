@@ -12,7 +12,7 @@ public class PickUpPassengers extends Event{
     }
 
     @Override
-    public Queue performAction() {
+    public Queue performAction(int seed) {
         return lift.pickUpPassengers(getTime());
     }
 }

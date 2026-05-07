@@ -10,7 +10,7 @@ public class GoUpWithLift extends AthleteEvent{
     SkiLift lift;
     public GoUpWithLift(LocalTime time, Athlete athlete, SkiLift lift){super(time, athlete);this.lift = lift;}
 
-    public Queue performAction() {
+    public Queue performAction(int seed) {
         getAthlete().move(lift);
         Queue result = new Queue();
         result.push(new MakeDecision(getTime().plusSeconds(lift.getRideTime()), getAthlete()));

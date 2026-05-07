@@ -10,7 +10,7 @@ public class TakeARun extends AthleteEvent{
     private SkiRun run;
     public TakeARun(LocalTime time, Athlete athlete, SkiRun run){super(time, athlete);this.run = run;}
 
-    public Queue performAction() {
+    public Queue performAction(int seed) {
         run.skierRide();
         getAthlete().move(run);
         Queue result = new Queue();
