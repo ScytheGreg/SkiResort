@@ -3,15 +3,15 @@ package read;
 import athlete.*;
 import containers.PriorityQueue;
 import resort.*;
-import resort.factories.NodeFactory;
-import resort.factories.SkiLiftFactory;
-import resort.factories.SkiRunFactory;
-import simulation.*;
+import read.factories.NodeFactory;
+import read.factories.SkiLiftFactory;
+import read.factories.SkiRunFactory;
+
 import java.util.Scanner;
 
 public class Input {
 
-    private StdInScanner scanner = new StdInScanner();
+    private final StdInScanner scanner = new StdInScanner();
 
     private Node[] parseNodes(String[] nodesData) {
         Node[] nodes = new Node[nodesData.length];

@@ -1,32 +1,34 @@
-package resort.factories;
+package read.factories;
 
 import resort.Node;
-import resort.SkiLift;
+import resort.SkiRun;
 
 import java.util.Locale;
 import java.util.Scanner;
 
-public class SkiLiftFactory {
+public class SkiRunFactory {
 
-    public static SkiLift create(String data, int id, Node[] nodes) {
+    public static SkiRun create(String data, int id, Node[] nodes) {
         Scanner sc = new Scanner(data);
         sc.useLocale(Locale.ENGLISH);
 
         int beg = sc.nextInt();
         int end = sc.nextInt();
-        int frequency = sc.nextInt();
-        int capacity = sc.nextInt();
+        int advanceLevel = sc.nextInt();
         int rideTime = sc.nextInt();
+        double baseLure = sc.nextDouble();
+        double toughness = sc.nextDouble();
 
         sc.close();
 
-        return new SkiLift(
+        return new SkiRun(
                 nodes[beg],
                 nodes[end],
                 rideTime,
                 id,
-                frequency,
-                capacity
+                advanceLevel,
+                baseLure,
+                toughness
         );
     }
 }

@@ -4,12 +4,12 @@ package resort;
 import java.util.Arrays;
 
 public class SkiResort {
-    private Node[] nodes;
-    private int nodesNum;
-    private SkiLift[] skiLifts;
-    private int skiLiftsNum;
-    private SkiRun[] skiRuns;
-    private int skiRunsNum;
+    private final Node[] nodes;
+    private final int nodesNum;
+    private final SkiLift[] skiLifts;
+    private final int skiLiftsNum;
+    private final SkiRun[] skiRuns;
+    private final int skiRunsNum;
 
     public SkiResort(Node[] nodes, int nodesNum, SkiLift[] skiLifts, int skiLiftsNum, SkiRun[] skiRuns, int skiRunsNum) {
         this.nodes = nodes;
@@ -25,12 +25,6 @@ public class SkiResort {
         Arrays.fill(cntResult, 0);
         for (Edge edge : edges) {
             cntResult[edge.getBeginning().getId()]++;
-        }
-    }
-
-    private void initNodesArrays(Edge[][] edgeInNodes, int[] edgeCnt, int N) {
-        for (int i = 0; i < N; ++i) {
-            edgeInNodes[i] = new Edge[edgeCnt[i]];
         }
     }
 
@@ -70,7 +64,6 @@ public class SkiResort {
         }
     }
 
-
     public void connectResortGraph() {
         int N = getNodesNum();
 
@@ -81,14 +74,12 @@ public class SkiResort {
         connectEdgesRuns(getSkiRuns(), N, skiRunsInNodes);
 
         Node[] nodes = getNodes();
-        for(int i = 0 ; i < N ;++i){
+        for (int i = 0; i < N; ++i) {
             nodes[i].setSkiRuns(skiRunsInNodes[i]);
             nodes[i].setSkiLifts(skiLiftsInNodes[i]);
         }
 
     }
-
-
 
     public Node[] getNodes() {
         return nodes;
@@ -114,13 +105,13 @@ public class SkiResort {
         return skiRunsNum;
     }
 
-    private void logEdges(Edge[] edges){
-        for(Edge edge : edges){
+    private void logEdges(Edge[] edges) {
+        for (Edge edge : edges) {
             edge.log();
         }
     }
 
-    public void log(){
+    public void log() {
         logEdges(skiLifts);
         logEdges(skiRuns);
     }
