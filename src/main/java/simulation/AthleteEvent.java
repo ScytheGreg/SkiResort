@@ -41,7 +41,7 @@ abstract public class AthleteEvent extends Event {
      * Executes the shared logic for athlete-related events.
      * * In this simulation, if an athlete is marked as 'tracked', every event
      * they participate in must be printed to the standard output.
-     * * @return An empty Queue. Subclasses (like FinishARide) will override
+     * * @return An empty Queue. Subclasses (like EndARide) will override
      * this and return actual events.
      */
     @Override
