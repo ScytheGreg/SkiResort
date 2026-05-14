@@ -62,6 +62,18 @@ public class Node {
         return skiLifts;
     }
 
+    public int getHeight() {
+        return height;
+    }
+
+    public int getLat() {
+        return lat;
+    }
+
+    public int getLon() {
+        return lon;
+    }
+
     /**
      * Returns an array containing this node and all nodes reachable
      * directly by taking a single lift from here.
