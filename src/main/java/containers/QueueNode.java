@@ -2,10 +2,10 @@ package containers;
 
 import simulation.Event;
 
-public class QueueNode {
+class QueueNode {
     private QueueNode next = null;
     private QueueNode prev = null;
-    private Event value;
+    private final Event value;
 
     public QueueNode(Event value){
         this.value = value;
