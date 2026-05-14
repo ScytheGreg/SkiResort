@@ -1,5 +1,6 @@
-package athlete;
+package read.factories;
 
+import athlete.Athlete;
 import resort.Node;
 
 import java.time.LocalTime;

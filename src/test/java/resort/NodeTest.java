@@ -51,7 +51,7 @@ class NodeTest {
 
         node.setSkiLifts(new SkiLift[0]);
 
-        Node[] neighbours = node.getLiftNeigbours();
+        Node[] neighbours = node.getLiftNeighbours();
 
         assertEquals(1, neighbours.length);
         assertSame(node, neighbours[0]);
@@ -73,7 +73,7 @@ class NodeTest {
 
         start.setSkiLifts(new SkiLift[]{lift});
 
-        Node[] neighbours = start.getLiftNeigbours();
+        Node[] neighbours = start.getLiftNeighbours();
 
         assertEquals(2, neighbours.length);
 
@@ -95,7 +95,7 @@ class NodeTest {
 
         start.setSkiLifts(new SkiLift[]{l1, l2, l3});
 
-        Node[] neighbours = start.getLiftNeigbours();
+        Node[] neighbours = start.getLiftNeighbours();
 
         assertEquals(4, neighbours.length);
 
@@ -117,7 +117,7 @@ class NodeTest {
 
         start.setSkiLifts(new SkiLift[]{l1, l2});
 
-        Node[] neighbours = start.getLiftNeigbours();
+        Node[] neighbours = start.getLiftNeighbours();
 
         assertSame(a, neighbours[1]);
         assertSame(b, neighbours[2]);

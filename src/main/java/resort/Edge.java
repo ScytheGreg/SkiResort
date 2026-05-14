@@ -1,7 +1,6 @@
 package resort;
 
 import athlete.Athlete;
-import simulation.StartARide;
 
 public abstract class Edge {
     private final int id;
@@ -33,10 +32,16 @@ public abstract class Edge {
     public int getRideTime() {
         return rideTime;
     }
-    public int getServedAthletesCnt(){return servedAthletesCnt;}
-    public void takeARide(){++servedAthletesCnt;}
 
-    public String[] getLog(){
+    public int getServedAthletesCnt() {
+        return servedAthletesCnt;
+    }
+
+    public void takeARide() {
+        ++servedAthletesCnt;
+    }
+
+    public String[] getLog() {
         String[] message = new String[2];
         message[0] = "Daily summary of " + getName() + " nr " + getId();
         message[1] = "\t Number of rides: " + getServedAthletesCnt();
@@ -45,11 +50,12 @@ public abstract class Edge {
 
     abstract public String getName();
 
-    public void log(){
-        for(String line : getLog()){
+    public void log() {
+        for (String line : getLog()) {
             System.out.println(line);
         }
     }
+
     abstract public void addWaiting(Athlete athlete);
 
 }

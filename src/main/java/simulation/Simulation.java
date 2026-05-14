@@ -26,8 +26,7 @@ public class Simulation {
     public void simulate(int seed, SkiResort resort) throws emptyContainerException {
         while (!events.isEmpty() && events.getFront().getTime().isBefore(END_TIME)) {
             Queue newEvents = events.takeFront().performAction(seed);
-            while (!newEvents.isEmpty())
-                events.push(newEvents.takeFront());
+            while (!newEvents.isEmpty()) events.push(newEvents.takeFront());
         }
         resort.log();
     }

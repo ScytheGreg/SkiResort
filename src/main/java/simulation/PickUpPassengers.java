@@ -5,10 +5,12 @@ import resort.SkiLift;
 
 import java.time.LocalTime;
 
-public class PickUpPassengers extends Event{
+public class PickUpPassengers extends Event {
     SkiLift lift;
-    public PickUpPassengers(LocalTime time, SkiLift lift){
-        super(time); this.lift = lift;
+
+    public PickUpPassengers(LocalTime time, SkiLift lift) {
+        super(time);
+        this.lift = lift;
     }
 
     @Override
@@ -17,7 +19,7 @@ public class PickUpPassengers extends Event{
     }
 
     @Override
-    public String toString(){
-        return super.toString() + " lift nr "+ lift.getId() + " is picking up passengers.";
+    public String toString() {
+        return super.toString() + " lift nr " + lift.getId() + " is picking up passengers.";
     }
 }

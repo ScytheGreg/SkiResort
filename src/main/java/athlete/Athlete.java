@@ -3,7 +3,6 @@ package athlete;
 import java.time.LocalTime;
 import java.util.Random;
 
-import containers.Queue;
 import resort.*;
 import simulation.Event;
 import simulation.QueueUp;
@@ -110,7 +109,7 @@ public class Athlete {
 
     public Event makeDecision(int seed, LocalTime time) {
 
-        if (time.isAfter(LocalTime.of(14, 59, 59))){
+        if (time.isAfter(LocalTime.of(14, 59, 59))) {
             return null;
         }
 
@@ -151,7 +150,7 @@ public class Athlete {
         if (bestLocalSkiRunLure >= bestRemoteSkiRunLure) { // Take local run
             return new StartARide(time, this, bestLocalSkiRun);
         } else { // queue up in desired lift
-             return new QueueUp(time, this, availableLifts[bestLift]);
+            return new QueueUp(time, this, availableLifts[bestLift]);
         }
     }
 

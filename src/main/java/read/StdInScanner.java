@@ -18,12 +18,12 @@ public class StdInScanner {
         // Read elements description
         String[] input = new String[elemNumb];
         Arrays.fill(input, "");
-        for (int i = 0 ; i < elemNumb ; ++i)
+        for (int i = 0; i < elemNumb; ++i)
             for (int j = 0; j < elementLines; ++j) {
                 input[i] += scanner.nextLine();
                 input[i] += " ";
             }
-        if (! isLast) {
+        if (!isLast) {
             String end = scanner.nextLine();
             assert (end.isEmpty());
         }

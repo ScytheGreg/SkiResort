@@ -7,8 +7,8 @@ import simulation.*;
 
 import java.time.LocalTime;
 
-public class SkiLift extends Edge{
-    private Queue waiting;
+public class SkiLift extends Edge {
+    private final Queue waiting;
     private final int capacity;
     private final int frequency;
 
@@ -17,20 +17,29 @@ public class SkiLift extends Edge{
                    int frequency, int capacity) {
         super(beginning, end, rideTime, id);
 
-        assert(frequency != 0);
+        assert (frequency != 0);
         this.frequency = frequency;
         this.capacity = capacity;
         this.waiting = new Queue();
     }
-    public String getName(){return "lift   ";}
 
-    public int getCapacity(){return capacity;}
-    public int getFrequency(){return frequency;}
-    public Queue pickUpPassengers(LocalTime time){
+    public String getName() {
+        return "lift   ";
+    }
 
-        Queue   result = new Queue();
-        for(int i = 0 ; i < capacity ; ++i){
-            if (!waiting.isEmpty()){
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public int getFrequency() {
+        return frequency;
+    }
+
+    public Queue pickUpPassengers(LocalTime time) {
+
+        Queue result = new Queue();
+        for (int i = 0; i < capacity; ++i) {
+            if (!waiting.isEmpty()) {
                 Event ev = waiting.takeFront();
                 ev.setTime(time);
                 result.push(ev);
@@ -44,7 +53,7 @@ public class SkiLift extends Edge{
     }
 
     @Override
-    public void addWaiting(Athlete athlete){
+    public void addWaiting(Athlete athlete) {
         waiting.push(new StartARide(null, athlete, this));
     }
 }

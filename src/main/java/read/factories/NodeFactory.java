@@ -9,7 +9,7 @@ public class NodeFactory {
 
     /**
      * Creates a Node from a raw input line.
-     *
+     * <p>
      * Expected format:
      * height lat lon [s]
      */

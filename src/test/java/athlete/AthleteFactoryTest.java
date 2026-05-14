@@ -1,6 +1,7 @@
 package athlete;
 
 import org.junit.jupiter.api.Test;
+import read.factories.AthleteFactory;
 import resort.Node;
 
 import java.time.LocalTime;

@@ -10,15 +10,22 @@ abstract public class Event {
     private static final DateTimeFormatter FORMATTER =
             DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public Event(LocalTime time){
+    public Event(LocalTime time) {
         takePlaceTime = time;
     }
-    public LocalTime getTime(){return takePlaceTime;}
-    public void setTime(LocalTime time){takePlaceTime = time;}
+
+    public LocalTime getTime() {
+        return takePlaceTime;
+    }
+
+    public void setTime(LocalTime time) {
+        takePlaceTime = time;
+    }
+
     abstract public Queue performAction(int seed);
 
     @Override
-    public String toString(){
+    public String toString() {
         return "At " + takePlaceTime.format(FORMATTER);
     }
 }

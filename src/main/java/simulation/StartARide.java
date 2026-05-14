@@ -6,8 +6,10 @@ import resort.Edge;
 
 import java.time.LocalTime;
 
-public class StartARide extends AthleteEvent{
-    public StartARide(LocalTime time, Athlete athlete, Edge edge){super(time, athlete, edge);}
+public class StartARide extends AthleteEvent {
+    public StartARide(LocalTime time, Athlete athlete, Edge edge) {
+        super(time, athlete, edge);
+    }
 
     public Queue performAction(int seed) {
         Queue result = super.performAction(seed);
@@ -18,7 +20,7 @@ public class StartARide extends AthleteEvent{
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return super.toString() + " has begun ride on " + getEdge().getName() + " nr " + getEdge().getId();
     }
 }

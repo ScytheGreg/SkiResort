@@ -39,10 +39,10 @@ public class Node {
         return skiLifts;
     }
 
-    public Node[] getLiftNeigbours(){
+    public Node[] getLiftNeighbours() {
         Node[] result = new Node[skiLifts.length + 1];
         result[0] = this;
-        for(int i = 1 ; i <= skiLifts.length ; ++i){
+        for (int i = 1; i <= skiLifts.length; ++i) {
             result[i] = skiLifts[i - 1].getEnd();
         }
         return result;

@@ -2,6 +2,7 @@ package read;
 
 import athlete.*;
 import containers.PriorityQueue;
+import read.factories.AthleteFactory;
 import resort.*;
 import read.factories.NodeFactory;
 import read.factories.SkiLiftFactory;
@@ -72,15 +73,15 @@ public class Input {
         }
     }
 
-    public PriorityQueue readAthleteData(Node[] nodes, int seed){
+    public PriorityQueue readAthleteData(Node[] nodes, int seed) {
         PriorityQueue athletes = new PriorityQueue();
         String[] athletesData = scanner.readGroup(3, true);
         int id = 0;
-        for(String data : athletesData){
+        for (String data : athletesData) {
             Scanner athlNumScanner = new Scanner(data);
             int athlNum = athlNumScanner.nextInt();
             athlNumScanner.close();
-            for(int i = 0 ; i < athlNum ; ++i, ++id){
+            for (int i = 0; i < athlNum; ++i, ++id) {
                 Athlete man = AthleteFactory.create(data, i, id, nodes);
                 athletes.push(man.makeDecision(seed, man.getStartTime()));
             }
