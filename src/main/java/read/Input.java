@@ -9,49 +9,82 @@ import read.factories.SkiLiftFactory;
 import read.factories.SkiRunFactory;
 
 import java.util.Scanner;
+import java.util.Arrays;
 
+/**
+ * Orchestrates the reading and parsing of the entire resort and athlete dataset.
+ * It uses StdInScanner for raw reading and Factory classes for object instantiation.
+ */
 public class Input {
 
+    // Internal scanner to handle the structured blocks of input
     private final StdInScanner scanner = new StdInScanner();
+
+    /**
+     * Inner class or combined logic from StdInScanner.
+     * Processes groups of data (Nodes, Lifts, Runs, Athletes).
+     */
+    private class StdInScanner {
+        private final Scanner sysScanner = new Scanner(System.in);
+
+        public String[] readGroup(int elementLines, boolean isLast) {
+            if (!sysScanner.hasNextLine()) return new String[0];
+
+            String head = sysScanner.nextLine();
+            if (head.isEmpty()) return new String[0];
+
+            int elemNumb = new Scanner(head).nextInt();
+            String[] input = new String[elemNumb];
+            Arrays.fill(input, "");
+
+            for (int i = 0; i < elemNumb; ++i) {
+                for (int j = 0; j < elementLines; ++j) {
+                    if (sysScanner.hasNextLine()) {
+                        input[i] += sysScanner.nextLine() + " ";
+                    }
+                }
+            }
+            if (!isLast && sysScanner.hasNextLine()) {
+                sysScanner.nextLine(); // Consume the empty line separator
+            }
+            return input;
+        }
+    }
+
+    /* --- Resort Infrastructure Parsing --- */
 
     private Node[] parseNodes(String[] nodesData) {
         Node[] nodes = new Node[nodesData.length];
-        int idx = 0;
-
-        for (String data : nodesData) {
-            nodes[idx] = NodeFactory.create(data, idx);
-            ++idx;
+        for (int i = 0; i < nodesData.length; i++) {
+            // idx is passed to the factory to assign unique IDs to nodes
+            nodes[i] = NodeFactory.create(nodesData[i], i);
         }
-
         return nodes;
     }
 
     private SkiLift[] parseSkiLifts(String[] skiLiftsData, Node[] nodes) {
         SkiLift[] skiLifts = new SkiLift[skiLiftsData.length];
-        int idx = 0;
-
-        for (String data : skiLiftsData) {
-            skiLifts[idx] = SkiLiftFactory.create(data, idx, nodes);
-            ++idx;
+        for (int i = 0; i < skiLiftsData.length; i++) {
+            skiLifts[i] = SkiLiftFactory.create(skiLiftsData[i], i, nodes);
         }
-
         return skiLifts;
     }
 
     private SkiRun[] parseSkiRuns(String[] skiRunsData, Node[] nodes) {
         SkiRun[] skiRuns = new SkiRun[skiRunsData.length];
-        int idx = 0;
-
-        for (String data : skiRunsData) {
-            skiRuns[idx] = SkiRunFactory.create(data, idx, nodes);
-            ++idx;
+        for (int i = 0; i < skiRunsData.length; i++) {
+            skiRuns[i] = SkiRunFactory.create(skiRunsData[i], i, nodes);
         }
-
         return skiRuns;
     }
 
+    /**
+     * Entry point for reading the physical resort map.
+     * @return A SkiResort object with all nodes, runs, and lifts cross-referenced.
+     */
     public SkiResort readResortData() {
         try {
+            // 1 line per Node, 1 line per Lift, 1 line per Run
             String[] nodesData = scanner.readGroup(1, false);
             String[] skiLiftsData = scanner.readGroup(1, false);
             String[] skiRunsData = scanner.readGroup(1, false);
@@ -67,26 +100,46 @@ public class Input {
             );
 
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("Fatal error parsing resort data: " + e.getMessage());
             System.exit(1);
             return null;
         }
     }
 
+    /* --- Athlete Population Parsing --- */
+
+    /**
+     * Reads athletes and schedules their very first action into the simulation.
+     * @param nodes The already parsed nodes (required to find starting positions).
+     * @param seed Simulation seed for decision making.
+     * @return A PriorityQueue containing the first event for every athlete.
+     */
     public PriorityQueue readAthleteData(Node[] nodes, int seed) {
-        PriorityQueue athletes = new PriorityQueue();
-        String[] athletesData = scanner.readGroup(3, true);
-        int id = 0;
-        for (String data : athletesData) {
-            Scanner athlNumScanner = new Scanner(data);
-            int athlNum = athlNumScanner.nextInt();
-            athlNumScanner.close();
-            for (int i = 0; i < athlNum; ++i, ++id) {
-                Athlete man = AthleteFactory.create(data, i, id, nodes);
-                athletes.push(man.makeDecision(seed, man.getStartTime()));
+        PriorityQueue initialEvents = new PriorityQueue();
+
+        /* Athletes are described in groups. Each group description takes 3 lines:
+         * 1. Count and common attributes
+         * 2. Timing/preferences
+         * 3. Start node / track status
+         */
+        String[] groupsOfAthletes = scanner.readGroup(3, true);
+        int globalId = 0;
+
+        for (String groupData : groupsOfAthletes) {
+            Scanner groupScanner = new Scanner(groupData);
+            int countInThisGroup = groupScanner.nextInt();
+            groupScanner.close();
+
+            // Create 'countInThisGroup' athletes based on the common template in groupData
+            for (int i = 0; i < countInThisGroup; ++i, ++globalId) {
+                Athlete athlete = AthleteFactory.create(groupData, i, globalId, nodes);
+
+                /* * Crucial Step: The simulation starts with athletes making their
+                 * first decision at their specific start times.
+                 */
+                initialEvents.push(athlete.makeDecision(seed, athlete.getStartTime()));
             }
         }
-        return athletes;
+        return initialEvents;
     }
-
 }
