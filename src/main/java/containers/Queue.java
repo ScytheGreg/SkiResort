@@ -32,32 +32,32 @@ public class Queue {
     }
 
     private void pushToEmpty(Event event) {
-        first = new QueueNode(event);
+        first = new QueueNode(event, null, null);
         last = first;
     }
 
     protected boolean edgeCasesPush(Event event) {
         if (event == null)
-            return false;
+            return true;
         if (isEmpty()) {
             pushToEmpty(event);
-            return false;
+            return true;
         }
-        return true;
+        return false;
     }
 
-    protected QueueNode getFirst() {
+    public QueueNode getFirst() {
         return first;
     }
 
-    protected QueueNode getLast() {
+    public QueueNode getLast() {
         return last;
     }
 
     public void push(Event event) {
-        if (!edgeCasesPush(event))
+        if (edgeCasesPush(event))
             return;
-        last.emplaceBefore(event); // Emplace behind new Event
+        last.emplaceBehind(event); // Emplace behind new Event
         last = last.getPrev(); // Move last to new last Event
     }
 

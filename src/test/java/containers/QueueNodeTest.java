@@ -22,7 +22,7 @@ class QueueNodeTest {
 
     @Test
     void testSingleNodeLinksAreNull() {
-        QueueNode node = new QueueNode(e(10, 0, 0));
+        QueueNode node = new QueueNode(e(10, 0, 0), null, null);
 
         assertNull(node.getNext());
         assertNull(node.getPrev());
@@ -30,10 +30,10 @@ class QueueNodeTest {
 
     @Test
     void testEmplaceBehindBasicLink() {
-        QueueNode n1 = new QueueNode(e(10, 0, 0));
-        QueueNode n2 = new QueueNode(e(10, 1, 0));
+        QueueNode n1 = new QueueNode(e(10, 0, 0), null, null);
+        QueueNode n2 = new QueueNode(e(10, 1, 0), null, null);
 
-        n1.emplaceBehind(n2.getValue());
+        n1.emplaceBefore(n2.getValue());
 
         assertNotNull(n1.getNext());
         assertEquals(n2.getValue().getTime(), n1.getNext().getValue().getTime());
@@ -43,10 +43,10 @@ class QueueNodeTest {
 
     @Test
     void testEmplaceBeforeBasicLink() {
-        QueueNode n2 = new QueueNode(e(10, 1, 0));
-        QueueNode n1 = new QueueNode(e(10, 0, 0));
+        QueueNode n2 = new QueueNode(e(10, 1, 0), null, null);
+        QueueNode n1 = new QueueNode(e(10, 0, 0), null, null);
 
-        n2.emplaceBefore(n1.getValue());
+        n2.emplaceBehind(n1.getValue());
 
         assertNotNull(n2.getPrev());
         assertEquals(n1.getValue().getTime(), n2.getPrev().getValue().getTime());
@@ -56,9 +56,9 @@ class QueueNodeTest {
 
     @Test
     void testChainEmplaceBehindMultipleNodes() {
-        QueueNode n1 = new QueueNode(e(9, 0, 0));
-        n1.emplaceBehind(e(9, 1, 0));
-        n1.emplaceBehind(e(9, 2, 0));
+        QueueNode n1 = new QueueNode(e(9, 0, 0), null, null);
+        n1.emplaceBefore(e(9, 1, 0));
+        n1.emplaceBefore(e(9, 2, 0));
 
         QueueNode n2 = n1.getNext();
         QueueNode n3 = n2.getNext();
@@ -76,9 +76,9 @@ class QueueNodeTest {
 
     @Test
     void testChainEmplaceBeforeMultipleNodes() {
-        QueueNode n3 = new QueueNode(e(9, 2, 0));
-        n3.emplaceBefore(e(9, 1, 0));
-        n3.emplaceBefore(e(9, 0, 0));
+        QueueNode n3 = new QueueNode(e(9, 2, 0), null, null);
+        n3.emplaceBehind(e(9, 1, 0));
+        n3.emplaceBehind(e(9, 0, 0));
 
         QueueNode n1 = n3.getPrev().getPrev();
         QueueNode n2 = n3.getPrev();
@@ -94,10 +94,10 @@ class QueueNodeTest {
 
     @Test
     void testMixedEmplaceBeforeAndBehind() {
-        QueueNode middle = new QueueNode(e(12, 0, 0));
+        QueueNode middle = new QueueNode(e(12, 0, 0), null, null);
 
-        middle.emplaceBefore(e(11, 0, 0));
-        middle.emplaceBehind(e(13, 0, 0));
+        middle.emplaceBehind(e(11, 0, 0));
+        middle.emplaceBefore(e(13, 0, 0));
 
         QueueNode prev = middle.getPrev();
         QueueNode next = middle.getNext();

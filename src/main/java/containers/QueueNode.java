@@ -2,13 +2,20 @@ package containers;
 
 import simulation.Event;
 
-class QueueNode {
-    private QueueNode next = null;
-    private QueueNode prev = null;
+public class QueueNode {
+    private QueueNode prev;
+    private QueueNode next;
     private final Event value;
 
-    public QueueNode(Event value){
+    public QueueNode(Event value, QueueNode prev, QueueNode next){
         this.value = value;
+        this.prev = prev; this.next = next;
+        if (prev != null){
+            prev.setNext(this);
+        }
+        if (next != null){
+            next.setPrev(this);
+        }
     }
 
     public QueueNode getNext(){return next;}
@@ -16,25 +23,14 @@ class QueueNode {
     public Event getValue(){return value;}
 
     public void emplaceBefore(Event event){
-        QueueNode other = new QueueNode(event);
-        other.setNext(this);
-        other.setPrev(prev);
-        if(prev != null) {
-            prev.setNext(other);
-        }
-        prev = other;
+        new QueueNode(event, this, next);
     }
 
     public void emplaceBehind(Event event){
-        QueueNode other = new QueueNode(event);
-        other.setPrev(this);
-        other.setNext(next);
-        if(next != null) {
-            next.setPrev(other);
-        }
-        next = other;
+        new QueueNode(event, prev, this);
     }
 
     public void setNext(QueueNode other){next = other;}
     public void setPrev(QueueNode other){prev = other;}
+
 }
