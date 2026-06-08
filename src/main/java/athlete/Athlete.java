@@ -5,7 +5,6 @@ import java.util.Random;
 
 import resort.*;
 import simulation.Event;
-import simulation.QueueUp;
 import simulation.StartARide;
 
 /**
@@ -28,28 +27,20 @@ public abstract class Athlete {
     private final double boredomLure;        // Alpha_z: weight for boredom rate
 
     private final LocalTime startTime;  // When the athlete arrives at the resort
+    private final MemoryOfRuns memory = new MemoryOfRuns(this);
     private Node currentNode;           // Current location in the resort graph
 
-    public Athlete(int id,
-                   int advanceLevel,
-                   double impulsivity,
-                   boolean isTracked,
-                   double boredomRate,
-                   double levelMatchLure,
-                   double runSmoothnessLure,
-                   double boredomLure,
-                   Node startNode,
-                   LocalTime startTime) {
-        this.id = id;
-        this.advanceLevel = advanceLevel;
-        this.impulsivity = impulsivity;
-        this.isTracked = isTracked;
-        this.boredomRate = boredomRate;
-        this.levelMatchLure = levelMatchLure;
-        this.runSmoothnessLure = runSmoothnessLure;
-        this.boredomLure = boredomLure;
-        this.currentNode = startNode;
-        this.startTime = startTime;
+    public Athlete(AthleteParameters p) {
+        this.id = p.id();
+        this.advanceLevel = p.advanceLevel();
+        this.impulsivity = p.impulsivity();
+        this.isTracked = p.isTracked();
+        this.boredomRate = p.boredomRate();
+        this.levelMatchLure = p.levelMatchLure();
+        this.runSmoothnessLure = p.runSmoothnessLure();
+        this.boredomLure = p.boredomLure();
+        this.currentNode = p.startNode();
+        this.startTime = p.startTime();
     }
 
     /**
@@ -89,9 +80,6 @@ public abstract class Athlete {
         return (1 - (difficulty - advanceLevel) / 5.0);
     }
 
-    public double boredomCalculate(SkiRun run){
-        return 1;
-    }
 
     /**
      * Calculates total attractiveness as a weighted average:
@@ -100,8 +88,7 @@ public abstract class Athlete {
     public double finalRunLure(SkiRun run) {
         return levelMatchLure * this.levelMathCalculate(run) +
                 runSmoothnessLure * run.smoothnessCalculate() +
-                boredomLure * this.boredomCalculate(run);
-
+                boredomLure * memory.calculateRunBoredom(run);
     }
 
     public Node getCurrentNode() {
@@ -126,86 +113,32 @@ public abstract class Athlete {
 
     public double getBoredomRate(){ return boredomRate;}
 
-    private boolean isImpulsiveDecision(Random generator) {
+    protected boolean isImpulsiveDecision(Random generator) {
         return generator.nextDouble() <= getImpulsivity();
     }
 
     /**
-     * Handles a spontaneous choice where every available path has equal probability[cite: 109, 110].
+     * Handles a spontaneous choice where every available path has equal probability.
      */
-    private Event makeImpulsiveDecision(Random generator, LocalTime time) {
+    protected Event makeImpulsiveDecision(Random generator, LocalTime time) {
         Node current = getCurrentNode();
         SkiRun[] skiRuns = current.getSkiRuns();
         SkiLift[] skiLifts = current.getSkiLifts();
 
         int n = skiRuns.length + skiLifts.length;
-        if (n == 0) return null; // Should not happen in a strongly connected graph [cite: 13, 14]
+        if (n == 0) return null; // Should not happen in a strongly connected graph
 
         int takenEdge = generator.nextInt(0, n);
         if (takenEdge < skiRuns.length) {
             return new StartARide(time, this, skiRuns[takenEdge]);
         }
-        // If a lift is chosen, the athlete simply enters the queue [cite: 105, 146]
+        // If a lift is chosen, the athlete simply enters the queue
         queueUp(skiLifts[takenEdge - skiRuns.length]);
         return null;
     }
 
     /**
-     * Core decision logic for the athlete[cite: 97].
-     * Considers local runs and runs accessible via one lift to find the best option.
+     * Core decision logic for the athlete.
      */
-    public Event makeDecision(int seed, LocalTime time) {
-        // Stop making new decisions after 15:00:00[cite: 45, 134].
-        if (time.isAfter(LocalTime.of(14, 59, 59))) {
-            return null;
-        }
-
-        // Per-decision generator to ensure unique results per event[cite: 124].
-        Random generator = new Random(time.toSecondOfDay() + seed);
-
-        if (isImpulsiveDecision(generator)) {
-            return makeImpulsiveDecision(generator, time);
-        }
-
-        // 1. Evaluate "Remote" runs: those accessible by taking a lift from here
-        int bestLiftIndex = 0;
-        double bestRemoteSkiRunLure = 0;
-
-        Node current = getCurrentNode();
-        SkiLift[] availableLifts = current.getSkiLifts();
-
-        for (int i = 0; i < availableLifts.length; ++i) {
-            Node topStation = availableLifts[i].getEnd();
-            for (SkiRun potentialRun : topStation.getSkiRuns()) {
-                double runLure = finalRunLure(potentialRun);
-                if (runLure > bestRemoteSkiRunLure) {
-                    bestLiftIndex = i;
-                    bestRemoteSkiRunLure = runLure;
-                }
-            }
-        }
-
-        // 2. Evaluate "Local" runs: those starting directly at the current node
-        double bestLocalSkiRunLure = 0;
-        SkiRun bestLocalSkiRun = null;
-
-        for (SkiRun treatedRun : current.getSkiRuns()) {
-            double runLure = finalRunLure(treatedRun);
-            if (runLure > bestLocalSkiRunLure) {
-                bestLocalSkiRun = treatedRun;
-                bestLocalSkiRunLure = runLure;
-            }
-        }
-
-        // 3. Final Comparison: Pick the most attractive option [cite: 103]
-        if (bestLocalSkiRunLure >= bestRemoteSkiRunLure && bestLocalSkiRun != null) {
-            // Start skiing immediately if a local run is best [cite: 104]
-            return new StartARide(time, this, bestLocalSkiRun);
-        } else if (availableLifts.length > 0) {
-            // Queue up for a lift if a remote run is more attractive [cite: 105]
-            return new QueueUp(time, this, availableLifts[bestLiftIndex]);
-        }
-
-        return null;
-    }
+    public abstract Event makeDecision(int seed, LocalTime time);
 }

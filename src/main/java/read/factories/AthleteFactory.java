@@ -1,6 +1,6 @@
 package read.factories;
 
-import athlete.Athlete;
+import athlete.*;
 import resort.Node;
 
 import java.time.LocalTime;
@@ -37,6 +37,8 @@ public class AthleteFactory {
         // Parameters describing the athlete's skill and behavior
         int advanceLevel = sc.nextInt();
         double impulsivity = sc.nextDouble();
+        double boredomRate = sc.nextDouble();
+        char athleteType = sc.next().charAt(0);
 
         // Check for the optional "s" flag which indicates this athlete's actions should be logged
         boolean isTracked = false;
@@ -48,6 +50,7 @@ public class AthleteFactory {
         // Weighting factors for the rational decision-making algorithm
         double levelMatchLure = sc.nextDouble();
         double runSmoothnessLure = sc.nextDouble();
+        double boredomLure = sc.nextDouble();
 
         // Resolve the starting node object using the ID provided in the input
         Node startNode = nodes[sc.nextInt()];
@@ -75,15 +78,25 @@ public class AthleteFactory {
          */
         LocalTime startTime = baseTime.plusSeconds((long) delay * groupId);
 
-        return new Athlete(
+        AthleteParameters params = new AthleteParameters(
                 id,
                 advanceLevel,
                 impulsivity,
                 isTracked,
+                boredomRate,
                 levelMatchLure,
                 runSmoothnessLure,
+                boredomLure,
                 startNode,
                 startTime
         );
+
+        return switch (athleteType){
+            case 'L' -> new LocalAthlete(params);
+            case 'Z' -> new GreedyAthlete(params);
+            case 'K' -> new CollectorAthlete(params);
+            default -> throw new IllegalArgumentException("Wrong athlete type");
+        };
+
     }
 }

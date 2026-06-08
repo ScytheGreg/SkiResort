@@ -23,7 +23,7 @@ public class MemoryOfRuns {
             this.lastRideTime = takenRunsCnt;
             // Calculate boredom from formula:
             // z_t = (1 - beta) * z_{t - 1} + beta
-            this.lastRideBoredom = calculateRouteBoredom(run) + athlete.getBoredomRate();
+            this.lastRideBoredom = calculateRunBoredom(run) + athlete.getBoredomRate();
         }
 
         public int getLastRideTime() {
@@ -41,7 +41,7 @@ public class MemoryOfRuns {
     // z_k - last ride by this route boredom
     // beta - boredomRate of athlete
     // i - time passed from last run = takenRunsCnt - lastRideTime
-    public double calculateRouteBoredom(SkiRun run) {
+    public double calculateRunBoredom(SkiRun run) {
         if (memory.containsKey(run)) {
             RunMemoryData memberedData = memory.get(run);
             return memberedData.getLastRideBoredom() *
