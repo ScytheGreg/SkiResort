@@ -1,4 +1,4 @@
-import containers.PriorityQueue;
+import containers.CustomPriorityQueue;
 import read.Input;
 import resort.SkiResort;
 import simulation.Simulation;
@@ -37,7 +37,7 @@ public class Main {
 
         // Build the initial population of events (Athletes arriving at the resort)
         // We pass the nodes so athletes can be placed at their starting locations.
-        PriorityQueue athleteEvents = reader.readAthleteData(resort, seed);
+        CustomPriorityQueue athleteEvents = reader.readAthleteData(resort, seed);
 
         // 4. Initialization Phase
         // Create the simulation engine and prime it with lift pickup cycles.

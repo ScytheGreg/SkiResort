@@ -7,7 +7,7 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PriorityQueueTest {
+class CustomPriorityQueueTest {
 
     static class TestEvent extends Event {
         public TestEvent(LocalTime time) {
@@ -22,7 +22,7 @@ class PriorityQueueTest {
 
     @Test
     void testEmptyPriorityQueue() {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         assertTrue(q.isEmpty());
 
@@ -32,7 +32,7 @@ class PriorityQueueTest {
 
     @Test
     void testSingleElementPush() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(10, 0, 0);
 
@@ -44,7 +44,7 @@ class PriorityQueueTest {
 
     @Test
     void testAlreadySortedInsertion() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(9, 0, 0);
         TestEvent e2 = e(9, 5, 0);
@@ -63,7 +63,7 @@ class PriorityQueueTest {
 
     @Test
     void testReverseOrderInsertion() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(9, 10, 0);
         TestEvent e2 = e(9, 5, 0);
@@ -82,7 +82,7 @@ class PriorityQueueTest {
 
     @Test
     void testRandomInsertionOrder() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(12, 30, 0);
         TestEvent e2 = e(8, 15, 0);
@@ -104,7 +104,7 @@ class PriorityQueueTest {
 
     @Test
     void testEqualTimesPreserveInsertionOrder() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(9, 0, 0);
         TestEvent e2 = e(9, 0, 0);
@@ -125,7 +125,7 @@ class PriorityQueueTest {
 
     @Test
     void testMixedEqualAndDifferentTimes() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         TestEvent e1 = e(9, 0, 0);
         TestEvent e2 = e(9, 5, 0);
@@ -145,7 +145,7 @@ class PriorityQueueTest {
 
     @Test
     void testNullPushIgnored() {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         q.push(null);
 
@@ -154,7 +154,7 @@ class PriorityQueueTest {
 
     @Test
     void testPopAfterPriorityInsertions() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         q.push(e(10, 0, 0));
         q.push(e(9, 0, 0));
@@ -173,7 +173,7 @@ class PriorityQueueTest {
 
     @Test
     void testLargeInsertionSequence() throws Exception {
-        PriorityQueue q = new PriorityQueue();
+        CustomPriorityQueue q = new CustomPriorityQueue();
 
         for (int i = 59; i >= 0; --i) {
             q.push(e(9, i, 0));

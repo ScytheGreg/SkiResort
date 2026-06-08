@@ -1,7 +1,7 @@
 package read;
 
 import athlete.*;
-import containers.PriorityQueue;
+import containers.CustomPriorityQueue;
 import read.factories.AthleteFactory;
 import resort.*;
 import read.factories.NodeFactory;
@@ -114,8 +114,8 @@ public class Input {
      * @param seed Simulation seed for decision making.
      * @return A PriorityQueue containing the first event for every athlete.
      */
-    public PriorityQueue readAthleteData(SkiResort resort, int seed) {
-        PriorityQueue initialEvents = new PriorityQueue();
+    public CustomPriorityQueue readAthleteData(SkiResort resort, int seed) {
+        CustomPriorityQueue initialEvents = new CustomPriorityQueue();
         Node[] nodes = resort.getNodes();
         /* Athletes are described in groups. Each group description takes 3 lines:
          * 1. Count and common attributes
