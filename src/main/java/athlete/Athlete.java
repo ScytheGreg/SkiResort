@@ -30,6 +30,8 @@ public abstract class Athlete {
     private final LocalTime startTime;  // When the athlete arrives at the resort
     private final MemoryOfRuns memory = new MemoryOfRuns(this);
     private Node currentNode;           // Current location in the resort graph
+    private final SkiResort resort;     // Reference to resort for planners
+
 
     public Athlete(AthleteParameters p) {
         this.id = p.id();
@@ -42,6 +44,7 @@ public abstract class Athlete {
         this.boredomLure = p.boredomLure();
         this.currentNode = p.startNode();
         this.startTime = p.startTime();
+        this.resort = p.resort();
     }
 
     /**
@@ -113,6 +116,8 @@ public abstract class Athlete {
     }
 
     public double getBoredomRate(){ return boredomRate;}
+
+    public SkiResort getResort() { return resort;}
 
     protected boolean isImpulsiveDecision(Random generator) {
         return generator.nextDouble() <= getImpulsivity();

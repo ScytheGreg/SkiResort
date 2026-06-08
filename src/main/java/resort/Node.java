@@ -62,6 +62,16 @@ public class Node {
         return skiLifts;
     }
 
+    public Edge[] getEdges(){
+        Edge[] result = new Edge[skiRuns.length + skiLifts.length];
+
+        System.arraycopy(skiRuns, 0, result, 0, skiRuns.length);
+        System.arraycopy(skiLifts, 0, result, skiRuns.length, skiLifts.length);
+
+        return result;
+    }
+
+
     public int getHeight() {
         return height;
     }

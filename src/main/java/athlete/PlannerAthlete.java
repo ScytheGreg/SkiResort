@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 public abstract class PlannerAthlete extends Athlete{
-    private RoutePlan plan = new RoutePlan();
+    private RoutePlan plan;
     public PlannerAthlete(AthleteParameters p){
         super(p);
     }
@@ -27,7 +27,9 @@ public abstract class PlannerAthlete extends Athlete{
             if (isImpulsiveDecision(gen)){
                 return makeImpulsiveDecision(gen, time);
             }
-            plan = ResortRoutesPlanner.shortestRoute(getCurrentNode(), chooseNextRun().getBeginning());
+
+            ResortRoutesPlanner planner = ResortRoutesPlanner.getInstance(getResort());
+            plan = planner.shortestRoute(getCurrentNode(), chooseNextRun().getBeginning());
         }
        return plan.next().beChoosenByAthlete(this, time);
     }

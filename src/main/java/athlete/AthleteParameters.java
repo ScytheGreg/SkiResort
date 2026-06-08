@@ -1,6 +1,7 @@
 package athlete;
 
 import resort.Node;
+import resort.SkiResort;
 
 import java.time.LocalTime;
 
@@ -14,5 +15,6 @@ public record AthleteParameters(
         double runSmoothnessLure,
         double boredomLure,
         Node startNode,
-        LocalTime startTime
+        LocalTime startTime,
+        SkiResort resort
 ) {}
