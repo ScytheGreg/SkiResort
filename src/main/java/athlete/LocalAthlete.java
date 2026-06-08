@@ -66,10 +66,10 @@ public class LocalAthlete extends Athlete{
         // 3. Final Comparison: Pick the most attractive option [cite: 103]
         if (bestLocalSkiRunLure >= bestRemoteSkiRunLure && bestLocalSkiRun != null) {
             // Start skiing immediately if a local run is best [cite: 104]
-            return new StartARide(time, this, bestLocalSkiRun);
+            return bestLocalSkiRun.beChoosenByAthlete(this, time);
         } else if (availableLifts.length > 0) {
             // Queue up for a lift if a remote run is more attractive [cite: 105]
-            return new QueueUp(time, this, availableLifts[bestLiftIndex]);
+            return availableLifts[bestLiftIndex].beChoosenByAthlete(this, time);
         }
 
         return null;

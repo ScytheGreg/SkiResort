@@ -19,6 +19,7 @@ public abstract class PlannerAthlete extends Athlete{
         if (plan.isEmpty()){
             plan = ResortRoutesPlanner.shortestRoute(getCurrentNode(), chooseNextRun().getBeginning());
         }
+       return plan.next().beChoosenByAthlete(this, time);
     }
 
 }

@@ -1,5 +1,6 @@
 package athlete;
 
+import resort.SkiRun;
 import simulation.Event;
 import simulation.PickUpPassengers;
 
@@ -9,7 +10,7 @@ public class CollectorAthlete extends PlannerAthlete{
     public CollectorAthlete(AthleteParameters p){
         super(p);
     }
-    public Event makeDecision(int seed, LocalTime time){
-        return new PickUpPassengers(time, getCurrentNode().getSkiLifts()[0]);
+    public SkiRun chooseNextRun(){
+        return getCurrentNode().getSkiRuns()[0];
     }
 }

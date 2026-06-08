@@ -92,4 +92,8 @@ public class SkiLift extends Edge {
          */
         waiting.push(new StartARide(null, athlete, this));
     }
+
+    public Event beChoosenByAthlete(Athlete athlete, LocalTime time){
+        return new QueueUp(time, athlete, this);
+    }
 }

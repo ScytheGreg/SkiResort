@@ -1,6 +1,10 @@
 package resort;
 
 import athlete.Athlete;
+import simulation.Event;
+import simulation.StartARide;
+
+import java.time.LocalTime;
 
 /**
  * Represents a downhill ski run (trasa zjazdowa).
@@ -59,5 +63,9 @@ public class SkiRun extends Edge {
     @Override
     public void addWaiting(Athlete athlete) {
         // No queueing logic needed for downhill runs.
+    }
+
+    public Event beChoosenByAthlete(Athlete athlete, LocalTime time) {
+        return new StartARide(time, athlete, this);
     }
 }

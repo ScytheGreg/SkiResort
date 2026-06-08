@@ -1,9 +1,12 @@
 package resort;
 
 import athlete.Athlete;
+import simulation.Event;
+
+import java.time.LocalTime;
 
 /**
- * Represents a directed connection (krawędź) in the ski resort graph.
+ * Represents a directed connection in the ski resort graph.
  * This is an abstract base for both downhill runs and uphill lifts.
  */
 public abstract class Edge {
@@ -88,4 +91,5 @@ public abstract class Edge {
      * For runs, this might start the ride immediately.
      */
     abstract public void addWaiting(Athlete athlete);
+    abstract public Event beChoosenByAthlete(Athlete athlete, LocalTime time);
 }

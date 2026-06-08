@@ -58,8 +58,8 @@ public abstract class Athlete {
     /**
      * Places the athlete in the waiting line for a specific lift[cite: 32, 146].
      */
-    public void queueUp(Edge lift) {
-        lift.addWaiting(this);
+    public void queueUp(Edge edge) {
+        edge.addWaiting(this);
     }
 
     /**
@@ -130,10 +130,10 @@ public abstract class Athlete {
 
         int takenEdge = generator.nextInt(0, n);
         if (takenEdge < skiRuns.length) {
-            return new StartARide(time, this, skiRuns[takenEdge]);
+            return skiRuns[takenEdge].beChoosenByAthlete(this, time);
         }
         // If a lift is chosen, the athlete simply enters the queue
-        queueUp(skiLifts[takenEdge - skiRuns.length]);
+        skiLifts[takenEdge - skiRuns.length].beChoosenByAthlete(this, time);
         return null;
     }
 

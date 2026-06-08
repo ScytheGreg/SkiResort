@@ -1,6 +1,7 @@
 package athlete;
 
 import containers.Queue;
+import resort.SkiRun;
 import simulation.Event;
 import simulation.PickUpPassengers;
 import simulation.QueueUp;
@@ -11,8 +12,8 @@ public class GreedyAthlete extends PlannerAthlete{
     public GreedyAthlete(AthleteParameters p){
         super(p);
     }
-    public Event makeDecision(int seed, LocalTime time){
-        return new PickUpPassengers(time, getCurrentNode().getSkiLifts()[0]);
+    public SkiRun chooseNextRun(){
+        return getCurrentNode().getSkiRuns()[0];
     }
 
 }
