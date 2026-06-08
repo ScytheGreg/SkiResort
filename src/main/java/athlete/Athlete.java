@@ -3,6 +3,7 @@ package athlete;
 import java.time.LocalTime;
 import java.util.Random;
 
+import randomness.UniqueGenerator;
 import resort.*;
 import simulation.Event;
 import simulation.StartARide;

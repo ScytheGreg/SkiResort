@@ -1,5 +1,6 @@
 package athlete;
 
+import randomness.UniqueGenerator;
 import resort.Node;
 import resort.SkiLift;
 import resort.SkiRun;
@@ -26,8 +27,8 @@ public class LocalAthlete extends Athlete{
             return null;
         }
 
-        // Per-decision generator to ensure unique results per event[cite: 124].
-        Random generator = new Random(time.toSecondOfDay() + seed);
+        // Draw unique generator
+        Random generator = UniqueGenerator.getGen(seed);
 
         if (isImpulsiveDecision(generator)) {
             return makeImpulsiveDecision(generator, time);
