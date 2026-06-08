@@ -28,7 +28,7 @@ public class RoutePlan {
         return result;
     }
 
-    public int size(){
+    public int length(){
         return plan.size();
     }
 

@@ -65,6 +65,12 @@ public class SkiRun extends Edge {
         // No queueing logic needed for downhill runs.
     }
 
+    @Override
+    public void takeARide(Athlete athlete) {
+        super.takeARide(athlete);
+        athlete.takeARun(this);
+    }
+
     public Event beChoosenByAthlete(Athlete athlete, LocalTime time) {
         return new StartARide(time, athlete, this);
     }

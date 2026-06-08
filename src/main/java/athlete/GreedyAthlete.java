@@ -12,8 +12,17 @@ public class GreedyAthlete extends PlannerAthlete{
     public GreedyAthlete(AthleteParameters p){
         super(p);
     }
+
     public SkiRun chooseNextRun(){
-        return getCurrentNode().getSkiRuns()[0];
+        double bestSkiRunLure = Double.MIN_VALUE;
+        SkiRun bestSkiRun = null;
+        for (SkiRun skiRun : getResort().getSkiRuns()){
+            if (finalRunLure(skiRun) > bestSkiRunLure){
+                bestSkiRun = skiRun;
+                bestSkiRunLure = finalRunLure(skiRun);
+            }
+        }
+        return bestSkiRun;
     }
 
 }

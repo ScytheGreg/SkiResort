@@ -55,6 +55,10 @@ public abstract class Athlete {
         currentNode = edge.getEnd();
     }
 
+    public void takeARun(SkiRun run){
+        memory.takeARun(run);
+    }
+
     public LocalTime getStartTime() {
         return startTime;
     }

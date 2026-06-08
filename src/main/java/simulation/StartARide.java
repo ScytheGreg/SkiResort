@@ -31,7 +31,7 @@ public class StartARide extends AthleteEvent {
 
         // Increment the total number of people who have used this run/lift
         // This is critical for SkiRun surface degradation (smoothness)
-        getEdge().takeARide();
+        getEdge().takeARide(getAthlete());
 
         /* * Logic: We schedule the end of this ride.
          * The end time = current time + the constant rideTime of the edge.

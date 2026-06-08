@@ -56,7 +56,7 @@ public abstract class Edge {
      * Increments the counter whenever an athlete completes a ride or starts a trip,
      * depending on your simulation's event timing.
      */
-    public void takeARide() {
+    public void takeARide(Athlete athlete) {
         ++servedAthletesCnt;
     }
 
