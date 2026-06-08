@@ -7,7 +7,7 @@ import simulation.QueueUp;
 
 import java.time.LocalTime;
 
-public class GreedyAthlete extends Athlete{
+public class GreedyAthlete extends PlannerAthlete{
     public GreedyAthlete(AthleteParameters p){
         super(p);
     }

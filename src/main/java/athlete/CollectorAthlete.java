@@ -5,7 +5,7 @@ import simulation.PickUpPassengers;
 
 import java.time.LocalTime;
 
-public class CollectorAthlete extends Athlete{
+public class CollectorAthlete extends PlannerAthlete{
     public CollectorAthlete(AthleteParameters p){
         super(p);
     }
