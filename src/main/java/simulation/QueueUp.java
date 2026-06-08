@@ -34,7 +34,7 @@ public class QueueUp extends AthleteEvent {
          * The athlete will remain in this "limbo" until a
          * PickUpPassengers event processes them.
          */
-        getAthlete().queueUp(getEdge());
+        getAthlete().queueUp(getEdge(), getTime());
 
         return result;
     }

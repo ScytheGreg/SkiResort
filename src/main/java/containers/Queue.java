@@ -5,6 +5,7 @@ import simulation.Event;
 public class Queue {
     QueueNode first = null;
     QueueNode last = null;
+    private int lenght = 0;
 
     public boolean isEmpty() {
         return first == null;
@@ -24,6 +25,7 @@ public class Queue {
         }
         first = first.getPrev();
         first.setNext(null);
+        --lenght;
     }
 
     protected void adjustEnds() {
@@ -59,6 +61,7 @@ public class Queue {
             return;
         last.emplaceBehind(event); // Emplace behind new Event
         last = last.getPrev(); // Move last to new last Event
+        ++lenght;
     }
 
     public Event getFront() throws emptyContainerException {
@@ -70,5 +73,9 @@ public class Queue {
         Event result = getFront();
         pop();
         return result;
+    }
+
+    public int size(){
+        return lenght;
     }
 }

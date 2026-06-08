@@ -90,6 +90,6 @@ public abstract class Edge {
      * For lifts, this involves a queue[cite: 32, 145].
      * For runs, this might start the ride immediately.
      */
-    abstract public void addWaiting(Athlete athlete);
+    abstract public void addWaiting(Athlete athlete, LocalTime time);
     abstract public Event beChoosenByAthlete(Athlete athlete, LocalTime time);
 }

@@ -66,8 +66,8 @@ public abstract class Athlete {
     /**
      * Places the athlete in the waiting line for a specific lift[cite: 32, 146].
      */
-    public void queueUp(Edge edge) {
-        edge.addWaiting(this);
+    public void queueUp(Edge edge, LocalTime time) {
+        edge.addWaiting(this, time);
     }
 
     /**

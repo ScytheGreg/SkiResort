@@ -61,7 +61,7 @@ public class SkiRun extends Edge {
      * in the simulation logic, so this method remains empty.
      */
     @Override
-    public void addWaiting(Athlete athlete) {
+    public void addWaiting(Athlete athlete, LocalTime time) {
         // No queueing logic needed for downhill runs.
     }
 
