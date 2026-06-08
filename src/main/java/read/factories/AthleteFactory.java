@@ -2,6 +2,7 @@ package read.factories;
 
 import athlete.*;
 import resort.Node;
+import resort.SkiResort;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -19,13 +20,14 @@ public class AthleteFactory {
      * * @param data      The multi-line string containing the group's parameters.
      * @param groupId   The index of the athlete within this specific group (0 to N-1).
      * @param id        The unique global ID to assign to this athlete.
-     * @param nodes     The array of resort nodes to resolve the starting position.
+     * @param resort    Every athlete gets plan of resort he is present
      * @return A fully initialized Athlete object.
      */
     public static Athlete create(String data,
                                  int groupId,
                                  int id,
-                                 Node[] nodes) {
+                                 SkiResort resort) {
+        Node[] nodes = resort.getNodes(); // To resolve the starting position
 
         Scanner sc = new Scanner(data);
         // Force ENGLISH locale to ensure double values (e.g., 0.5) are parsed correctly regardless of system settings
@@ -88,7 +90,8 @@ public class AthleteFactory {
                 runSmoothnessLure,
                 boredomLure,
                 startNode,
-                startTime
+                startTime,
+                resort
         );
 
         return switch (athleteType){

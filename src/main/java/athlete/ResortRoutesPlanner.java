@@ -6,7 +6,7 @@ import resort.SkiResort;
 
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Queue;
+
 
 class ResortRoutesPlanner {
     private SkiResort resort;

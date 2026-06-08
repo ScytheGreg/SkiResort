@@ -110,13 +110,13 @@ public class Input {
 
     /**
      * Reads athletes and schedules their very first action into the simulation.
-     * @param nodes The already parsed nodes (required to find starting positions).
+     * @param resort The already parsed resort (required in athlete constructor)
      * @param seed Simulation seed for decision making.
      * @return A PriorityQueue containing the first event for every athlete.
      */
-    public PriorityQueue readAthleteData(Node[] nodes, int seed) {
+    public PriorityQueue readAthleteData(SkiResort resort, int seed) {
         PriorityQueue initialEvents = new PriorityQueue();
-
+        Node[] nodes = resort.getNodes();
         /* Athletes are described in groups. Each group description takes 3 lines:
          * 1. Count and common attributes
          * 2. Timing/preferences
@@ -132,7 +132,7 @@ public class Input {
 
             // Create 'countInThisGroup' athletes based on the common template in groupData
             for (int i = 0; i < countInThisGroup; ++i, ++globalId) {
-                Athlete athlete = AthleteFactory.create(groupData, i, globalId, nodes);
+                Athlete athlete = AthleteFactory.create(groupData, i, globalId, resort);
 
                 /* * Crucial Step: The simulation starts with athletes making their
                  * first decision at their specific start times.
