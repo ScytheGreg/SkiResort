@@ -83,12 +83,12 @@ public abstract class Athlete {
 
     /**
      * Calculates total attractiveness as a weighted average:
-     * $a = \alpha_d \cdot d + \alpha_w \cdot w + \alpha_z \cdot z$
+     * $a = \alpha_d \cdot d + \alpha_w \cdot w + \alpha_z \cdot (1 - z)$
      */
     public double finalRunLure(SkiRun run) {
         return levelMatchLure * this.levelMathCalculate(run) +
                 runSmoothnessLure * run.smoothnessCalculate() +
-                boredomLure * memory.calculateRunBoredom(run);
+                boredomLure * (1 - memory.calculateRunBoredom(run));
     }
 
     public Node getCurrentNode() {
