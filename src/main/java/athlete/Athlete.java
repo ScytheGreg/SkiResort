@@ -9,38 +9,45 @@ import simulation.QueueUp;
 import simulation.StartARide;
 
 /**
- * Represents a skier or snowboarder in the simulation[cite: 6].
+ * Represents a skier or snowboarder in the simulation.
  * The athlete moves between nodes using ski runs and lifts based on
- * attractiveness and spontaneity[cite: 43, 98].
+ * attractiveness and spontaneity.
  */
-public class Athlete {
-    // Basic identification and characteristics [cite: 52, 225]
+public abstract class Athlete {
+    // Basic identification and characteristics
     private final int id;
-    private final int advanceLevel;     // Skill level (0-10) [cite: 52]
+    private final int advanceLevel;     // Skill level (0-10)
     private final double impulsivity;   // Probability (epsilon) of a spontaneous choice
-    private final boolean isTracked;    // Whether to print activity logs for this athlete [cite: 160]
+    private final boolean isTracked;    // Whether to print activity logs for this athlete
+    private final double boredomRate;       // Rate of getting sick of runs
 
-    // Preference weights for calculating attractiveness [cite: 93, 226]
+
+    // Preference weights for calculating attractiveness
     private final double levelMatchLure;     // Alpha_d: weight for difficulty matching
     private final double runSmoothnessLure;  // Alpha_w: weight for surface quality
+    private final double boredomLure;        // Alpha_z: weight for boredom rate
 
-    private final LocalTime startTime;  // When the athlete arrives at the resort [cite: 42]
-    private Node currentNode;           // Current location in the resort graph [cite: 15, 98]
+    private final LocalTime startTime;  // When the athlete arrives at the resort
+    private Node currentNode;           // Current location in the resort graph
 
     public Athlete(int id,
                    int advanceLevel,
                    double impulsivity,
                    boolean isTracked,
+                   double boredomRate,
                    double levelMatchLure,
                    double runSmoothnessLure,
+                   double boredomLure,
                    Node startNode,
                    LocalTime startTime) {
         this.id = id;
         this.advanceLevel = advanceLevel;
         this.impulsivity = impulsivity;
         this.isTracked = isTracked;
+        this.boredomRate = boredomRate;
         this.levelMatchLure = levelMatchLure;
         this.runSmoothnessLure = runSmoothnessLure;
+        this.boredomLure = boredomLure;
         this.currentNode = startNode;
         this.startTime = startTime;
     }
@@ -66,7 +73,7 @@ public class Athlete {
 
     /**
      * Calculates the difficulty match attractiveness $d(p_t, p_n)$[cite: 60].
-     * * Formula logic[cite: 64, 65, 66]:
+     * * Formula logic:
      * - 0 if the run is 5+ levels too hard.
      * - $1 - \frac{p_t - p_n}{5}$ if the run is harder but within 5 levels.
      * - $\max(0.2, 1 - \frac{p_n - p_t}{7})$ if the run is easier than the athlete's level.
@@ -82,13 +89,19 @@ public class Athlete {
         return (1 - (difficulty - advanceLevel) / 5.0);
     }
 
+    public double boredomCalculate(SkiRun run){
+        return 1;
+    }
+
     /**
-     * Calculates total attractiveness as a weighted average[cite: 90, 92]:
-     * $a = \alpha_d \cdot d + \alpha_w \cdot w$
+     * Calculates total attractiveness as a weighted average:
+     * $a = \alpha_d \cdot d + \alpha_w \cdot w + \alpha_z \cdot z$
      */
     public double finalRunLure(SkiRun run) {
         return levelMatchLure * this.levelMathCalculate(run) +
-                runSmoothnessLure * run.smoothnessCalculate();
+                runSmoothnessLure * run.smoothnessCalculate() +
+                boredomLure * this.boredomCalculate(run);
+
     }
 
     public Node getCurrentNode() {
@@ -110,6 +123,8 @@ public class Athlete {
     public boolean isTracked() {
         return isTracked;
     }
+
+    public double getBoredomRate(){ return boredomRate;}
 
     private boolean isImpulsiveDecision(Random generator) {
         return generator.nextDouble() <= getImpulsivity();
