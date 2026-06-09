@@ -18,6 +18,7 @@ public class Queue {
 
     public void pop() throws emptyContainerException {
         if (isEmpty()) throw new emptyContainerException();
+        --lenght;
         if (isSingular()) {
             first = null;
             last = null;
@@ -25,7 +26,6 @@ public class Queue {
         }
         first = first.getPrev();
         first.setNext(null);
-        --lenght;
     }
 
     protected void adjustEnds() {
@@ -57,11 +57,11 @@ public class Queue {
     }
 
     public void push(Event event) {
+        ++lenght;
         if (edgeCasesPush(event))
             return;
         last.emplaceBehind(event); // Emplace behind new Event
         last = last.getPrev(); // Move last to new last Event
-        ++lenght;
     }
 
     public Event getFront() throws emptyContainerException {
