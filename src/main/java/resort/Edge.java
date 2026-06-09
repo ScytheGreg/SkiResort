@@ -74,8 +74,8 @@ public abstract class Edge {
         }
     }
 
-    public HashMap<Athlete, ArrayList<Integer>> getHistory(){
-        return history;
+    public ArrayList<Integer> getHistory(Athlete athlete){
+        return history.get(athlete);
     }
 
     /**
