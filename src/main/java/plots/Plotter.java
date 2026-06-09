@@ -1,6 +1,7 @@
 package plots;
 
 import kadra.mapki.GeneratorMapek;
+
 import resort.SkiResort;
 import kadra.mapki.styl.*;
 import resort.*;
@@ -8,8 +9,8 @@ import resort.*;
 import java.util.LinkedList;
 
 public abstract class Plotter {
-    protected abstract SkiRunLabel runLabel();
-    protected abstract SkiLiftLabel liftLabel();
+    protected abstract LinkedList<String> runLabel(SkiRun run);
+    protected abstract LinkedList<String> liftLabel(SkiLift lift);
 
     public  void plotResort( SkiResort resort, String fileName, GeneratorMapek plotter){
         plotter.zeruj();
@@ -39,7 +40,7 @@ public abstract class Plotter {
 
     private void plotSkiRuns(GeneratorMapek plotter, SkiRun[] skiRuns) {
         for (SkiRun run : skiRuns) {
-            LinkedList<String> label = runLabel().getLabel(run);
+            LinkedList<String> label = runLabel(run);
             StylKrawedzi style = new StylKrawedzi(StylLinii.CIAGLA);
             plotEdge(run, style, label, plotter);
         }
@@ -47,7 +48,7 @@ public abstract class Plotter {
 
     private void plotSkiLifts(GeneratorMapek plotter, SkiLift[] skiLifts) {
         for (SkiLift lift : skiLifts){
-            LinkedList<String> label = liftLabel().getLabel(lift);
+            LinkedList<String> label = liftLabel(lift);
             StylKrawedzi style = new StylKrawedzi(StylLinii.PRZERYWANA);
             plotEdge(lift, style, label, plotter);
         }

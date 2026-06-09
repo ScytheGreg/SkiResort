@@ -74,4 +74,12 @@ public class SkiRun extends Edge {
     public Event beChoosenByAthlete(Athlete athlete, LocalTime time) {
         return new StartARide(time, athlete, this);
     }
+
+    public double getBaseLure(){
+        return baseLure;
+    }
+
+    public double getToughness(){
+        return toughness;
+    }
 }
