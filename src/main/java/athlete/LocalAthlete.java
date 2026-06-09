@@ -9,9 +9,9 @@ import simulation.Event;
 import java.time.LocalTime;
 import java.util.Random;
 
-public class LocalAthlete extends Athlete{
+public class LocalAthlete extends Athlete {
 
-    public LocalAthlete(AthleteParameters p){
+    public LocalAthlete(AthleteParameters p) {
         super(p);
     }
 
@@ -28,6 +28,7 @@ public class LocalAthlete extends Athlete{
         // Draw unique generator
         Random generator = UniqueGenerator.getGen(seed);
 
+        // Decide if performing impulsive decision
         if (isImpulsiveDecision(generator)) {
             return makeImpulsiveDecision(generator, time);
         }

@@ -12,14 +12,16 @@ import simulation.Event;
 /**
  * Represents a skier or snowboarder in the simulation.
  * The athlete moves between nodes using ski runs and lifts based on
- * attractiveness and spontaneity.
+ * attractiveness and spontaneity and boredom. Every athlete must implement
+ * 'makeDesicion' method depending on preferences.
+ * Class implements observer pattern
  */
 public abstract class Athlete {
     // Basic identification and characteristics
     private final int id;
     private final int advanceLevel;     // Skill level (0-10)
     private final double impulsivity;   // Probability (epsilon) of a spontaneous choice
-    private final double boredomRate;       // Rate of getting sick of runs
+    private final double boredomRate;   // Rate of getting sick of runs
 
 
     // Preference weights for calculating attractiveness
@@ -28,6 +30,7 @@ public abstract class Athlete {
     private final double boredomLure;        // Alpha_z: weight for boredom rate
 
     private final LocalTime startTime;  // When the athlete arrives at the resort
+    // Represents athlete memory. Provides boredom calculation
     private final AthletesMemoryOfRuns memory = new AthletesMemoryOfRuns(this);
     private Node currentNode;           // Current location in the resort graph
     private final SkiResort resort;     // Reference to resort for planners
@@ -57,21 +60,27 @@ public abstract class Athlete {
         currentNode = edge.getEnd();
     }
 
-    public void performAction(AthleteEvent event){
-        for (AthleteObserver observer : observers){
+
+    /*
+     * Invokes observers after an AthleteEvent has happened
+     */
+    public void performAction(AthleteEvent event) {
+        for (AthleteObserver observer : observers) {
             observer.update(event);
         }
     }
 
-    public void attachObserver(AthleteObserver observer){
+    // Standard observer methods
+    public void attachObserver(AthleteObserver observer) {
         observers.add(observer);
     }
 
-    public void detachObserver(AthleteObserver observer){
+    public void detachObserver(AthleteObserver observer) {
         observers.remove(observer);
     }
 
-    public void takeARun(SkiRun run){
+    // Triggers memory to member just taken run
+    public void takeARun(SkiRun run) {
         memory.takeARun(run);
     }
 
@@ -131,9 +140,13 @@ public abstract class Athlete {
         return advanceLevel;
     }
 
-    public double getBoredomRate(){ return boredomRate;}
+    public double getBoredomRate() {
+        return boredomRate;
+    }
 
-    public SkiResort getResort() { return resort;}
+    public SkiResort getResort() {
+        return resort;
+    }
 
     protected boolean isImpulsiveDecision(Random generator) {
         return generator.nextDouble() <= getImpulsivity();
@@ -164,7 +177,7 @@ public abstract class Athlete {
     public abstract Event makeDecision(int seed, LocalTime time);
 
     @Override
-    public String toString(){
+    public String toString() {
         return "a" + getId();
     }
 }

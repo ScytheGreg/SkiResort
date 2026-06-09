@@ -3,11 +3,8 @@ package read;
 import athlete.*;
 import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
-import read.factories.AthleteFactory;
+import read.factories.*;
 import resort.*;
-import read.factories.NodeFactory;
-import read.factories.SkiLiftFactory;
-import read.factories.SkiRunFactory;
 
 import java.util.ArrayList;
 import java.util.Scanner;

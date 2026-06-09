@@ -16,4 +16,5 @@ public record AthleteParameters(
         Node startNode,
         LocalTime startTime,
         SkiResort resort
-) {}
+) {
+}
