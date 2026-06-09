@@ -10,19 +10,20 @@ public class EdgesStatsPlotter extends Plotter{
 
     protected LinkedList<String> liftLabel(SkiLift lift){
         LinkedList<String> result =  new LinkedList<>();
-        result.add(lift + ": que: " + lift.getAverageQueueLength(LocalTime.of(15,0))
+        result.add(lift + ": que: " +
+                String.format("%.2f", lift.getAverageQueueLength(LocalTime.of(15,0)))
                 + "(av), " + lift.getMaxQueueLength() + "(max)");
                 result.add("usage: " + lift.getServedAthletesCnt() + " / " +
                 lift.getMaximumPossibleThroughput() +
-                "(" + lift.getUsage() + "%)");
-
+                " (" + lift.getUsagePercentage() + "%)");
         return result;
     }
 
     protected LinkedList<String> runLabel(SkiRun run){
         LinkedList<String> result =  new LinkedList<>();
-        result.add(run + ": snow: " + run.smoothnessCalculate());
-        result.add("runs:" + run.getServedAthletesCnt());
+        result.add(run + ": snow: " +
+                String.format("%.2f", run.smoothnessCalculate()));
+        result.add("runs: " + run.getServedAthletesCnt());
         return result;
     }
 }

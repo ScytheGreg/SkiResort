@@ -54,7 +54,7 @@ public class CollectorAthlete extends PlannerAthlete {
                 bestLureCandidate = run;
             }
         }
-
+        ++runsCnt[bestLureCandidate.getId()];
         return bestLureCandidate;
     }
 }

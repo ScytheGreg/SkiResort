@@ -20,7 +20,8 @@ public class EdgesParametersPlotter extends Plotter{
         LinkedList<String> result =  new LinkedList<>();
         result.add(run + ": level: " + run.getAdvanceLevel()
         +", time: " + run.getRideTime() + "s");
-        result.add("toughness: " + run.getBaseLure()+ ", " + run.getToughness());
+        result.add("toughness: " + String.format("%.2f", run.getBaseLure())
+                + ", " + String.format("%.5f", run.getToughness()));
         return result;
     }
 }

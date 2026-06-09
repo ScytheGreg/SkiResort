@@ -8,7 +8,7 @@ import simulation.*;
 import java.time.LocalTime;
 
 /**
- * Represents a ski lift (wyciąg) that transports athletes from a lower node to a higher one.
+ * Represents a ski lift that transports athletes from a lower node to a higher one.
  * Lifts operate on a periodic cycle (frequency) and have a limited number of seats (capacity).
  */
 public class SkiLift extends Edge {
@@ -123,8 +123,8 @@ public class SkiLift extends Edge {
         return maximumPossibleThroughput;
     }
 
-    public double getUsage(){
-        return maximumPossibleThroughput / (double) getServedAthletesCnt();
+    public int getUsagePercentage(){
+        return 100 * (int) (maximumPossibleThroughput / getServedAthletesCnt());
     }
 
 
