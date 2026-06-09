@@ -5,7 +5,7 @@ import containers.CustomPriorityQueue;
 
 import java.util.ArrayList;
 
-public record AthleteData(
+public record AthletesInputData(
         CustomPriorityQueue queue,
         ArrayList<HistoryObserver> historyObservers
 ) {

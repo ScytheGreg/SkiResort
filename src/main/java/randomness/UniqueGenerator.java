@@ -2,6 +2,9 @@ package randomness;
 
 import java.util.Random;
 
+/**
+ * SINGULARITY
+ */
 public class UniqueGenerator {
     private static UniqueGenerator uniqueGenerator;
     private static Random gen;

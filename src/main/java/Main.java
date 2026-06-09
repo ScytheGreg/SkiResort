@@ -6,15 +6,14 @@ import org.apache.commons.io.FileUtils;
 import plots.AthleteHistoryPlotter;
 import plots.EdgesParametersPlotter;
 import plots.EdgesStatsPlotter;
-import read.AthleteData;
+import read.AthletesInputData;
 import read.Input;
 import resort.SkiResort;
+import simulation.PickUpPassengers;
 import simulation.Simulation;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.IOException;
 
 /**
  * Entry point for the Ski Resort Simulation.
@@ -53,8 +52,8 @@ public class Main {
 
         // Build the initial population of events (Athletes arriving at the resort)
         // We pass the nodes so athletes can be placed at their starting locations.
-        AthleteData athleteData = reader.readAthleteData(resort, seed);
-        CustomPriorityQueue athleteEvents = athleteData.queue();
+        AthletesInputData athletesInputData = reader.readAthleteData(resort, seed);
+        CustomPriorityQueue athleteEvents = athletesInputData.queue();
 
         // 4. Initialization Phase
         // Create the simulation engine and prime it with lift pickup cycles.
@@ -81,7 +80,7 @@ public class Main {
 
 
             int k = 0;
-            for (HistoryObserver observer : athleteData.historyObservers()){
+            for (HistoryObserver observer : athletesInputData.historyObservers()){
                 AthleteHistoryPlotter plotThree = new AthleteHistoryPlotter(observer);
                 plotThree.plotResort(resort, "athlete-history-" + k +".tex" , gen);
                 ++k;
@@ -90,7 +89,9 @@ public class Main {
         }catch(WyjatekSystemuPlikow exc){
             System.err.println("Ensure correctness of provided directory to save plots");
             exc.printStackTrace();
-        }catch (Exception e){
+        }catch (IOException e){
+            e.printStackTrace();
+        }catch (RuntimeException e) {
             e.printStackTrace();
         }
 

@@ -22,15 +22,17 @@ public class AthleteFactory {
     /**
      * Creates an individual Athlete from a group description.
      * * @param data      The multi-line string containing the group's parameters.
-     * @param groupId   The index of the athlete within this specific group (0 to N-1).
-     * @param id        The unique global ID to assign to this athlete.
-     * @param resort    Every athlete gets plan of resort he is present
-     * @return A fully initialized Athlete object.
+     *
+     * @param groupId The index of the athlete within this specific group (0 to N-1).
+     * @param id      The unique global ID to assign to this athlete.
+     * @param resort  Every athlete gets plan of resort he is present
+     * @return A fully initialized Athlete object with potential historyObserver
+     * if only athlete is tracked
      */
     public static AthleteCreationBox create(String data,
-                                 int groupId,
-                                 int id,
-                                 SkiResort resort) {
+                                            int groupId,
+                                            int id,
+                                            SkiResort resort) {
         Node[] nodes = resort.getNodes(); // To resolve the starting position
 
         Scanner sc = new Scanner(data);
@@ -97,15 +99,20 @@ public class AthleteFactory {
                 resort
         );
 
-        Athlete result = switch (athleteType){
+        Athlete result = switch (athleteType) {
             case 'L' -> new LocalAthlete(params);
             case 'Z' -> new GreedyAthlete(params);
             case 'K' -> new CollectorAthlete(params);
             default -> throw new IllegalArgumentException("Wrong athlete type");
         };
 
-        HistoryObserver historyObserver =  null;
-        if (isTracked){
+        /*
+         * In case athlete is tracked, attach observers to its object
+         * and return historyObserver for access
+         */
+
+        HistoryObserver historyObserver = null;
+        if (isTracked) {
             historyObserver = new HistoryObserver(result); // Creates and attaches
             result.attachObserver(SystemLogObserver.getInstance());
         }

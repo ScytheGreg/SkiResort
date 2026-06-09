@@ -23,7 +23,7 @@ public class Input {
      * Inner class or combined logic from StdInScanner.
      * Processes groups of data (Nodes, Lifts, Runs, Athletes).
      */
-    private class StdInScanner {
+    private static class StdInScanner {
         private final Scanner sysScanner = new Scanner(System.in);
 
         public String[] readGroup(int elementLines, boolean isLast) {
@@ -79,6 +79,7 @@ public class Input {
 
     /**
      * Entry point for reading the physical resort map.
+     *
      * @return A SkiResort object with all nodes, runs, and lifts cross-referenced.
      */
     public SkiResort readResortData() {
@@ -109,15 +110,16 @@ public class Input {
 
     /**
      * Reads athletes and schedules their very first action into the simulation.
+     *
      * @param resort The already parsed resort (required in athlete constructor)
-     * @param seed Simulation seed for decision making.
-     * @return A PriorityQueue containing the first event for every athlete.
+     * @param seed   Simulation seed for decision-making.
+     * @return A PriorityQueue containing the first event for every athlete
+     * and List of tracked Athletes (their historyObservers)
      */
-    public AthleteData readAthleteData(SkiResort resort, int seed) {
+    public AthletesInputData readAthleteData(SkiResort resort, int seed) {
         CustomPriorityQueue initialEvents = new CustomPriorityQueue();
         ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
 
-        Node[] nodes = resort.getNodes();
         /* Athletes are described in groups. Each group description takes 3 lines:
          * 1. Count and common attributes
          * 2. Timing/preferences
@@ -137,7 +139,7 @@ public class Input {
 
                 // If athlete is tracked, it will have his history observer
                 Athlete athlete = box.athlete();
-                if (box.historyObserver() != null){
+                if (box.historyObserver() != null) {
                     historyObservers.add(box.historyObserver());
                 }
                 /* * Crucial Step: The simulation starts with athletes making their
@@ -146,6 +148,6 @@ public class Input {
                 initialEvents.push(athlete.makeDecision(seed, athlete.getStartTime()));
             }
         }
-        return new AthleteData(initialEvents, historyObservers);
+        return new AthletesInputData(initialEvents, historyObservers);
     }
 }
