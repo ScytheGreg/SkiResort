@@ -9,11 +9,25 @@ import resort.*;
 
 import java.util.LinkedList;
 
+/**
+ * Provides plotting method for whole resort.
+ */
 public abstract class Plotter {
+
+    // Responsible for labels on edges data type (for different plot types)
     protected abstract LinkedList<String> runLabel(SkiRun run);
+
     protected abstract LinkedList<String> liftLabel(SkiLift lift);
 
-    public  void plotResort( SkiResort resort, String fileName, GeneratorMapek plotter)
+    /**
+     * Plots whole resort and save latex to file
+     *
+     * @param resort   plotted one
+     * @param fileName file where .tex file is saved
+     * @param plotter  a tex generator provided by library
+     * @throws WyjatekSystemuPlikow if path is occupied
+     */
+    public void plotResort(SkiResort resort, String fileName, GeneratorMapek plotter)
             throws WyjatekSystemuPlikow {
         plotter.zeruj();
         plotNodes(plotter, resort.getNodes());
@@ -22,6 +36,8 @@ public abstract class Plotter {
         plotter.tworzMapke(fileName);
     }
 
+    // Below methods plots resort parts inside plotter
+    // in accordance with documentation
     private static void plotNodes(GeneratorMapek plotter, Node[] nodes) {
         for (Node node : nodes) {
             StylWezla style = new StylWezla(GruboscKonturu.ZWYKLY);
@@ -32,11 +48,11 @@ public abstract class Plotter {
         }
     }
 
-    private void plotEdge(Edge edge, StylKrawedzi style, LinkedList<String> label, GeneratorMapek plotter){
+    private void plotEdge(Edge edge, StylKrawedzi style, LinkedList<String> label, GeneratorMapek plotter) {
         if (label.size() > 1) {
             plotter.dodajKrawedz(edge.getBeginning().getId(),
                     edge.getEnd().getId(), style, label);
-        }else{
+        } else {
             plotter.dodajKrawedz(edge.getBeginning().getId(),
                     edge.getEnd().getId(), style, label.getFirst());
         }
@@ -52,7 +68,7 @@ public abstract class Plotter {
     }
 
     private void plotSkiLifts(GeneratorMapek plotter, SkiLift[] skiLifts) {
-        for (SkiLift lift : skiLifts){
+        for (SkiLift lift : skiLifts) {
             LinkedList<String> label = liftLabel(lift);
             StylKrawedzi style = new StylKrawedzi(StylLinii.PRZERYWANA);
             plotEdge(lift, style, label, plotter);
