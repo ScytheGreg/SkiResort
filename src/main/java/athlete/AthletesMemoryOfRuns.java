@@ -5,12 +5,12 @@ import resort.SkiRun;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MemoryOfRuns {
+public class AthletesMemoryOfRuns {
     private int takenRunsCnt = 0;       // Counter of taken runs
     private final Map<SkiRun, RunMemoryData> memory = new HashMap<>(); // S
     private final Athlete athlete;
 
-    public MemoryOfRuns(Athlete athlete) {
+    public AthletesMemoryOfRuns(Athlete athlete) {
         this.athlete = athlete;
     }
 

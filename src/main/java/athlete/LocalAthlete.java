@@ -5,8 +5,6 @@ import resort.Node;
 import resort.SkiLift;
 import resort.SkiRun;
 import simulation.Event;
-import simulation.QueueUp;
-import simulation.StartARide;
 
 import java.time.LocalTime;
 import java.util.Random;
@@ -67,10 +65,10 @@ public class LocalAthlete extends Athlete{
         // 3. Final Comparison: Pick the most attractive option [cite: 103]
         if (bestLocalSkiRunLure >= bestRemoteSkiRunLure && bestLocalSkiRun != null) {
             // Start skiing immediately if a local run is best [cite: 104]
-            return bestLocalSkiRun.beChoosenByAthlete(this, time);
+            return bestLocalSkiRun.beChosenByAthlete(this, time);
         } else if (availableLifts.length > 0) {
             // Queue up for a lift if a remote run is more attractive [cite: 105]
-            return availableLifts[bestLiftIndex].beChoosenByAthlete(this, time);
+            return availableLifts[bestLiftIndex].beChosenByAthlete(this, time);
         }
 
         return null;

@@ -44,6 +44,10 @@ public class StartARide extends AthleteEvent {
         return result;
     }
 
+    public boolean doesMoveAthlete(){
+        return false;
+    }
+
     /**
      * Formats the log message.
      * Example: "At 09:15:00 the athlete nr     1 has begun ride on ski run nr 3"

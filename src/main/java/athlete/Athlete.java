@@ -1,15 +1,13 @@
 package athlete;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Random;
 
-import randomness.UniqueGenerator;
+import athlete.observer.AthleteObserver;
 import resort.*;
 import simulation.AthleteEvent;
 import simulation.Event;
-import simulation.StartARide;
 
 /**
  * Represents a skier or snowboarder in the simulation.
@@ -30,7 +28,7 @@ public abstract class Athlete {
     private final double boredomLure;        // Alpha_z: weight for boredom rate
 
     private final LocalTime startTime;  // When the athlete arrives at the resort
-    private final MemoryOfRuns memory = new MemoryOfRuns(this);
+    private final AthletesMemoryOfRuns memory = new AthletesMemoryOfRuns(this);
     private Node currentNode;           // Current location in the resort graph
     private final SkiResort resort;     // Reference to resort for planners
 
@@ -154,10 +152,10 @@ public abstract class Athlete {
 
         int takenEdge = generator.nextInt(0, n);
         if (takenEdge < skiRuns.length) {
-            return skiRuns[takenEdge].beChoosenByAthlete(this, time);
+            return skiRuns[takenEdge].beChosenByAthlete(this, time);
         }
         // If a lift is chosen, the athlete simply enters the queue
-        skiLifts[takenEdge - skiRuns.length].beChoosenByAthlete(this, time);
+        skiLifts[takenEdge - skiRuns.length].beChosenByAthlete(this, time);
         return null;
     }
 

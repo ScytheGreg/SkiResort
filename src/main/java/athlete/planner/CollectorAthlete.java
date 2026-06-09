@@ -1,11 +1,12 @@
-package athlete;
+package athlete.planner;
 
+import athlete.AthleteParameters;
 import resort.SkiRun;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class CollectorAthlete extends PlannerAthlete{
+public class CollectorAthlete extends PlannerAthlete {
     int[] runsCnt;
     int minRunsCnt; // Keeps minimum of array runsCnt
 

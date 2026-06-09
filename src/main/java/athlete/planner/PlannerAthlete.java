@@ -1,16 +1,15 @@
-package athlete;
+package athlete.planner;
 
+import athlete.Athlete;
+import athlete.AthleteParameters;
 import randomness.UniqueGenerator;
-import resort.Edge;
 import resort.SkiRun;
 import simulation.Event;
-import simulation.PickUpPassengers;
 
 import java.time.LocalTime;
-import java.util.LinkedList;
 import java.util.Random;
 
-public abstract class PlannerAthlete extends Athlete{
+public abstract class PlannerAthlete extends Athlete {
     private RoutePlan plan;
     public PlannerAthlete(AthleteParameters p){
         super(p);
@@ -31,7 +30,7 @@ public abstract class PlannerAthlete extends Athlete{
             ResortRoutesPlanner planner = ResortRoutesPlanner.getInstance(getResort());
             plan = planner.shortestRoute(getCurrentNode(), chooseNextRun().getBeginning());
         }
-       return plan.next().beChoosenByAthlete(this, time);
+       return plan.next().beChosenByAthlete(this, time);
     }
 
 }

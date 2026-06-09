@@ -3,7 +3,10 @@ package resort;
 import athlete.Athlete;
 import simulation.Event;
 
+import java.lang.reflect.Array;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Represents a directed connection in the ski resort graph.
@@ -15,8 +18,9 @@ public abstract class Edge {
     private final Node end;             // Ending station or point [cite: 9, 215, 217]
     private final int rideTime;         // Constant travel time in virtual seconds
 
-    // Statistics counter for the end-of-day report
+    // Statistics for the end-of-day report
     private int servedAthletesCnt = 0;
+    private HashMap<Athlete, ArrayList<Integer>> history;
 
     public Edge(Node beginning, Node end, int rideTime, int id) {
         this.id = id;
@@ -54,10 +58,24 @@ public abstract class Edge {
 
     /**
      * Increments the counter whenever an athlete completes a ride or starts a trip,
-     * depending on your simulation's event timing.
+     * depending on simulation's event timing.
      */
     public void takeARide(Athlete athlete) {
         ++servedAthletesCnt;
+    }
+
+    public void saveARide(Athlete athlete, Integer rideId){
+        if (history.containsKey(athlete)){
+            history.get(athlete).add(rideId);
+        }
+        else{ // Create and save again
+            history.put(athlete, new ArrayList<>());
+            saveARide(athlete, rideId);
+        }
+    }
+
+    public HashMap<Athlete, ArrayList<Integer>> getHistory(){
+        return history;
     }
 
     /**
@@ -91,5 +109,5 @@ public abstract class Edge {
      * For runs, this might start the ride immediately.
      */
     abstract public void addWaiting(Athlete athlete, LocalTime time);
-    abstract public Event beChoosenByAthlete(Athlete athlete, LocalTime time);
+    abstract public Event beChosenByAthlete(Athlete athlete, LocalTime time);
 }

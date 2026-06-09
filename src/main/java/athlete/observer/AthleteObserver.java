@@ -1,4 +1,4 @@
-package athlete;
+package athlete.observer;
 
 import simulation.AthleteEvent;
 

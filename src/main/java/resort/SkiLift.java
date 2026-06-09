@@ -128,7 +128,7 @@ public class SkiLift extends Edge {
     }
 
 
-    public Event beChoosenByAthlete(Athlete athlete, LocalTime time){
+    public Event beChosenByAthlete(Athlete athlete, LocalTime time){
         return new QueueUp(time, athlete, this);
     }
 

@@ -1,6 +1,10 @@
 package read.factories;
 
 import athlete.*;
+import athlete.observer.HistoryObserver;
+import athlete.observer.SystemLogObserver;
+import athlete.planner.CollectorAthlete;
+import athlete.planner.GreedyAthlete;
 import resort.Node;
 import resort.SkiResort;
 

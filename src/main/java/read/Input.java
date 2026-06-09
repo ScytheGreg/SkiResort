@@ -1,6 +1,7 @@
 package read;
 
 import athlete.*;
+import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
 import read.factories.AthleteFactory;
 import resort.*;

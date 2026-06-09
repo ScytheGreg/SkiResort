@@ -28,6 +28,8 @@ abstract public class AthleteEvent extends Event {
         return edge;
     }
 
+    public abstract boolean doesMoveAthlete();
+
     /**
      * Composes a log message starting with the timestamp, followed by the athlete ID.
      * The ID is formatted to 5 spaces to keep logs aligned.

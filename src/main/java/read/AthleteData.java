@@ -1,6 +1,6 @@
 package read;
 
-import athlete.HistoryObserver;
+import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
 
 import java.util.ArrayList;

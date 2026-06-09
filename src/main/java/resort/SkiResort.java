@@ -1,6 +1,7 @@
 package resort;
 
 import java.util.Arrays;
+import java.util.HashSet;
 
 /**
  * Manages the entire infrastructure of the ski resort.
@@ -15,6 +16,8 @@ public class SkiResort {
     private final SkiRun[] skiRuns;
     private final int skiRunsNum;
 
+    HashSet<Edge> edges = new HashSet<>();
+
     public SkiResort(Node[] nodes, int nodesNum, SkiLift[] skiLifts, int skiLiftsNum, SkiRun[] skiRuns, int skiRunsNum) {
         this.nodes = nodes;
         this.nodesNum = nodesNum;
@@ -22,6 +25,8 @@ public class SkiResort {
         this.skiLiftsNum = skiLiftsNum;
         this.skiRuns = skiRuns;
         this.skiRunsNum = skiRunsNum;
+        edges.addAll(Arrays.stream(skiRuns).toList());
+        edges.addAll(Arrays.stream(skiLifts).toList());
 
         // Build the adjacency list within the nodes immediately upon creation
         connectResortGraph();
@@ -127,10 +132,8 @@ public class SkiResort {
         return skiRunsNum;
     }
 
-    private void logEdges(Edge[] edges) {
-        for (Edge edge : edges) {
-            edge.log();
-        }
+    public HashSet<Edge> getEdges() {
+        return edges;
     }
 
     /**
@@ -138,7 +141,8 @@ public class SkiResort {
      * Called at the end of the simulation.
      */
     public void log() {
-        logEdges(skiLifts);
-        logEdges(skiRuns);
+        for (Edge edge : edges){
+            edge.log();
+        }
     }
 }

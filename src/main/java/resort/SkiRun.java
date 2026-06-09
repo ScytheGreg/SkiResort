@@ -71,7 +71,7 @@ public class SkiRun extends Edge {
         athlete.takeARun(this);
     }
 
-    public Event beChoosenByAthlete(Athlete athlete, LocalTime time) {
+    public Event beChosenByAthlete(Athlete athlete, LocalTime time) {
         return new StartARide(time, athlete, this);
     }
 

@@ -45,6 +45,10 @@ public class EndARide extends AthleteEvent {
         return result;
     }
 
+    public boolean doesMoveAthlete(){
+        return false;
+    }
+
     /**
      * Formats the log message.
      * Example: "At 10:30:00 the athlete nr     1 has end   ride on ski run nr 5"

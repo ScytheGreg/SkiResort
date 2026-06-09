@@ -1,14 +1,9 @@
-package athlete;
+package athlete.planner;
 
-import containers.Queue;
+import athlete.AthleteParameters;
 import resort.SkiRun;
-import simulation.Event;
-import simulation.PickUpPassengers;
-import simulation.QueueUp;
 
-import java.time.LocalTime;
-
-public class GreedyAthlete extends PlannerAthlete{
+public class GreedyAthlete extends PlannerAthlete {
     public GreedyAthlete(AthleteParameters p){
         super(p);
     }

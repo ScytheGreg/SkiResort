@@ -1,7 +1,6 @@
-package athlete;
+package athlete.observer;
 
 import simulation.AthleteEvent;
-import simulation.Event;
 
 public class SystemLogObserver implements AthleteObserver {
 

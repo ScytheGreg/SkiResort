@@ -1,4 +1,4 @@
-package athlete;
+package athlete.planner;
 
 import resort.Edge;
 import resort.Node;

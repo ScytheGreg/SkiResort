@@ -39,6 +39,11 @@ public class QueueUp extends AthleteEvent {
         return result;
     }
 
+    public boolean doesMoveAthlete(){
+        return false;
+    }
+
+
     /**
      * Formats the log message.
      * Example: "At 09:45:12 the athlete nr     5 has queued up to lift    nr 2"
