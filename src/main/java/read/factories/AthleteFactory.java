@@ -84,7 +84,6 @@ public class AthleteFactory {
                 id,
                 advanceLevel,
                 impulsivity,
-                isTracked,
                 boredomRate,
                 levelMatchLure,
                 runSmoothnessLure,
@@ -94,12 +93,16 @@ public class AthleteFactory {
                 resort
         );
 
-        return switch (athleteType){
+        Athlete result = switch (athleteType){
             case 'L' -> new LocalAthlete(params);
             case 'Z' -> new GreedyAthlete(params);
             case 'K' -> new CollectorAthlete(params);
             default -> throw new IllegalArgumentException("Wrong athlete type");
         };
 
+        if (isTracked){
+            result.attachObserver(SystemLogObserver.getInstance());
+        }
+        return result;
     }
 }

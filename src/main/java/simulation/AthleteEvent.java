@@ -47,9 +47,7 @@ abstract public class AthleteEvent extends Event {
     @Override
     public Queue performAction(int seed) {
         // Project requirement: Log activity only if isTracked is true
-        if (athlete.isTracked()) {
-            System.out.println(this.toString());
-        }
+        athlete.performAction(this);
 
         // Default behavior returns an empty queue of new events
         return new Queue();

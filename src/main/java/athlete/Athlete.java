@@ -1,6 +1,8 @@
 package athlete;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Random;
 
 import randomness.UniqueGenerator;
@@ -18,7 +20,6 @@ public abstract class Athlete {
     private final int id;
     private final int advanceLevel;     // Skill level (0-10)
     private final double impulsivity;   // Probability (epsilon) of a spontaneous choice
-    private final boolean isTracked;    // Whether to print activity logs for this athlete
     private final double boredomRate;       // Rate of getting sick of runs
 
 
@@ -32,12 +33,14 @@ public abstract class Athlete {
     private Node currentNode;           // Current location in the resort graph
     private final SkiResort resort;     // Reference to resort for planners
 
+    // List of observers to observer pattern
+    private final HashSet<AthleteObserver> observers = new HashSet<>();
+
 
     public Athlete(AthleteParameters p) {
         this.id = p.id();
         this.advanceLevel = p.advanceLevel();
         this.impulsivity = p.impulsivity();
-        this.isTracked = p.isTracked();
         this.boredomRate = p.boredomRate();
         this.levelMatchLure = p.levelMatchLure();
         this.runSmoothnessLure = p.runSmoothnessLure();
@@ -53,6 +56,20 @@ public abstract class Athlete {
     public void move(Edge edge) {
         assert (edge.getBeginning().getId() == currentNode.getId());
         currentNode = edge.getEnd();
+    }
+
+    public void performAction(Event event){
+        for (AthleteObserver observer : observers){
+            observer.update(this, event);
+        }
+    }
+
+    public void attachObserver(AthleteObserver observer){
+        observers.add(observer);
+    }
+
+    public void detachObserver(AthleteObserver observer){
+        observers.remove(observer);
     }
 
     public void takeARun(SkiRun run){
@@ -113,10 +130,6 @@ public abstract class Athlete {
 
     public int getAdvanceLevel() {
         return advanceLevel;
-    }
-
-    public boolean isTracked() {
-        return isTracked;
     }
 
     public double getBoredomRate(){ return boredomRate;}
