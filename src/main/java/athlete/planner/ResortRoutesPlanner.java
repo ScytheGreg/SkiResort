@@ -9,7 +9,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 
 
-class ResortRoutesPlanner {
+public class ResortRoutesPlanner {
     private SkiResort resort;
 
     private static ResortRoutesPlanner uniquePlanner;
@@ -27,7 +27,7 @@ class ResortRoutesPlanner {
 
 
     // Restores shortest path from edge trace
-    private LinkedList<Edge> calculateTrace(Edge[] trace, SkiRun desiredRun){
+    private LinkedList<Edge> calculateTrace(Edge[] trace, Edge desiredRun){
         Node end = desiredRun.getBeginning();
         LinkedList<Edge> result = new LinkedList<>();
         result.addLast(desiredRun);
@@ -40,7 +40,7 @@ class ResortRoutesPlanner {
         return result;
     }
 
-    RoutePlan shortestRoute(Node start, SkiRun desiredRun){
+    public RoutePlan shortestRoute(Node start, Edge desiredRun){
         Node end = desiredRun.getBeginning();
         boolean[] visited = new boolean[resort.getNodesNum()];
         Arrays.fill(visited, false);

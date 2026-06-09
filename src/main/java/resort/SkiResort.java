@@ -18,7 +18,7 @@ public class SkiResort {
 
     HashSet<Edge> edges = new HashSet<>();
 
-    public SkiResort(Node[] nodes, SkiLift[] skiLifts,  SkiRun[] skiRuns,) {
+    public SkiResort(Node[] nodes, SkiLift[] skiLifts,  SkiRun[] skiRuns) {
         this.nodes = nodes;
         this.nodesNum = nodes.length;
         this.skiLifts = skiLifts;
