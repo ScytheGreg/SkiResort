@@ -37,6 +37,42 @@
     \node[wezel grafu] (3) at (4/100, 17/100) {3};
     % Krawedzie:
     \path[draw]
+    (0) edge[krawedz grafu, bend left=13, densely dashed] node {
+        \begin{tabular}{l}
+            \contour{white}{l0: que: 46.16135006250289(av)...} \\
+            \contour{white}{usage: 8411 / 8644(1.027701819...}
+        \end{tabular}
+    } (1)
+    (1) edge[krawedz grafu, bend left=13] node {
+        \begin{tabular}{l}
+            \contour{white}{r0: snow: 0.5605986597838921} \\
+            \contour{white}{runs:4940}
+        \end{tabular}
+    } (0)
+    (2) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r3: snow: 0.7188830744734552} \\
+            \contour{white}{runs:3423}
+        \end{tabular}
+    } (0)
+    (1) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r2: snow: 0.4989303012237754} \\
+            \contour{white}{runs:6290}
+        \end{tabular}
+    } (2)
+    (3) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r1: snow: 0.5934918715409778} \\
+            \contour{white}{runs:2897}
+        \end{tabular}
+    } (1)
+    (2) edge[krawedz grafu, densely dashed] node {
+        \begin{tabular}{l}
+            \contour{white}{l1: que: 0.2161211167183666(av...} \\
+            \contour{white}{usage: 2919 / 16206(5.55190133...}
+        \end{tabular}
+    } (3)
     ;
 \end{tikzpicture}
 

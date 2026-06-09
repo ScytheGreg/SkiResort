@@ -3,7 +3,7 @@
 out/
 
 # Latex
-plots*/
+plots/
 *.pdf
 *.aux
 

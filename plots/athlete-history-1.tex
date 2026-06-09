@@ -37,6 +37,32 @@
     \node[wezel grafu] (3) at (4/100, 17/100) {3};
     % Krawedzie:
     \path[draw]
+    (0) edge[krawedz grafu, bend left=13, densely dashed] node {
+        \begin{tabular}{l}
+            \contour{white}{l0(41): 1,4,6,9,12,14,17,19,22} \\
+            \contour{white}{,25,27,30,32,35,38,40,43,45,48...}
+        \end{tabular}
+    } (1)
+    (1) edge[krawedz grafu, bend left=13] node {
+        \begin{tabular}{l}
+            \contour{white}{r0(17): 5,13,18,26,31,39,44,52} \\
+            \contour{white}{,57,65,70,75,83,88,93,101,106,}
+        \end{tabular}
+    } (0)
+    (2) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r3(24): 3,8,11,16,21,24,29,34,} \\
+            \contour{white}{37,42,47,50,55,60,63,68,73,78,...}
+        \end{tabular}
+    } (0)
+    (1) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r2(24): 2,7,10,15,20,23,28,33,} \\
+            \contour{white}{36,41,46,49,54,59,62,67,72,77,...}
+        \end{tabular}
+    } (2)
+    (3) edge[krawedz grafu] node {} (1)
+    (2) edge[krawedz grafu, densely dashed] node {} (3)
     ;
 \end{tikzpicture}
 

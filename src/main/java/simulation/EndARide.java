@@ -46,7 +46,7 @@ public class EndARide extends AthleteEvent {
     }
 
     public boolean doesMoveAthlete(){
-        return false;
+        return true;
     }
 
     /**

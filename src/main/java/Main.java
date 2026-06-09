@@ -2,6 +2,7 @@ import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
 import kadra.mapki.GeneratorMapek;
 import kadra.mapki.pliki.WyjatekSystemuPlikow;
+import org.apache.commons.io.FileUtils;
 import plots.AthleteHistoryPlotter;
 import plots.EdgesParametersPlotter;
 import plots.EdgesStatsPlotter;
@@ -9,6 +10,11 @@ import read.AthleteData;
 import read.Input;
 import resort.SkiResort;
 import simulation.Simulation;
+
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Entry point for the Ski Resort Simulation.
@@ -58,9 +64,13 @@ public class Main {
         // Start the engine. The simulation will run until the closing time (16:00:00).
         simulation.simulate(seed, resort);
 
+
+
         // 6. Plot phase
         // Plot graphs with resort plan and statistics to .tex files
         try{
+            File dirFile = new File(directory);
+            FileUtils.deleteDirectory(dirFile);
             GeneratorMapek  gen = new GeneratorMapek(directory);
 
             EdgesParametersPlotter plotOne = new EdgesParametersPlotter();

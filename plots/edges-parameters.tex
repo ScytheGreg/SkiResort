@@ -37,6 +37,42 @@
     \node[wezel grafu] (3) at (4/100, 17/100) {3};
     % Krawedzie:
     \path[draw]
+    (0) edge[krawedz grafu, bend left=13, densely dashed] node {
+        \begin{tabular}{l}
+            \contour{white}{l0: 4 people every 10s} \\
+            \contour{white}{time: 240}
+        \end{tabular}
+    } (1)
+    (1) edge[krawedz grafu, bend left=13] node {
+        \begin{tabular}{l}
+            \contour{white}{r0: level: 3, time: 150s} \\
+            \contour{white}{toughness: 0.3, 0.9998}
+        \end{tabular}
+    } (0)
+    (2) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r3: level: 2, time: 60s} \\
+            \contour{white}{toughness: 0.3, 0.99985}
+        \end{tabular}
+    } (0)
+    (1) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r2: level: 4, time: 120s} \\
+            \contour{white}{toughness: 0.3, 0.9998}
+        \end{tabular}
+    } (2)
+    (3) edge[krawedz grafu] node {
+        \begin{tabular}{l}
+            \contour{white}{r1: level: 7, time: 180s} \\
+            \contour{white}{toughness: 0.3, 0.9997}
+        \end{tabular}
+    } (1)
+    (2) edge[krawedz grafu, densely dashed] node {
+        \begin{tabular}{l}
+            \contour{white}{l1: 6 people every 8s} \\
+            \contour{white}{time: 360}
+        \end{tabular}
+    } (3)
     ;
 \end{tikzpicture}
 

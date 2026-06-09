@@ -18,10 +18,13 @@ public class AthleteHistoryPlotter extends Plotter {
 
     private LinkedList<String> edgeLabel(Edge edge){
         ArrayList<Integer> history = edge.getHistory(athlete);
-        String label = edge + "(" + history.size() + "): ";
-        for (int moveId : history){
-            label += moveId;
-            label += ",";
+        String label = "";
+        if (history != null) {
+            label = edge + "(" + history.size() + "): ";
+            for (int moveId : history) {
+                label += moveId;
+                label += ",";
+            }
         }
         LinkedList<String> result =  new LinkedList<>();
         result.add(label);
