@@ -131,4 +131,9 @@ public class SkiLift extends Edge {
     public Event beChoosenByAthlete(Athlete athlete, LocalTime time){
         return new QueueUp(time, athlete, this);
     }
+
+    @Override
+    public String toString(){
+        return "l" + getId();
+    }
 }

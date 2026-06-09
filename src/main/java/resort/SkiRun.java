@@ -82,4 +82,9 @@ public class SkiRun extends Edge {
     public double getToughness(){
         return toughness;
     }
+
+    @Override
+    public String toString(){
+        return "r" + getId();
+    }
 }
