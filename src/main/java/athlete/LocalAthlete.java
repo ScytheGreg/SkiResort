@@ -20,7 +20,7 @@ public class LocalAthlete extends Athlete{
      * Considers local runs and runs accessible via one lift to find the best option.
      */
     public Event makeDecision(int seed, LocalTime time) {
-        // Stop making new decisions after 15:00:00[cite: 45, 134].
+        // Stop making new decisions after 15:00:00
         if (time.isAfter(LocalTime.of(14, 59, 59))) {
             return null;
         }

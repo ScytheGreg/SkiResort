@@ -48,7 +48,7 @@ public class RoutesPlannerTests {
                 simplLift(0, 1, 0),
                 simplLift(2, 3, 1),
                 simplLift(2, 4, 2),
-                simplLift(4,5, 3)
+                simplLift(4, 5, 3)
         };
 
         resort = new SkiResort(nodes, skiLifts, skiRuns);

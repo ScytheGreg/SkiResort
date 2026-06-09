@@ -17,6 +17,9 @@ public abstract class PlannerAthlete extends Athlete {
     public abstract SkiRun chooseNextRun();
 
     public Event makeDecision(int seed, LocalTime time){
+        if (time.isAfter(LocalTime.of(14, 59, 59))) {
+            return null;
+        }
         if (plan == null || plan.isEmpty()){
             /*
              * Impulsive decisions and changes of plan possible
