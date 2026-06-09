@@ -17,7 +17,7 @@ public abstract class PlannerAthlete extends Athlete {
     public abstract SkiRun chooseNextRun();
 
     public Event makeDecision(int seed, LocalTime time){
-        if (plan.isEmpty()){
+        if (plan == null || plan.isEmpty()){
             /*
              * Impulsive decisions and changes of plan possible
              * only after execution of previous.
@@ -28,7 +28,7 @@ public abstract class PlannerAthlete extends Athlete {
             }
 
             ResortRoutesPlanner planner = ResortRoutesPlanner.getInstance(getResort());
-            plan = planner.shortestRoute(getCurrentNode(), chooseNextRun().getBeginning());
+            plan = planner.shortestRoute(getCurrentNode(), chooseNextRun());
         }
        return plan.next().beChosenByAthlete(this, time);
     }

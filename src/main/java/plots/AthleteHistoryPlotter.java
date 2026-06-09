@@ -7,10 +7,9 @@ import resort.SkiLift;
 import resort.SkiRun;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 
-public class AthleteHistoryPlotter {
+public class AthleteHistoryPlotter extends Plotter {
     private final Athlete athlete;
 
     public AthleteHistoryPlotter(HistoryObserver observer){

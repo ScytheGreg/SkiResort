@@ -3,6 +3,7 @@ package athlete.planner;
 import resort.Edge;
 import resort.Node;
 import resort.SkiResort;
+import resort.SkiRun;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -26,8 +27,10 @@ class ResortRoutesPlanner {
 
 
     // Restores shortest path from edge trace
-    private LinkedList<Edge> calculateTrace(Edge[] trace, Node end){
+    private LinkedList<Edge> calculateTrace(Edge[] trace, SkiRun desiredRun){
+        Node end = desiredRun.getBeginning();
         LinkedList<Edge> result = new LinkedList<>();
+        result.addLast(desiredRun);
 
         Node curr = end;
         while (trace[curr.getId()] != null){
@@ -37,7 +40,8 @@ class ResortRoutesPlanner {
         return result;
     }
 
-    RoutePlan shortestRoute(Node start, Node end){
+    RoutePlan shortestRoute(Node start, SkiRun desiredRun){
+        Node end = desiredRun.getBeginning();
         boolean[] visited = new boolean[resort.getNodesNum()];
         Arrays.fill(visited, false);
 
@@ -54,7 +58,7 @@ class ResortRoutesPlanner {
             visited[curr.getId()] = true;
 
             if (curr.equals(end)){
-                return new RoutePlan(start, calculateTrace(trace, end));
+                return new RoutePlan(start, calculateTrace(trace, desiredRun));
             }
 
             for (Edge edge : curr.getEdges()){

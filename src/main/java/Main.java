@@ -1,4 +1,10 @@
+import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
+import kadra.mapki.GeneratorMapek;
+import kadra.mapki.pliki.WyjatekSystemuPlikow;
+import plots.AthleteHistoryPlotter;
+import plots.EdgesParametersPlotter;
+import plots.EdgesStatsPlotter;
 import read.AthleteData;
 import read.Input;
 import resort.SkiResort;
@@ -14,21 +20,24 @@ public class Main {
     public static void main(String[] args) {
 
         // 1. Validate Command Line Arguments
-        if (args.length == 0) {
-            System.err.println("Error: Please provide a number as the first argument.");
+        if (args.length != 2) {
+            System.err.println("Usage: <program> [seed] [plots-directory]");
             return;
         }
 
         int seed;
 
-        // 2. Parse the Seed
+        // 2.0 Parse
         // The seed controls all random decisions (impulsivity) in the simulation.
         try {
             seed = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            System.err.println("Error: Argument must be a valid integer.");
+            System.err.println("Error: First argument must be a valid integer.");
             return;
         }
+
+        // 2.1 Save directory
+        String directory = args[1];
 
         // 3. Data Ingestion Phase
         Input reader = new Input();
@@ -51,6 +60,32 @@ public class Main {
 
         // 6. Plot phase
         // Plot graphs with resort plan and statistics to .tex files
+        try{
+            GeneratorMapek  gen = new GeneratorMapek(directory);
+
+            EdgesParametersPlotter plotOne = new EdgesParametersPlotter();
+            plotOne.plotResort(resort, "edges-parameters.tex", gen);
+
+            EdgesStatsPlotter plotTwo = new EdgesStatsPlotter();
+            plotTwo.plotResort(resort, "edges-stats.tex", gen);
+
+
+            int k = 0;
+            for (HistoryObserver observer : athleteData.historyObservers()){
+                AthleteHistoryPlotter plotThree = new AthleteHistoryPlotter(observer);
+                plotThree.plotResort(resort, "athlete-history-" + k +".tex" , gen);
+                ++k;
+            }
+
+        }catch(WyjatekSystemuPlikow exc){
+            System.err.println("Ensure correctness of provided directory to save plots");
+            exc.printStackTrace();
+            System.exit(1);
+        }catch (Exception e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
 
 
         /* * Note: The resort.log() call is handled inside simulation.simulate()

@@ -36,7 +36,7 @@ public class CollectorAthlete extends PlannerAthlete {
         int shortestDistance = Integer.MAX_VALUE;
         ArrayList<SkiRun> distanceCandidates = new ArrayList<>();
         for (SkiRun run : collectionCandidates){
-            int distance = planner.shortestRoute(getCurrentNode(), run.getBeginning()).length();
+            int distance = planner.shortestRoute(getCurrentNode(), run).length();
             if (distance < shortestDistance){
                 distanceCandidates.clear();     // Remove runs with bigger distance;
                 distanceCandidates.add(run);

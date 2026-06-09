@@ -155,8 +155,7 @@ public abstract class Athlete {
             return skiRuns[takenEdge].beChosenByAthlete(this, time);
         }
         // If a lift is chosen, the athlete simply enters the queue
-        skiLifts[takenEdge - skiRuns.length].beChosenByAthlete(this, time);
-        return null;
+        return skiLifts[takenEdge - skiRuns.length].beChosenByAthlete(this, time);
     }
 
     /**

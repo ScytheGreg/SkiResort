@@ -2,6 +2,7 @@ package plots;
 
 import kadra.mapki.GeneratorMapek;
 
+import kadra.mapki.pliki.WyjatekSystemuPlikow;
 import resort.SkiResort;
 import kadra.mapki.styl.*;
 import resort.*;
@@ -12,9 +13,11 @@ public abstract class Plotter {
     protected abstract LinkedList<String> runLabel(SkiRun run);
     protected abstract LinkedList<String> liftLabel(SkiLift lift);
 
-    public  void plotResort( SkiResort resort, String fileName, GeneratorMapek plotter){
+    public  void plotResort( SkiResort resort, String fileName, GeneratorMapek plotter)
+            throws WyjatekSystemuPlikow {
         plotter.zeruj();
         plotNodes(plotter, resort.getNodes());
+        plotter.tworzMapke(fileName);
     }
 
     private static void plotNodes(GeneratorMapek plotter, Node[] nodes) {
