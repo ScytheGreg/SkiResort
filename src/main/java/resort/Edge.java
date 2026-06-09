@@ -20,7 +20,7 @@ public abstract class Edge {
 
     // Statistics for the end-of-day report
     private int servedAthletesCnt = 0;
-    private HashMap<Athlete, ArrayList<Integer>> history;
+    private final HashMap<Athlete, ArrayList<Integer>> history = new HashMap<>();
 
     public Edge(Node beginning, Node end, int rideTime, int id) {
         this.id = id;

@@ -17,6 +17,8 @@ public abstract class Plotter {
             throws WyjatekSystemuPlikow {
         plotter.zeruj();
         plotNodes(plotter, resort.getNodes());
+        plotSkiLifts(plotter, resort.getSkiLifts());
+        plotSkiRuns(plotter, resort.getSkiRuns());
         plotter.tworzMapke(fileName);
     }
 
