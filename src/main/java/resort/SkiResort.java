@@ -18,13 +18,13 @@ public class SkiResort {
 
     HashSet<Edge> edges = new HashSet<>();
 
-    public SkiResort(Node[] nodes, int nodesNum, SkiLift[] skiLifts, int skiLiftsNum, SkiRun[] skiRuns, int skiRunsNum) {
+    public SkiResort(Node[] nodes, SkiLift[] skiLifts,  SkiRun[] skiRuns,) {
         this.nodes = nodes;
-        this.nodesNum = nodesNum;
+        this.nodesNum = nodes.length;
         this.skiLifts = skiLifts;
-        this.skiLiftsNum = skiLiftsNum;
+        this.skiLiftsNum = skiLifts.length;
         this.skiRuns = skiRuns;
-        this.skiRunsNum = skiRunsNum;
+        this.skiRunsNum = skiRuns.length;
         edges.addAll(Arrays.stream(skiRuns).toList());
         edges.addAll(Arrays.stream(skiLifts).toList());
 

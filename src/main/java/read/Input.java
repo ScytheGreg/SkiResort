@@ -96,9 +96,9 @@ public class Input {
             SkiRun[] skiRuns = parseSkiRuns(skiRunsData, nodes);
 
             return new SkiResort(
-                    nodes, nodes.length,
-                    skiLifts, skiLifts.length,
-                    skiRuns, skiRuns.length
+                    nodes,
+                    skiLifts,
+                    skiRuns
             );
 
         } catch (Exception e) {
