@@ -8,6 +8,7 @@ import read.factories.NodeFactory;
 import read.factories.SkiLiftFactory;
 import read.factories.SkiRunFactory;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -114,8 +115,10 @@ public class Input {
      * @param seed Simulation seed for decision making.
      * @return A PriorityQueue containing the first event for every athlete.
      */
-    public CustomPriorityQueue readAthleteData(SkiResort resort, int seed) {
+    public AthleteData readAthleteData(SkiResort resort, int seed) {
         CustomPriorityQueue initialEvents = new CustomPriorityQueue();
+        ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
+
         Node[] nodes = resort.getNodes();
         /* Athletes are described in groups. Each group description takes 3 lines:
          * 1. Count and common attributes
@@ -132,14 +135,19 @@ public class Input {
 
             // Create 'countInThisGroup' athletes based on the common template in groupData
             for (int i = 0; i < countInThisGroup; ++i, ++globalId) {
-                Athlete athlete = AthleteFactory.create(groupData, i, globalId, resort);
+                AthleteCreationBox box = AthleteFactory.create(groupData, i, globalId, resort);
 
+                // If athlete is tracked, it will have his history observer
+                Athlete athlete = box.athlete();
+                if (box.historyObserver() != null){
+                    historyObservers.add(box.historyObserver());
+                }
                 /* * Crucial Step: The simulation starts with athletes making their
                  * first decision at their specific start times.
                  */
                 initialEvents.push(athlete.makeDecision(seed, athlete.getStartTime()));
             }
         }
-        return initialEvents;
+        return new AthleteData(initialEvents, historyObservers);
     }
 }

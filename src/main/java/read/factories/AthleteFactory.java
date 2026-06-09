@@ -23,7 +23,7 @@ public class AthleteFactory {
      * @param resort    Every athlete gets plan of resort he is present
      * @return A fully initialized Athlete object.
      */
-    public static Athlete create(String data,
+    public static AthleteCreationBox create(String data,
                                  int groupId,
                                  int id,
                                  SkiResort resort) {
@@ -100,9 +100,11 @@ public class AthleteFactory {
             default -> throw new IllegalArgumentException("Wrong athlete type");
         };
 
+        HistoryObserver historyObserver =  null;
         if (isTracked){
+            historyObserver = new HistoryObserver(result); // Creates and attaches
             result.attachObserver(SystemLogObserver.getInstance());
         }
-        return result;
+        return new AthleteCreationBox(result, historyObserver);
     }
 }

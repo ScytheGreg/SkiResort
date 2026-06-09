@@ -1,5 +1,6 @@
 package athlete;
 
+import simulation.AthleteEvent;
 import simulation.Event;
 
 public class SystemLogObserver implements AthleteObserver {
@@ -7,7 +8,7 @@ public class SystemLogObserver implements AthleteObserver {
     private static SystemLogObserver instance = new SystemLogObserver();
     private SystemLogObserver(){}
     public static SystemLogObserver getInstance(){ return instance;}
-    public void update(Athlete athlete, Event event){
+    public void update(AthleteEvent event){
         System.out.println(event);
     }
 }

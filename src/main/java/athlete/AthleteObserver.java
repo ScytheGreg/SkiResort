@@ -1,7 +1,7 @@
 package athlete;
 
-import simulation.Event;
+import simulation.AthleteEvent;
 
 public interface AthleteObserver {
-    public void update(Athlete athlete, Event event);
+    public void update(AthleteEvent event);
 }

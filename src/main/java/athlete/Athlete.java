@@ -7,6 +7,7 @@ import java.util.Random;
 
 import randomness.UniqueGenerator;
 import resort.*;
+import simulation.AthleteEvent;
 import simulation.Event;
 import simulation.StartARide;
 
@@ -58,9 +59,9 @@ public abstract class Athlete {
         currentNode = edge.getEnd();
     }
 
-    public void performAction(Event event){
+    public void performAction(AthleteEvent event){
         for (AthleteObserver observer : observers){
-            observer.update(this, event);
+            observer.update(event);
         }
     }
 
@@ -164,4 +165,9 @@ public abstract class Athlete {
      * Core decision logic for the athlete.
      */
     public abstract Event makeDecision(int seed, LocalTime time);
+
+    @Override
+    public String toString(){
+        return "a" + getId();
+    }
 }

@@ -1,4 +1,5 @@
 import containers.CustomPriorityQueue;
+import read.AthleteData;
 import read.Input;
 import resort.SkiResort;
 import simulation.Simulation;
@@ -37,7 +38,8 @@ public class Main {
 
         // Build the initial population of events (Athletes arriving at the resort)
         // We pass the nodes so athletes can be placed at their starting locations.
-        CustomPriorityQueue athleteEvents = reader.readAthleteData(resort, seed);
+        AthleteData athleteData = reader.readAthleteData(resort, seed);
+        CustomPriorityQueue athleteEvents = athleteData.queue();
 
         // 4. Initialization Phase
         // Create the simulation engine and prime it with lift pickup cycles.
@@ -46,6 +48,10 @@ public class Main {
         // 5. Execution Phase
         // Start the engine. The simulation will run until the closing time (16:00:00).
         simulation.simulate(seed, resort);
+
+        // 6. Plot phase
+        // Plot graphs with resort plan and statistics to .tex files
+
 
         /* * Note: The resort.log() call is handled inside simulation.simulate()
          * after the loop finishes, printing final stats for every run and lift.
