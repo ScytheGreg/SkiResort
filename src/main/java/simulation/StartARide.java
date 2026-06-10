@@ -22,6 +22,7 @@ public class StartARide extends AthleteEvent {
      * 2. Moves the athlete's position to the destination.
      * 3. Schedules the future 'EndARide' event based on the edge's travel time.
      * * @param seed Random seed (passed down from the simulation loop).
+     *
      * @return A Queue containing the EndARide event scheduled for the future.
      */
     @Override
@@ -44,7 +45,7 @@ public class StartARide extends AthleteEvent {
         return result;
     }
 
-    public boolean doesMoveAthlete(){
+    public boolean doesMoveAthlete() {
         return false;
     }
 

@@ -28,6 +28,7 @@ abstract public class AthleteEvent extends Event {
         return edge;
     }
 
+    // Determine whether an athlete were actually moved
     public abstract boolean doesMoveAthlete();
 
     /**

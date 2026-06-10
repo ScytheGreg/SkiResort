@@ -22,6 +22,7 @@ public class EndARide extends AthleteEvent {
      * 2. Logs the activity if the athlete is tracked.
      * 3. Triggers the athlete to make a new decision for their next move.
      * * @param seed Random seed for decision consistency.
+     *
      * @return A Queue containing the next scheduled event (e.g., StartARide or QueueUp).
      */
     @Override
@@ -45,7 +46,8 @@ public class EndARide extends AthleteEvent {
         return result;
     }
 
-    public boolean doesMoveAthlete(){
+    // This Event does move athlete!
+    public boolean doesMoveAthlete() {
         return true;
     }
 
