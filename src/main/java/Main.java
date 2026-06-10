@@ -2,18 +2,14 @@ import athlete.observer.HistoryObserver;
 import containers.CustomPriorityQueue;
 import kadra.mapki.GeneratorMapek;
 import kadra.mapki.pliki.WyjatekSystemuPlikow;
-import org.apache.commons.io.FileUtils;
 import plots.AthleteHistoryPlotter;
 import plots.EdgesParametersPlotter;
 import plots.EdgesStatsPlotter;
 import read.AthletesInputData;
 import read.Input;
 import resort.SkiResort;
-import simulation.PickUpPassengers;
 import simulation.Simulation;
 
-import java.io.File;
-import java.io.IOException;
 
 /**
  * Entry point for the Ski Resort Simulation.
@@ -21,6 +17,9 @@ import java.io.IOException;
  * and the execution of the discrete event loop.
  */
 public class Main {
+
+    // Assignment suggest only printing stack trace
+    @SuppressWarnings("CallToPrintStackTrace")
 
     public static void main(String[] args) {
 
@@ -51,7 +50,9 @@ public class Main {
         SkiResort resort = reader.readResortData();
 
         // Build the initial population of events (Athletes arriving at the resort)
-        // We pass the nodes so athletes can be placed at their starting locations.
+        // We pass the resort so athletes can be placed at their starting locations.
+        // And know the resort graph.
+        // Keep athlete observers for statisctics
         AthletesInputData athletesInputData = reader.readAthleteData(resort, seed);
         CustomPriorityQueue athleteEvents = athletesInputData.queue();
 
@@ -63,14 +64,10 @@ public class Main {
         // Start the engine. The simulation will run until the closing time (16:00:00).
         simulation.simulate(seed, resort);
 
-
-
         // 6. Plot phase
         // Plot graphs with resort plan and statistics to .tex files
-        try{
-            File dirFile = new File(directory);
-            FileUtils.deleteDirectory(dirFile);
-            GeneratorMapek  gen = new GeneratorMapek(directory);
+        try {
+            GeneratorMapek gen = new GeneratorMapek(directory);
 
             EdgesParametersPlotter plotOne = new EdgesParametersPlotter();
             plotOne.plotResort(resort, "edges-parameters.tex", gen);
@@ -80,19 +77,19 @@ public class Main {
 
 
             int k = 0;
-            for (HistoryObserver observer : athletesInputData.historyObservers()){
+            for (HistoryObserver observer : athletesInputData.historyObservers()) {
                 AthleteHistoryPlotter plotThree = new AthleteHistoryPlotter(observer);
-                plotThree.plotResort(resort, "athlete-history-" + k +".tex" , gen);
+                plotThree.plotResort(resort, "athlete-history-" + k + ".tex", gen);
                 ++k;
             }
 
-        }catch(WyjatekSystemuPlikow exc){
+        } catch (WyjatekSystemuPlikow exc) {
             System.err.println("Ensure correctness of provided directory to save plots");
-            exc.printStackTrace();
-        }catch (IOException e){
-            e.printStackTrace();
-        }catch (RuntimeException e) {
-            e.printStackTrace();
+            System.err.println(exc.getMessage());
+            exc.printStackTrace();      // According to assignment suggestion print stack trace
+        } catch (RuntimeException exc) {
+            System.err.println(exc.getMessage());
+            exc.printStackTrace();        // According to assignment suggestion print stack trace
         }
 
 
