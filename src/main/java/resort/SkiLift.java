@@ -136,7 +136,9 @@ public class SkiLift extends Edge {
     }
 
     public int getUsagePercentage() {
-        return 100 * (int) (maximumPossibleThroughput / getServedAthletesCnt());
+        return (int) Math.round(
+                100.0 * getServedAthletesCnt() / maximumPossibleThroughput
+        );
     }
 
     // Athlete Event proper for Lift is Queueing up in lift
