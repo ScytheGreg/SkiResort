@@ -7,18 +7,19 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import simulation.Event;
 import containers.Queue;
 
 import java.time.LocalTime;
 
+/**
+ * JUnit tests required in assignment specification
+ */
 public class SkiLiftTest {
 
     private static SkiLift lift;
-    private Athlete[] athletes = new Athlete[5];
-    private LocalTime time = LocalTime.of(10, 0);
+    private final Athlete[] athletes = new Athlete[5];
+    private final LocalTime time = LocalTime.of(10, 0);
 
     private Athlete simplifiedAthlete(int id) {
         AthleteParameters p = new AthleteParameters(id, 1, 1, 1,
@@ -34,6 +35,7 @@ public class SkiLiftTest {
         }
     }
 
+    // Every athlete must perform an action to start a ride after being picked up
     private void pickUpAndRide() {
         Queue liftRideEvents = lift.pickUpPassengers(time);
         while (!liftRideEvents.isEmpty()) {
@@ -57,8 +59,9 @@ public class SkiLiftTest {
 
         pickUpAndRide();
 
-        assertEquals(1, lift.pickUpPassengers(time).size()); // Every pickup returns next pickup
-        // No more athletes should be there
+        // Every pickup returns next pickup
+        // No more Events should be there
+        assertEquals(1, lift.pickUpPassengers(time).size());
     }
 
     @Test
