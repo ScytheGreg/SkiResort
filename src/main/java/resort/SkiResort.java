@@ -2,6 +2,8 @@ package resort;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.LinkedList;
 
 /**
  * Manages the entire infrastructure of the ski resort.
@@ -16,7 +18,7 @@ public class SkiResort {
     private final SkiRun[] skiRuns;
     private final int skiRunsNum;
 
-    HashSet<Edge> edges = new HashSet<>();
+    LinkedHashSet<Edge> edges = new LinkedHashSet<>();
 
     public SkiResort(Node[] nodes, SkiLift[] skiLifts,  SkiRun[] skiRuns) {
         this.nodes = nodes;
