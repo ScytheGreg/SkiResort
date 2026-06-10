@@ -7,7 +7,7 @@ import simulation.AthleteEvent;
  * Responsible for saving athlete taken edges
  */
 public class HistoryObserver implements AthleteObserver {
-    private Integer movesCnt = 0;   // Counter to identify every ride
+    private int movesCnt = 0;   // Counter to identify every ride
     private final Athlete athlete;
 
     public HistoryObserver(Athlete athlete) {
@@ -19,6 +19,10 @@ public class HistoryObserver implements AthleteObserver {
         return athlete;
     }
 
+    public int getRideId() {
+        return movesCnt;
+    }
+
     /**
      * Saves ride in an Edge memory if event moves athlete
      *
@@ -27,7 +31,7 @@ public class HistoryObserver implements AthleteObserver {
     public void update(AthleteEvent event) {
         if (event.doesMoveAthlete()) { // Check if event actually moves athlete
             ++movesCnt;
-            event.getEdge().saveARide(athlete, movesCnt);
+            event.getEdge().saveARide(this);
         }
     }
 }

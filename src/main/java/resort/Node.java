@@ -71,7 +71,6 @@ public class Node {
         return result;
     }
 
-
     public int getHeight() {
         return height;
     }

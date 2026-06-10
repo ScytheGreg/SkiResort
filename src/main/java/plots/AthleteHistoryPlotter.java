@@ -1,6 +1,5 @@
 package plots;
 
-import athlete.Athlete;
 import athlete.observer.HistoryObserver;
 import resort.Edge;
 import resort.SkiLift;
@@ -15,18 +14,18 @@ import java.util.LinkedList;
  * in accordance with assignment requirements
  */
 public class AthleteHistoryPlotter extends Plotter {
-    private final Athlete athlete;
+    private final HistoryObserver observer;
 
     /**
      * @param observer instead of Athlete to avoid plotting not traced athletes
      */
     public AthleteHistoryPlotter(HistoryObserver observer) {
-        this.athlete = observer.getAthlete();
+        this.observer = observer;
     }
 
     private LinkedList<String> edgeLabel(Edge edge) {
         // Take history of athlete from edge
-        ArrayList<Integer> history = edge.getHistory(athlete);
+        ArrayList<Integer> history = edge.getHistory(observer);
         String label = "";
         if (history != null) {
             label = edge + "(" + history.size() + "): ";

@@ -7,7 +7,7 @@ import simulation.StartARide;
 import java.time.LocalTime;
 
 /**
- * Represents a downhill ski run (trasa zjazdowa).
+ * Represents a downhill ski runs.
  * Unlike lifts, ski runs do not have queues; athletes simply start the ride.
  * The quality of the run's surface decreases as more athletes use it.
  */
@@ -65,26 +65,32 @@ public class SkiRun extends Edge {
         // No queueing logic needed for downhill runs.
     }
 
+    /**
+     * Save that ride to run counter and update athlete memory.
+     *
+     * @param athlete which takes a ride on that run
+     */
     @Override
     public void takeARide(Athlete athlete) {
         super.takeARide(athlete);
         athlete.takeARun(this);
     }
 
+    // Proper Event for Lift is instant starting a ride
     public Event beChosenByAthlete(Athlete athlete, LocalTime time) {
         return new StartARide(time, athlete, this);
     }
 
-    public double getBaseLure(){
+    public double getBaseLure() {
         return baseLure;
     }
 
-    public double getToughness(){
+    public double getToughness() {
         return toughness;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return "r" + getId();
     }
 }
