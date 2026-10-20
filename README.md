@@ -29,6 +29,12 @@ Build the application with JDK 21 or newer and Maven:
 mvn package
 ```
 
+Run the JUnit test suite with:
+
+```bash
+mvn test
+```
+
 Run with an integer seed and an existing directory for generated plot files. The program reads resort and athlete data from standard input, so you can use one of the sample files:
 
 ```bash
