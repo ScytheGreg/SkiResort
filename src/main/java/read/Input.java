@@ -1,13 +1,12 @@
 package read;
 
 import athlete.*;
-import containers.PriorityQueue;
-import read.factories.AthleteFactory;
+import athlete.observer.HistoryObserver;
+import containers.CustomPriorityQueue;
+import read.factories.*;
 import resort.*;
-import read.factories.NodeFactory;
-import read.factories.SkiLiftFactory;
-import read.factories.SkiRunFactory;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Arrays;
 
@@ -24,7 +23,7 @@ public class Input {
      * Inner class or combined logic from StdInScanner.
      * Processes groups of data (Nodes, Lifts, Runs, Athletes).
      */
-    private class StdInScanner {
+    private static class StdInScanner {
         private final Scanner sysScanner = new Scanner(System.in);
 
         public String[] readGroup(int elementLines, boolean isLast) {
@@ -80,6 +79,7 @@ public class Input {
 
     /**
      * Entry point for reading the physical resort map.
+     *
      * @return A SkiResort object with all nodes, runs, and lifts cross-referenced.
      */
     public SkiResort readResortData() {
@@ -94,9 +94,9 @@ public class Input {
             SkiRun[] skiRuns = parseSkiRuns(skiRunsData, nodes);
 
             return new SkiResort(
-                    nodes, nodes.length,
-                    skiLifts, skiLifts.length,
-                    skiRuns, skiRuns.length
+                    nodes,
+                    skiLifts,
+                    skiRuns
             );
 
         } catch (Exception e) {
@@ -110,12 +110,15 @@ public class Input {
 
     /**
      * Reads athletes and schedules their very first action into the simulation.
-     * @param nodes The already parsed nodes (required to find starting positions).
-     * @param seed Simulation seed for decision making.
-     * @return A PriorityQueue containing the first event for every athlete.
+     *
+     * @param resort The already parsed resort (required in athlete constructor)
+     * @param seed   Simulation seed for decision-making.
+     * @return A PriorityQueue containing the first event for every athlete
+     * and List of tracked Athletes (their historyObservers)
      */
-    public PriorityQueue readAthleteData(Node[] nodes, int seed) {
-        PriorityQueue initialEvents = new PriorityQueue();
+    public AthletesInputData readAthleteData(SkiResort resort, int seed) {
+        CustomPriorityQueue initialEvents = new CustomPriorityQueue();
+        ArrayList<HistoryObserver> historyObservers = new ArrayList<>();
 
         /* Athletes are described in groups. Each group description takes 3 lines:
          * 1. Count and common attributes
@@ -132,14 +135,19 @@ public class Input {
 
             // Create 'countInThisGroup' athletes based on the common template in groupData
             for (int i = 0; i < countInThisGroup; ++i, ++globalId) {
-                Athlete athlete = AthleteFactory.create(groupData, i, globalId, nodes);
+                AthleteCreationBox box = AthleteFactory.create(groupData, i, globalId, resort);
 
+                // If athlete is tracked, it will have his history observer
+                Athlete athlete = box.athlete();
+                if (box.historyObserver() != null) {
+                    historyObservers.add(box.historyObserver());
+                }
                 /* * Crucial Step: The simulation starts with athletes making their
                  * first decision at their specific start times.
                  */
                 initialEvents.push(athlete.makeDecision(seed, athlete.getStartTime()));
             }
         }
-        return initialEvents;
+        return new AthletesInputData(initialEvents, historyObservers);
     }
 }

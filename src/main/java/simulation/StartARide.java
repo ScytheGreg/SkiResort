@@ -22,6 +22,7 @@ public class StartARide extends AthleteEvent {
      * 2. Moves the athlete's position to the destination.
      * 3. Schedules the future 'EndARide' event based on the edge's travel time.
      * * @param seed Random seed (passed down from the simulation loop).
+     *
      * @return A Queue containing the EndARide event scheduled for the future.
      */
     @Override
@@ -31,7 +32,7 @@ public class StartARide extends AthleteEvent {
 
         // Increment the total number of people who have used this run/lift
         // This is critical for SkiRun surface degradation (smoothness)
-        getEdge().takeARide();
+        getEdge().takeARide(getAthlete());
 
         /* * Logic: We schedule the end of this ride.
          * The end time = current time + the constant rideTime of the edge.
@@ -42,6 +43,10 @@ public class StartARide extends AthleteEvent {
         result.push(new EndARide(arrivalTime, getAthlete(), getEdge()));
 
         return result;
+    }
+
+    public boolean doesMoveAthlete() {
+        return false;
     }
 
     /**

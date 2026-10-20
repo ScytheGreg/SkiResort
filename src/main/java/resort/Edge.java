@@ -1,9 +1,15 @@
 package resort;
 
 import athlete.Athlete;
+import simulation.Event;
+import athlete.observer.HistoryObserver;
+
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
- * Represents a directed connection (krawędź) in the ski resort graph.
+ * Represents a directed connection in the ski resort graph.
  * This is an abstract base for both downhill runs and uphill lifts.
  */
 public abstract class Edge {
@@ -12,8 +18,9 @@ public abstract class Edge {
     private final Node end;             // Ending station or point [cite: 9, 215, 217]
     private final int rideTime;         // Constant travel time in virtual seconds
 
-    // Statistics counter for the end-of-day report
+    // Statistics for the end-of-day report
     private int servedAthletesCnt = 0;
+    private final HashMap<Athlete, ArrayList<Integer>> history = new HashMap<>();
 
     public Edge(Node beginning, Node end, int rideTime, int id) {
         this.id = id;
@@ -51,10 +58,34 @@ public abstract class Edge {
 
     /**
      * Increments the counter whenever an athlete completes a ride or starts a trip,
-     * depending on your simulation's event timing.
+     * depending on simulation's event timing.
      */
-    public void takeARide() {
+    public void takeARide(Athlete athlete) {
         ++servedAthletesCnt;
+    }
+
+    /**
+     * Saves a ride of a tracked athlete to that edge history
+     *
+     * @param observer of an athlete that has performed a ride
+     */
+    public void saveARide(HistoryObserver observer) {
+        Athlete athlete = observer.getAthlete();
+        Integer rideId = observer.getRideId();
+        if (history.containsKey(athlete)) {
+            history.get(athlete).add(rideId);
+        } else { // Create and save again
+            history.put(athlete, new ArrayList<>());
+            saveARide(observer);
+        }
+    }
+
+    /**
+     * @param observer of an athlete
+     * @return list of his rides on that edge
+     */
+    public ArrayList<Integer> getHistory(HistoryObserver observer) {
+        return history.get(observer.getAthlete());
     }
 
     /**
@@ -69,7 +100,7 @@ public abstract class Edge {
     }
 
     /**
-     * Returns the type of edge (e.g., "Trasa" or "Wyciąg") for reporting purposes.
+     * Returns the type of edge (e.g., "Lift" or "Run") for reporting purposes.
      */
     abstract public String getName();
 
@@ -84,8 +115,15 @@ public abstract class Edge {
 
     /**
      * Adds an athlete to the appropriate waiting mechanism.
-     * For lifts, this involves a queue[cite: 32, 145].
+     * For lifts, this involves a queue.
      * For runs, this might start the ride immediately.
      */
-    abstract public void addWaiting(Athlete athlete);
+    abstract public void addWaiting(Athlete athlete, LocalTime time);
+
+    /**
+     * @param athlete that calls that method and it's his event
+     * @param time    time of Event returned
+     * @return proper Event type depending on edge type
+     */
+    abstract public Event beChosenByAthlete(Athlete athlete, LocalTime time);
 }

@@ -1,7 +1,15 @@
-import containers.PriorityQueue;
+import athlete.observer.HistoryObserver;
+import containers.CustomPriorityQueue;
+import kadra.mapki.GeneratorMapek;
+import kadra.mapki.pliki.WyjatekSystemuPlikow;
+import plots.AthleteHistoryPlotter;
+import plots.EdgesParametersPlotter;
+import plots.EdgesStatsPlotter;
+import read.AthletesInputData;
 import read.Input;
 import resort.SkiResort;
 import simulation.Simulation;
+
 
 /**
  * Entry point for the Ski Resort Simulation.
@@ -10,24 +18,30 @@ import simulation.Simulation;
  */
 public class Main {
 
+    // Assignment suggest only printing stack trace
+    @SuppressWarnings("CallToPrintStackTrace")
+
     public static void main(String[] args) {
 
         // 1. Validate Command Line Arguments
-        if (args.length == 0) {
-            System.err.println("Error: Please provide a number as the first argument.");
+        if (args.length != 2) {
+            System.err.println("Usage: <program> [seed] [plots-directory]");
             return;
         }
 
         int seed;
 
-        // 2. Parse the Seed
+        // 2.0 Parse
         // The seed controls all random decisions (impulsivity) in the simulation.
         try {
             seed = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
-            System.err.println("Error: Argument must be a valid integer.");
+            System.err.println("Error: First argument must be a valid integer.");
             return;
         }
+
+        // 2.1 Save directory
+        String directory = args[1];
 
         // 3. Data Ingestion Phase
         Input reader = new Input();
@@ -36,8 +50,11 @@ public class Main {
         SkiResort resort = reader.readResortData();
 
         // Build the initial population of events (Athletes arriving at the resort)
-        // We pass the nodes so athletes can be placed at their starting locations.
-        PriorityQueue athleteEvents = reader.readAthleteData(resort.getNodes(), seed);
+        // We pass the resort so athletes can be placed at their starting locations.
+        // And know the resort graph.
+        // Keep athlete observers for statisctics
+        AthletesInputData athletesInputData = reader.readAthleteData(resort, seed);
+        CustomPriorityQueue athleteEvents = athletesInputData.queue();
 
         // 4. Initialization Phase
         // Create the simulation engine and prime it with lift pickup cycles.
@@ -46,6 +63,36 @@ public class Main {
         // 5. Execution Phase
         // Start the engine. The simulation will run until the closing time (16:00:00).
         simulation.simulate(seed, resort);
+
+        // 6. Plot phase
+        // Plot graphs with resort plan and statistics to .tex files
+        try {
+            GeneratorMapek gen = new GeneratorMapek(directory);
+
+            EdgesParametersPlotter plotOne = new EdgesParametersPlotter();
+            plotOne.plotResort(resort, "edges-parameters.tex", gen);
+
+            EdgesStatsPlotter plotTwo = new EdgesStatsPlotter();
+            plotTwo.plotResort(resort, "edges-stats.tex", gen);
+
+
+            int k = 0;
+            for (HistoryObserver observer : athletesInputData.historyObservers()) {
+                AthleteHistoryPlotter plotThree = new AthleteHistoryPlotter(observer);
+                plotThree.plotResort(resort, "athlete-history-" + k + ".tex", gen);
+                ++k;
+            }
+
+        } catch (WyjatekSystemuPlikow exc) {
+            System.err.println("Ensure correctness of provided directory to save plots");
+            System.err.println(exc.getMessage());
+            exc.printStackTrace();      // According to assignment suggestion print stack trace
+        } catch (RuntimeException exc) {
+            System.err.println(exc.getMessage());
+            exc.printStackTrace();        // According to assignment suggestion print stack trace
+        }
+
+
 
         /* * Note: The resort.log() call is handled inside simulation.simulate()
          * after the loop finishes, printing final stats for every run and lift.

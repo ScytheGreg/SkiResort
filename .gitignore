@@ -2,6 +2,11 @@
 .idea/
 out/
 
+# Latex
+plots/
+*.pdf
+*.aux
+
 # Compiled class file
 *.class
 

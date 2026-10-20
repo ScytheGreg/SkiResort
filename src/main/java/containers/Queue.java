@@ -2,9 +2,13 @@ package containers;
 
 import simulation.Event;
 
+/**
+ * Implements Queue of Events based on custom list with QueueNode nodes.
+ */
 public class Queue {
     QueueNode first = null;
     QueueNode last = null;
+    private int length = 0;
 
     public boolean isEmpty() {
         return first == null;
@@ -17,6 +21,7 @@ public class Queue {
 
     public void pop() throws emptyContainerException {
         if (isEmpty()) throw new emptyContainerException();
+        --length;
         if (isSingular()) {
             first = null;
             last = null;
@@ -26,10 +31,6 @@ public class Queue {
         first.setNext(null);
     }
 
-    protected void adjustEnds() {
-        if (first.getNext() != null) first = first.getNext();
-        if (last.getPrev() != null) last = last.getPrev();
-    }
 
     private void pushToEmpty(Event event) {
         first = new QueueNode(event, null, null);
@@ -55,10 +56,11 @@ public class Queue {
     }
 
     public void push(Event event) {
+        ++length;
         if (edgeCasesPush(event))
             return;
         last.emplaceBehind(event); // Emplace behind new Event
-        last = last.getPrev(); // Move last to new last Event
+        last = last.getPrev();    // Move last to new last Event
     }
 
     public Event getFront() throws emptyContainerException {
@@ -70,5 +72,9 @@ public class Queue {
         Event result = getFront();
         pop();
         return result;
+    }
+
+    public int size() {
+        return length;
     }
 }

@@ -1,7 +1,7 @@
 package resort;
 
 /**
- * Represents a vertex (węzeł) in the resort's directed graph.
+ * Represents a vertex in the resort's directed graph.
  * Nodes represent points where ski runs and lifts start or end.
  */
 public class Node {
@@ -12,7 +12,7 @@ public class Node {
     private final int lon;    // Longitude
 
     /**
-     * Indicates if the node is "communicated" (skomunikowany).
+     * Indicates if the node is "communicated".
      * Usually, this means the node is accessible from the outside world (e.g., a parking lot)
      * and can serve as a starting point for athletes.
      */
@@ -60,6 +60,15 @@ public class Node {
 
     public SkiLift[] getSkiLifts() {
         return skiLifts;
+    }
+
+    public Edge[] getEdges(){
+        Edge[] result = new Edge[skiRuns.length + skiLifts.length];
+
+        System.arraycopy(skiRuns, 0, result, 0, skiRuns.length);
+        System.arraycopy(skiLifts, 0, result, skiRuns.length, skiLifts.length);
+
+        return result;
     }
 
     public int getHeight() {

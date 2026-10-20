@@ -28,6 +28,9 @@ abstract public class AthleteEvent extends Event {
         return edge;
     }
 
+    // Determine whether an athlete were actually moved
+    public abstract boolean doesMoveAthlete();
+
     /**
      * Composes a log message starting with the timestamp, followed by the athlete ID.
      * The ID is formatted to 5 spaces to keep logs aligned.
@@ -46,10 +49,8 @@ abstract public class AthleteEvent extends Event {
      */
     @Override
     public Queue performAction(int seed) {
-        // Project requirement: Log activity only if isTracked is true
-        if (athlete.isTracked()) {
-            System.out.println(this.toString());
-        }
+        // Invoke athlete observers
+        athlete.performAction(this);
 
         // Default behavior returns an empty queue of new events
         return new Queue();

@@ -2,7 +2,7 @@ package simulation;
 
 import java.time.LocalTime;
 
-import containers.PriorityQueue;
+import containers.CustomPriorityQueue;
 import containers.Queue;
 import containers.emptyContainerException;
 import resort.*;
@@ -22,14 +22,14 @@ public class Simulation {
     static final private LocalTime END_TIME = LocalTime.of(16, 0);
 
     // Chronological container of all future events
-    private final PriorityQueue events;
+    private final CustomPriorityQueue events;
 
     /**
      * Initializes the simulation.
      * @param events The priority queue, already pre-filled with athlete arrival events.
      * @param resort The infrastructure used to initialize lift operations.
      */
-    public Simulation(PriorityQueue events, SkiResort resort) {
+    public Simulation(CustomPriorityQueue events, SkiResort resort) {
         this.events = events;
         // Lifts start operating independently at the start of the day
         loadPickUpEvents(resort.getSkiLifts());
