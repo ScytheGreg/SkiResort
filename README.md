@@ -18,7 +18,7 @@ This project was developed as an object-oriented programming assignment and exte
 
 - Java 21
 - Maven
-- JUnit 5 and Mockito for tests
+- JUnit 5 for tests
 - LaTeX output for generated visualizations
 
 ## Run
