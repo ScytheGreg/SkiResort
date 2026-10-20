@@ -23,16 +23,17 @@ This project was developed as an object-oriented programming assignment and exte
 
 ## Run
 
-Build with Maven:
+Compile the application with JDK 21 or newer:
 
 ```bash
-mvn package
+mkdir -p target/classes
+find src/main/java src/vislib/java -name '*.java' -print0 | xargs -0 javac --release 21 -d target/classes
 ```
 
 Run with an integer seed and an existing directory for generated plot files. The program reads resort and athlete data from standard input, so you can use one of the sample files:
 
 ```bash
-java -cp target/classes Main 42 output < input/przykladowe-dane.txt
+java -cp target/classes Main 42 output < input/przykladowe-dane-1.txt
 ```
 
 The program expects two arguments: an integer seed and a directory path. The LaTeX files are written to the supplied directory; compile them with a LaTeX toolchain to render the plots.
