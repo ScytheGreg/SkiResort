@@ -23,11 +23,10 @@ This project was developed as an object-oriented programming assignment and exte
 
 ## Run
 
-Compile the application with JDK 21 or newer:
+Build the application with JDK 21 or newer and Maven:
 
 ```bash
-mkdir -p target/classes
-find src/main/java src/vislib/java -name '*.java' -print0 | xargs -0 javac --release 21 -d target/classes
+mvn package
 ```
 
 Run with an integer seed and an existing directory for generated plot files. The program reads resort and athlete data from standard input, so you can use one of the sample files:

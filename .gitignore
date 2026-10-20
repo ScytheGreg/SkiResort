@@ -1,6 +1,7 @@
 # IDE settings
 .idea/
 out/
+target/
 
 # Latex
 plots/
