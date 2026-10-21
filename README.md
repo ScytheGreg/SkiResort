@@ -35,13 +35,26 @@ Run the JUnit test suite with:
 mvn test
 ```
 
-Run with an integer seed and an existing directory for generated plot files. The program reads resort and athlete data from standard input, so you can use one of the sample files:
+Run with an integer seed and an output directory. The program reads resort and athlete data from standard input; this example uses a bundled sample:
 
 ```bash
 java -cp target/classes Main 42 output < input/przykladowe-dane-1.txt
 ```
 
-The program expects two arguments: an integer seed and a directory path. The LaTeX files are written to the supplied directory; compile them with a LaTeX toolchain to render the plots.
+The program creates the specified output directory and writes LaTeX `.tex` map files there. Each run produces:
+
+- `edges-parameters.tex` — the resort graph with ski runs and lifts. Solid lines represent runs, dashed lines represent lifts, and connected nodes have a thicker outline. Labels show run level, ride time, base appeal and roughness resistance, or lift capacity, pickup interval and ride time.
+- `edges-stats.tex` — the same graph annotated with end-of-day run smoothness and ride counts, plus each lift's average and maximum queue length, passenger count, maximum capacity, and seat usage percentage.
+- `athlete-history-N.tex` — one map for each tracked athlete. Edge labels show how many times that athlete used a run or lift and the chronological ride numbers, so their route through the resort can be followed.
+
+To render the maps as PDFs, install a LaTeX distribution that includes `pdflatex`, then compile the files from the output directory:
+
+```bash
+cd output
+for file in *.tex; do pdflatex "$file"; done
+```
+
+Alternatively, upload the `.tex` files to [Overleaf](https://www.overleaf.com) and compile them there. The project generates the `.tex` files; PDF conversion is a separate step. The generated maps were checked by compiling all five `.tex` files from the bundled sample successfully.
 
 ## Design
 
