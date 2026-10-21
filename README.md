@@ -38,7 +38,7 @@ mvn test
 Run with an integer seed and an output directory. The program reads resort and athlete data from standard input; this example uses a bundled sample:
 
 ```bash
-java -cp target/classes Main 42 output < input/przykladowe-dane-1.txt
+java -cp target/classes Main 42 output < input/example-input-1.txt
 ```
 
 The program creates the specified output directory and writes LaTeX `.tex` map files there. Each run produces:
